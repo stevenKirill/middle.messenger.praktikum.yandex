@@ -1,0 +1,21 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "description": "yandex practicum web messenger",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "parcel index.hbs --open --port=1235",
+    "build": "parcel build index.hbs",
+    "lint": "eslint"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "author": "Kirill Pavloskii",
+  "license": "ISC",
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "eslint": "^8.29.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "parcel": "^2.8.0"
+  }
+}
