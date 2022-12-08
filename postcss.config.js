@@ -1,7 +1,9 @@
-/* eslint-disable global-require */
+const autoprefixer = require('autoprefixer');
+const nested = require('postcss-nested');
+
 module.exports = {
   plugins: [
-    require('autoprefixer'),
-    require('postcss-nested'),
+    autoprefixer,
+    nested,
   ],
 };
