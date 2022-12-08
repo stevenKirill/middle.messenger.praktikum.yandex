@@ -1,12 +1,16 @@
 ---
 stylesheets:
 - ../../styles/styles.css
+placeholder: Логин
+textBtn: Авторизоваться
 ---
 {{!< container}}
 <main class="login">
   <div class="login_header">Вход</div>
-  {{> "Input/Input"}}
-  {{> "Input/Input"}}
+  <div class="login_inputs">
+    {{> "Input/Input"}}
+    {{> "Input/Input"}}
+  </div>
   {{> "Button/Button"}}
   <a class="login_link" href="#">Нет аккаунта ?</a>
 </main>

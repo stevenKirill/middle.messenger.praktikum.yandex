@@ -1,17 +1,25 @@
 .login {
-  display: flex;
-  border: 10px solid blue;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
+  margin-top: 20px;
   background: #FFFFFF;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
   border-radius: 12px;
+  &_inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 70px;
+  }
   &_link {
     font-style: normal;
     font-weight: 500;
-    font-size: 11px;
-    color: #3369F3
+    font-size: 15px;
+    color: #3369F3;
+    margin-top: 15px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
   }
   &_header {
     text-align: center;
@@ -19,6 +27,7 @@
     font-weight: 500;
     font-size: 20px;
     text-align: center;
-    color: #1E1E1E
+    color: #1E1E1E;
+    margin-bottom: 10px;
   }
 }

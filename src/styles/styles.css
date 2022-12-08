@@ -1,4 +1,5 @@
 @import "../partials/Button/button.css";
+@import "../partials/Input/input.css";
 @import "../pages/Login/login.css";
 @import "../pages/Registration/Registration.css";
 @import "../pages/User/User.css";
@@ -17,7 +18,6 @@ html {
 .root {
   display: flex;
   justify-content: center;
-  width: 100%;
   padding: 10px;
   margin: 0 auto;
 }
