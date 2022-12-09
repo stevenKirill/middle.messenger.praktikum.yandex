@@ -1,6 +1,7 @@
 @import "../partials/Button/button.css";
 @import "../partials/Input/input.css";
 @import "../partials/Avatar/avatar.css";
+@import "../partials/Row/row.css";
 @import "../pages/Login/login.css";
 @import "../pages/Registration/Registration.css";
 @import "../pages/User/User.css";
@@ -21,5 +22,13 @@ html {
   justify-content: center;
   padding: 10px;
   margin: 0 auto;
+}
+
+.color_red {
+ color: #FF0000;
+}
+
+.color_blue {
+  color: #3369F3;
 }
 

@@ -33,9 +33,8 @@
     justify-content: center;
 
     &_data {
-      min-width: 300px;
+      min-width: 45%;
       display: flex;
-      align-items: center;
       margin-top: 50px;
       flex-direction: column;
       &_head {
@@ -43,10 +42,18 @@
         text-align: center;
       }
       &_body {
-
+        width: 100%;
       }
       &_footer {
-
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        &_link {
+          margin-top: 10px;
+          &_a {
+            text-decoration: none;
+          }
+        }
       }
     }
   }
