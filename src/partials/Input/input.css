@@ -2,10 +2,10 @@
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
-  width: 50%;
 }
 
 .form__field {
+  width: 100%;
   font-family: inherit;
   border: 0;
   border-bottom: 2px solid #9b9b9b;
@@ -45,6 +45,7 @@
     font-size: 1rem;
     color: #3369F3;
   }
+  border-bottom: 2px solid #3369F3;
   padding-bottom: 6px;
   border-width: 3px;
   border-image-slice: 1;
