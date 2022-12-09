@@ -1,8 +1,26 @@
 ---
 stylesheets:
 - ../../styles/styles.css
+avatar: "avatar"
+userName: kirill
 ---
-{{!< container}}
-<main class="hello">
-  User
+{{!< userContainer}}
+<main class="user">
+  <div class="user_left">
+    <div class="user_left_link">
+      <a href="#">
+        <i class="user_left_link_arrow"></i>
+      </a>
+    </div>
+  </div>
+  <div class="user_right">
+    <div class="user_right_data">
+        <div class="user_right_data_head">
+          {{> "Avatar/Avatar"}}
+          <div>{{userName}}</div>
+        </div>
+        <div class="user_right_data_body">2</div>
+        <div class="user_right_data_footer">3</div>
+    </div>
+  </div>
 </main>

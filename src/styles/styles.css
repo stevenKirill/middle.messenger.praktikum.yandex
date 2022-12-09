@@ -1,5 +1,6 @@
 @import "../partials/Button/button.css";
 @import "../partials/Input/input.css";
+@import "../partials/Avatar/avatar.css";
 @import "../pages/Login/login.css";
 @import "../pages/Registration/Registration.css";
 @import "../pages/User/User.css";

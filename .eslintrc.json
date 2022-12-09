@@ -12,6 +12,7 @@
     },
     "rules": {
       "no-plusplus": "off",
-      "no-nested-ternary": "off"
+      "no-nested-ternary": "off",
+      "no-console": "off"
     }
 }
