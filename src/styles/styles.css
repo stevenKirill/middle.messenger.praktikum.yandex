@@ -2,9 +2,11 @@
 @import "../partials/Input/input.css";
 @import "../partials/Avatar/avatar.css";
 @import "../partials/Row/row.css";
+@import "../partials/EditRow/editRow.css";
 @import "../pages/Login/login.css";
 @import "../pages/Registration/Registration.css";
 @import "../pages/User/User.css";
+@import "../pages/EditUser/EditUser.css";
 @import "../pages/index.css";
 
 

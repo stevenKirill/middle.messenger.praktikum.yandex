@@ -2,6 +2,15 @@
 stylesheets:
 - ../../styles/styles.css
 avatar: "avatar"
+userData: [
+  { title: 'Почта', value: 'yandex' },
+  { title: 'Логин', value: 'kirill15' },
+  { title: 'Имя', value: 'Кирилл' },
+  { title: 'Фамилия', value: 'Павловский' },
+  { title: 'Имя в чате', value: 'kirill' },
+  { title: 'Телефон', value: '+7 999 111 11 11' },
+]
+textBtn: Сохранить
 ---
 {{!< userContainer}}
 <div class="user_right">
@@ -10,8 +19,12 @@ avatar: "avatar"
         {{> "Avatar/Avatar"}}
       </div>
       <div class="user_right_data_body">
+        {{#each userData}}
+          {{> "EditRow/EditRow"}}
+        {{/each}}
       </div>
-      <div class="user_right_data_footer">
+      <div class="edit_user_footer">
+        {{> "Button/Button"}}
       </div>
   </div>
 </div>
