@@ -4,7 +4,7 @@
   "description": "yandex practicum web messenger",
   "main": "src/index.js",
   "scripts": {
-    "dev": "parcel src/pages/index.hbs --no-cache --open --port=1235",
+    "dev": "parcel src/pages/index.hbs --no-cache --open --port=3000",
     "build": "parcel build src/pages/index.hbs && node ./server.js",
     "lint": "eslint"
   },
