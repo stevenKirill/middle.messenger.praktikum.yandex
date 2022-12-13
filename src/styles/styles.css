@@ -8,6 +8,9 @@
 @import "../pages/User/User.css";
 @import "../pages/EditUser/EditUser.css";
 @import "../pages/EditPassword/EditPassword.css";
+@import "../pages/404/404.css";
+@import "../pages/500/500.css";
+@import "../pages/Chat/chat.css";
 @import "../pages/index.css";
 
 

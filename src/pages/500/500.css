@@ -1,0 +1,34 @@
+.fiveHundred_container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  &_title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    text-align: center;
+    color: #1E1E1E;
+  }
+  &_text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    color: #1E1E1E;
+    margin-top: 20px;
+  }
+  &_link {
+    margin-top: 50px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    color: #3369F3;
+    margin-top: 15px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+  }
+}
