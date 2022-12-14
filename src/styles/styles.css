@@ -3,6 +3,7 @@
 @import "../partials/Avatar/avatar.css";
 @import "../partials/Row/row.css";
 @import "../partials/EditRow/editRow.css";
+@import "../partials/AvatarModal/avatarModal.css";
 @import "../pages/Login/login.css";
 @import "../pages/Registration/registration.css";
 @import "../pages/User/user.css";
@@ -20,6 +21,7 @@
   --gray: #999999;
   --dark-white: #FBFBFB;
   --black: #1E1E1E;
+  --main-white: #fff;
 }
 
 * {
@@ -44,5 +46,18 @@ html {
 
 .color_blue {
   color: var(--main-blue)
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1;
 }
 
