@@ -4,10 +4,10 @@
 @import "../partials/Row/row.css";
 @import "../partials/EditRow/editRow.css";
 @import "../pages/Login/login.css";
-@import "../pages/Registration/Registration.css";
-@import "../pages/User/User.css";
-@import "../pages/EditUser/EditUser.css";
-@import "../pages/EditPassword/EditPassword.css";
+@import "../pages/Registration/registration.css";
+@import "../pages/User/user.css";
+@import "../pages/EditUser/editUser.css";
+@import "../pages/EditPassword/editPassword.css";
 @import "../pages/404/404.css";
 @import "../pages/500/500.css";
 @import "../pages/Chat/chat.css";
