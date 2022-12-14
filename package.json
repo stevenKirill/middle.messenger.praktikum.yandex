@@ -2,7 +2,6 @@
   "name": "code",
   "version": "1.0.0",
   "description": "yandex practicum web messenger",
-  "main": "src/index.js",
   "scripts": {
     "dev": "parcel src/pages/index.hbs --no-cache --open --port=3000",
     "start": "parcel src/pages/index.hbs --no-cache --open --port=3000",
