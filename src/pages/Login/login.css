@@ -15,7 +15,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
-    color: #3369F3;
+    color: var(--main-blue);
     margin-top: 15px;
     text-decoration: none;
     display: flex;
@@ -27,7 +27,7 @@
     font-weight: 500;
     font-size: 20px;
     text-align: center;
-    color: #1E1E1E;
+    color: var(--black);
     margin-bottom: 10px;
   }
 }

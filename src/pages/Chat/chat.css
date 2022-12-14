@@ -5,7 +5,7 @@
   margin: 20px auto;
   padding: 5px;
   &_left {
-    background: #FBFBFB;
+    background: var(--dark-white);
     border-radius: 1px solid #EAEAEA;
     height: 500px;
     padding: 5px;
@@ -24,7 +24,7 @@
           padding-left: 30px;
           border: 2px solid black;
           font-size: 15px;
-          background: #EFEFEF;
+          background: var(--white);
         }
         img {
           width: 15px;
@@ -40,10 +40,10 @@
         text-decoration: none;
         margin-right: 10px;
         margin-bottom: 15px;
-        color: #999999;
+        color: var(--gray);
         &_arrow {
           display: inline-block;
-          border: solid #999999;
+          border: solid var(--gray);
           border-width: 0 3px 3px 0;
           padding: 3px;
           transform: rotate(-45deg);
@@ -52,14 +52,14 @@
     }
   }
   &_right {
-    border: 1px solid #EFEFEF;
+    border: 1px solid var(--white);
     &_empty {
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       &_message {
-        color: #999999;
+        color: var(--gray);
         margin-top: 100px;
       }
     }

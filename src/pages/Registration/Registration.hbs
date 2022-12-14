@@ -6,16 +6,18 @@ textBtn: Зарегестрироваться
 {{!< container}}
 <main class="registration">
   <div class="registration_header">Регистрация</div>
-  <div class="registration_inputs">
-    {{> "Input/Input" name="email" placeholder="Почта" type="email"}}
-    {{> "Input/Input" name="login" placeholder="Логин" type="text"}}
-    {{> "Input/Input" name="first_name" placeholder="Имя" type="text"}}
-    {{> "Input/Input" name="second_name" placeholder="Фамилия" type="text"}}
-    {{> "Input/Input" name="phone" placeholder="Телефон" type="text"}}
-    {{> "Input/Input" name="password" placeholder="Пароль" type="password"}}
-    {{> "Input/Input" name="password" placeholder="Пароль (еще раз)" type="password"}}
-  </div>
-  {{> "Button/Button"}}
+  <form>
+    <div class="registration_inputs">
+      {{> "Input/Input" name="email" placeholder="Почта" type="email"}}
+      {{> "Input/Input" name="login" placeholder="Логин" type="text"}}
+      {{> "Input/Input" name="first_name" placeholder="Имя" type="text"}}
+      {{> "Input/Input" name="second_name" placeholder="Фамилия" type="text"}}
+      {{> "Input/Input" name="phone" placeholder="Телефон" type="text"}}
+      {{> "Input/Input" name="password" placeholder="Пароль" type="password"}}
+      {{> "Input/Input" name="password" placeholder="Пароль (еще раз)" type="password"}}
+    </div>
+    {{> "Button/Button"}}
+  </form>
   {{> "Link/Link" url="../Login/Login.hbs"  class="registration_link" text="Войти"}}
 </main>
 <script src="./script.js"></script>

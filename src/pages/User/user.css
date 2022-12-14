@@ -2,7 +2,7 @@
   display: grid; /* autoprefixer grid: autoplace */
   grid-template-columns: 5% 95%;
   &_left {
-    background: #FBFBFB;
+    background: var(--dark-white);
     height: 100vh;
     position: relative;
     &_link {
@@ -10,7 +10,7 @@
       top: 50%;
       width: 38px;
       height: 38px;
-      background: #3369F3;
+      background: var(--main-blue);
       border-radius: 50%;
       left: 20px;
       cursor: pointer;
@@ -49,6 +49,7 @@
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
+        margin-top: 20px;
         &_link {
           margin-top: 10px;
           &_a {

@@ -11,7 +11,7 @@
   border-bottom: 2px solid #9b9b9b;
   outline: 0;
   font-size: 1.3rem;
-  color: #3369F3;
+  color: var(--main-blue);
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
@@ -43,9 +43,9 @@
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #3369F3;
+    color: var(--main-blue);
   }
-  border-bottom: 2px solid #3369F3;
+  border-bottom: 2px solid var(--main-blue);
   padding-bottom: 6px;
   border-width: 3px;
   border-image-slice: 1;

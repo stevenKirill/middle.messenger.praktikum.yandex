@@ -4,20 +4,20 @@
   margin-bottom: 10px;
   padding-bottom: 10px;
   &_title {
-    color: #1E1E1E;
+    color: var(--black);
   }
   &_input_container {
     display: flex;
   }
   &_input {
     padding: 5px;
-    color: #1E1E1E;
+    color: var(--black);
     font-size: 15px;
     border-radius: 5px;
     outline: none;
-    border: 2px solid #1E1E1E;
+    border: 2px solid var(--black);
     &:focus {
-      border: 2px solid #3369F3;
+      border: 2px solid var(--main-blue)
     }
   }
 }

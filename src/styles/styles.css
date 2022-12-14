@@ -14,6 +14,14 @@
 @import "../pages/index.css";
 
 
+:root {
+  --main-blue: #3369F3;
+  --white: #EFEFEF;
+  --gray: #999999;
+  --dark-white: #FBFBFB;
+  --black: #1E1E1E;
+}
+
 * {
   margin: 0;
   box-sizing: 'border-box';
@@ -35,6 +43,6 @@ html {
 }
 
 .color_blue {
-  color: #3369F3;
+  color: var(--main-blue)
 }
 

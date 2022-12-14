@@ -1,7 +1,7 @@
 .app_button {
   width: 280px;
   height: 37px;
-  background: #3369F3;
+  background: var(--main-blue);
   border-radius: 8px;
   color: white;
   border: none;
