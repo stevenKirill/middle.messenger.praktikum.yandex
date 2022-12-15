@@ -1,0 +1,62 @@
+.user {
+  display: grid; /* autoprefixer grid: autoplace */
+  grid-template-columns: 5% 95%;
+  &_left {
+    background: var(--dark-white);
+    height: 100vh;
+    position: relative;
+    &_link {
+      position: absolute;
+      top: 50%;
+      width: 38px;
+      height: 38px;
+      background: var(--main-blue);
+      border-radius: 50%;
+      left: 20px;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position:  18px 10px;
+      &_arrow {
+        border: solid rgb(255, 255, 255);
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        margin-top: 37%;
+        margin-left: 43%;
+        transform: rotate(135deg);
+      }
+    }
+  }
+  &_right {
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+
+    &_data {
+      min-width: 45%;
+      display: flex;
+      margin-top: 50px;
+      flex-direction: column;
+      &_head {
+        margin-top: 10px;
+        text-align: center;
+      }
+      &_body {
+        width: 100%;
+        margin-top: 20px;
+      }
+      &_footer {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-top: 20px;
+        &_link {
+          margin-top: 10px;
+          &_a {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

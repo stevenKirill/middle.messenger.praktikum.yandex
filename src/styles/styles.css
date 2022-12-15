@@ -1,0 +1,63 @@
+@import "../partials/Button/button.css";
+@import "../partials/Input/input.css";
+@import "../partials/Avatar/avatar.css";
+@import "../partials/Row/row.css";
+@import "../partials/EditRow/editRow.css";
+@import "../partials/AvatarModal/avatarModal.css";
+@import "../pages/Login/login.css";
+@import "../pages/Registration/registration.css";
+@import "../pages/User/user.css";
+@import "../pages/EditUser/editUser.css";
+@import "../pages/EditPassword/editPassword.css";
+@import "../pages/404/404.css";
+@import "../pages/500/500.css";
+@import "../pages/Chat/chat.css";
+@import "../pages/index.css";
+
+
+:root {
+  --main-blue: #3369F3;
+  --white: #EFEFEF;
+  --gray: #999999;
+  --dark-white: #FBFBFB;
+  --black: #1E1E1E;
+  --main-white: #fff;
+}
+
+* {
+  margin: 0;
+  box-sizing: 'border-box';
+}
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+.root {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.color_red {
+ color: #FF0000;
+}
+
+.color_blue {
+  color: var(--main-blue)
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
