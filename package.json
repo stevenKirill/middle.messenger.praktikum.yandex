@@ -23,6 +23,7 @@
   "dependencies": {
     "autoprefixer": "10.4.13",
     "express": "4.18.2",
+    "nanoid": "^4.0.0",
     "postcss-css-variables": "0.18.0",
     "postcss-nested": "6.0.0"
   }
