@@ -45,9 +45,9 @@ export class UserPage extends Block {
           </div>
           <div class="user_right_data_footer">
             <div class="user_right_data_footer_link">
-              {{{ Link url="" text="Изменить данные" }}}
-              {{{ Link url="" text="Изменить пароль"  }}}
-              {{{ Link url="" text="Выйти" className="main_link_red"  }}}
+              {{{ Link url="#" text="Изменить данные" }}}
+              {{{ Link url="#" text="Изменить пароль"  }}}
+              {{{ Link url="#" text="Выйти" className="main_link_red"  }}}
             </div>
           </div>
         </div>

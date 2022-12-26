@@ -1,5 +1,4 @@
 import Block from '../../core/Block';
-
 import './link.css';
 
 interface LinkProps {

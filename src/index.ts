@@ -15,17 +15,14 @@ import LoginForm from './components/LoginForm';
 import BackLink from './components/BackLink';
 
 
-// layouts
-import ChatContainer from './layouts/ChatContainer';
-import { UserContainer } from './layouts/UserContainer';
-import Container from './layouts/Container';
-
 // pages
 import LoginPage from './pages/Login';;
 import RegistrationPage from './pages/Registration';
 import EditUserPage from './pages/EditUser';
 import { UserPage } from './pages/User/User';
 import EditPasswordPage  from './pages/EditPassword';
+import ErrorPage from './pages/500';
+import NotFoundPage from './pages/404';
 
 // components
 registerComponent(Button);
@@ -39,11 +36,6 @@ registerComponent(RegistrationForm);
 registerComponent(LoginForm);
 registerComponent(BackLink);
 
-// layouts
-registerComponent(ChatContainer);
-registerComponent(UserContainer);
-registerComponent(Container);
-
 
 // pages
 registerComponent(LoginPage);
@@ -51,10 +43,12 @@ registerComponent(RegistrationPage);
 registerComponent(EditUserPage);
 registerComponent(UserPage);
 registerComponent(EditPasswordPage);
+registerComponent(ErrorPage);
+registerComponent(NotFoundPage);
 
-class MyComponent extends EditPasswordPage {
+class MyComponent extends LoginPage {
   constructor() {
-      super();
+      super({});
   }
   renderContent() {
     return this.render();

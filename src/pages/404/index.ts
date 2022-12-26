@@ -1,14 +1,8 @@
 import Block from '../../core/Block';
-
 import './error.css';
 
 interface NotFoundPageProps {
 }
-
-// ---
-// stylesheets:
-// - ../../styles/styles.css
-// ---
 
 export class NotFoundPage extends Block {
   constructor({}: NotFoundPageProps) {
@@ -17,14 +11,21 @@ export class NotFoundPage extends Block {
 
   protected render(): string {
     return `
-    {{!< container}}
-    <main class="page_404">
+    <div class="root">
+      <main class="page_404">
       <div class="fourOfour_container">
         <h1 class="fourOfour_container_title">404</h1>
         <h2 class="fourOfour_container_text">Не туда попали</h2>
-        <a href="../Chat/Chat.hbs" class="fourOfour_container_link">Назад к чатам</a>
+        {{{ Link
+            className="fourOfour_container_link"
+            url="#"
+            text="Назад к чатам"
+        }}}
       </div>
-    </main>
+      </main>
+    </div>
     `
   }
 }
+
+export default NotFoundPage;

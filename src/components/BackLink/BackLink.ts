@@ -11,7 +11,7 @@ export class BackLink extends Block {
   protected render(): string {
     return `
     <div class="user_left">
-      <a class="user_left_link" href="../index.hbs">
+      <a class="user_left_link" href="#">
         <i class="user_left_link_arrow"></i>
       </a>
     </div>
