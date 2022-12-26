@@ -1,52 +1,91 @@
-const a: number = 1;
-console.log(a)
+import { Block, renderDOM, registerComponent }  from './core';
 
-// a: {
-//   b: {
-//     c: {
-//       d: {
-//         e: {
+import './styles/styles.css';
 
-//         }
-//       }
-//     }
-//   }
-// }
+// components
+import Button from './components/Button';
+import Link from './components/Link';
+import Input from './components/Input';
+import Row from './components/Row';
+import Avatar from './components/Avatar';
+import AvatarModal from './components/AvatarModal';
+import EditRow from './components/EditRow';
 
-function namespace(str: string) {
-  const arr = str.split('.');
-  const startObj: {[key: string]: {}} = {};
-  let curObj = startObj;
-  for (const char of arr) {
-    curObj[char] = {}; // e: {}
-    console.log(curObj, "=> before")
-    curObj = curObj[char]; // { e: {} }
+
+// layouts
+import ChatContainer from './layouts/ChatContainer';
+import { UserContainer } from './layouts/UserContainer';
+import Container from './layouts/Container';
+
+// pages
+import LoginPage from './pages/Login';
+
+// components
+registerComponent(Button);
+registerComponent(Link);
+registerComponent(Input);
+registerComponent(Row);
+registerComponent(Avatar);
+registerComponent(AvatarModal);
+registerComponent(EditRow);
+
+// layouts
+registerComponent(ChatContainer);
+registerComponent(UserContainer);
+registerComponent(Container);
+
+
+// pages
+registerComponent(LoginPage);
+
+class MyComponent extends Block {
+  constructor() {
+      super();
+      this.setProps({
+          onButtonClick: () => console.log('helldssso'),
+          text: 'Lol',
+      })
   }
-  return startObj;
+  render() {
+    return `
+    {{!< container}}
+    <main class="login">
+      <div class="login_header">Вход</div>
+      <form>
+        <div class="login_inputs">
+          {{{ Input name="login" placeholder="Логин" type="text" }}}
+          {{{ Input name="password" placeholder="Пароль" type="password" }}}
+        </div>
+        {{{ Button }}}
+      </form>
+      {{{ Link url="" class="login_link" text="Нет аккаунта" }}}
+    </main>
+    `
+  }
 }
 
-const namespace2 = (str: string): object =>
-  str.split(".").reduceRight((acc, key) => ({ [key]: acc }), {});
+document.addEventListener("DOMContentLoaded", () => {
+  renderDOM(new MyComponent());
+});
 
-console.log(namespace('a.b.c.d.e'))
 
-type Nullable<T> = T | null;
-
-const text: Nullable<HTMLDivElement> = document.getElementById(
-  "text"
-) as HTMLDivElement;
-const input: Nullable<HTMLInputElement> = document.getElementById(
-  "input"
-) as HTMLInputElement;
-
-if (!text || !input) {
-  throw new Error("нет полей");
-}
-
-const data = {
-  title: ""
-};
-
-Object.defineProperty(data, 'title', {});
-
-export default Nullable
+// <!DOCTYPE html>
+// <html lang="ru">
+//   <head>
+//     <title>Web messenger</title>
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     {{#block "styles"}}
+//       {{#each stylesheets}}
+//       <link href="{{this}}" rel="stylesheet" />
+//       {{/each}}
+//     {{/block}}
+//     <link rel="preconnect" href="https://fonts.googleapis.com">
+//     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+//     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+//   </head>
+//   <body>
+//     <div class="root">
+//       {{{body}}}
+//     </div>
+//   </body>
+// </html>

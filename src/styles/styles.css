@@ -1,16 +1,16 @@
-@import "../partials/Button/button.css";
-@import "../partials/Input/input.css";
-@import "../partials/Avatar/avatar.css";
-@import "../partials/Row/row.css";
-@import "../partials/EditRow/editRow.css";
-@import "../partials/AvatarModal/avatarModal.css";
+@import "../components/Button/button.css";
+@import "../components/Input/input.css";
+@import "../components/Avatar/avatar.css";
+@import "../components/Row/row.css";
+@import "../components/EditRow/editRow.css";
+@import "../components/AvatarModal/avatarModal.css";
 @import "../pages/Login/login.css";
 @import "../pages/Registration/registration.css";
 @import "../pages/User/user.css";
 @import "../pages/EditUser/editUser.css";
 @import "../pages/EditPassword/editPassword.css";
-@import "../pages/404/404.css";
-@import "../pages/500/500.css";
+@import "../pages/404/error.css";
+@import "../pages/500/error.css";
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
 
