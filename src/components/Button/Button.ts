@@ -3,13 +3,13 @@ import Block from '../../core/Block';
 import './button.css';
 
 interface ButtonProps {
-  text: string;
+  textBtn: string;
   onClick: () => void;
 }
 
 export class Button extends Block {
-  constructor({text, onClick}: ButtonProps) {
-    super({ text, events: {click: onClick} });
+  constructor({textBtn, onClick}: ButtonProps) {
+    super({ textBtn, events: {click: onClick} });
   }
 
   protected render(): string {

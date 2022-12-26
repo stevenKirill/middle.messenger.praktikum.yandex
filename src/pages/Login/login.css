@@ -11,16 +11,6 @@
     flex-direction: column;
     margin-bottom: 70px;
   }
-  &_link {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    color: var(--main-blue);
-    margin-top: 15px;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-  }
   &_header {
     text-align: center;
     font-style: normal;

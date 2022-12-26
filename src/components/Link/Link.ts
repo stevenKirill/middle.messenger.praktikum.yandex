@@ -14,6 +14,11 @@ export class Link extends Block {
   }
 
   protected render(): string {
-    return `<a class={{className}} href={{url}}>{{text}}</a>`
+    return `
+    <a
+      class="main_link ${this.props.className}"
+      href={{url}}>{{text}}
+    </a>
+  `
   }
 }

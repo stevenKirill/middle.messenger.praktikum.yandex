@@ -11,21 +11,27 @@ interface EditRowProps {
 }
 
 export class EditRow extends Block {
-  constructor({ name, type, value, onChange }: EditRowProps) {
+  constructor({ name, type, value, onChange, title }: EditRowProps) {
     super({
-      events: {change: onChange },
+      events: { change: onChange },
       name,
       type,
       value,
+      title,
     });
   }
 
   protected render(): string {
     return `
       <div class="edit_row">
-        <label class="edit_row_title">{{title}}:</label>
+        <label class="edit_row_title">{{title}}</label>
         <div class="edit_row_input_container">
-          <input class="edit_row_input" value={{value}} type={{type}} name={{name}} />
+          <input
+            class="edit_row_input"
+            value={{value}}
+            type={{type}}
+            name={{name}}
+          />
         </div>
       </div>
     `

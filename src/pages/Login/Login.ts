@@ -8,22 +8,25 @@ interface LoginPageProps {
 export class LoginPage extends Block {
   constructor({}: LoginPageProps) {
     super({ });
+    this.setProps({
+      onSubmit: (e: any) => this.handleAuth(e),
+    })
+  }
+
+  handleAuth(e: any) {
+    e.preventDefault();
+    console.log(e);
   }
 
   protected render(): string {
     return `
-    {{!< container}}
-    <main class="login">
-      <div class="login_header">Вход</div>
-      <form>
-        <div class="login_inputs">
-          {{> "Input/Input" name="login" placeholder="Логин" type="text"}}
-          {{> "Input/Input" name="password" placeholder="Пароль" type="password"}}
-        </div>
-        {{> "Button/Button"}}
-      </form>
-      {{> "Link/Link" url="" class="login_link" text="Нет аккаунта"}}
-    </main>
+    <div class="root">
+      <main class="login">
+        <div class="login_header">Вход</div>
+        {{{ LoginForm onSubmit=handleAuth }}}
+        {{{ Link url="#" text="Нет аккаунта" }}}
+      </main>
+    </div>
     `
   }
 }
