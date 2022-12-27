@@ -1,0 +1,22 @@
+.chat_button {
+  width: 35px;
+  height: 35px;
+  background: var(--main-blue);
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.chat_button::before {
+  display: block;
+  content: "";
+  background: white;
+  position: relative;
+  top: 8px;
+  left: 7px;
+  height: 15px;
+  width: 15px;
+  clip-path: polygon(0 10px,calc(100% - 15px) 10px, calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,calc(100% - 15px) calc(100% - 10px),0 calc(100% - 10px));
+}

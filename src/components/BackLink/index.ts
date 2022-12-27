@@ -1,1 +1,22 @@
-export { BackLink as default} from './BackLink';
+import Block from 'core/Block';
+
+interface BackLinkProps {
+}
+
+class BackLink extends Block {
+  constructor({}: BackLinkProps) {
+    super({});
+  }
+
+  protected render(): string {
+    return `
+    <div class="user_left">
+      <a class="user_left_link" href="#">
+        <i class="user_left_link_arrow"></i>
+      </a>
+    </div>
+    `
+  }
+}
+
+export default BackLink;

@@ -41,13 +41,6 @@
         margin-right: 10px;
         margin-bottom: 15px;
         color: var(--gray);
-        &_arrow {
-          display: inline-block;
-          border: solid var(--gray);
-          border-width: 0 3px 3px 0;
-          padding: 3px;
-          transform: rotate(-45deg);
-        }
       }
     }
   }
@@ -64,20 +57,22 @@
       }
     }
     &_chatArea {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
       &_header {
-        border: 1px solid red;
+        padding: 10px;
         min-height: 10%;
       }
       &_messages {
-        border: 1px solid green;
-        min-height: 50%;
+        border-top: 1px solid #EAEAEA;
+        border-bottom: 1px solid #EAEAEA;
+        height: 350px;
+        padding: 10px
       }
       &_send {
-        border: 1px solid blue;
-        min-height: 40%;
+        margin-top: 10px;
+        grid-template-columns: 10% 76% 10%;
+        display: grid;
+        grid-gap: 2%;
+        align-items: center;
       }
     }
   }

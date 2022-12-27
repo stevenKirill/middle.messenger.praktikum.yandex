@@ -4,10 +4,6 @@ import './chat.css';
 interface ChatPageProps {
 }
 
-// stylesheets:
-// - ../../styles/styles.css
-// isEmpty: true
-
 export class ChatPage extends Block {
   constructor({}: ChatPageProps) {
     super({ });
@@ -19,39 +15,18 @@ export class ChatPage extends Block {
     <main class="chat_page">
       <section class="chat_page_left">
         <div class="chat_page_left_profile">
-          <a class="chat_page_left_profile_link">
-            <span>Профиль</span>
-            <i class="chat_page_left_profile_link_arrow"></i>
-          </a>
+          {{{ Link url="#" text="Профиль >" className="chat_page_left_profile_link" }}}
         </div>
-        <label class="chat_page_left_profile_input" htmlFor="search_input">
-          <input name="search_input" aria-label="search" value=""  placeholder="Поиск"/>
-          <img
-            id="magnifier"
-            src="../../assets/loop.png"
-            alt="magnifier"
-          />
-        </label>
+        {{{ SearchInput }}}
         <div class="chat_page_left_chats">
-          <div class="chat_page_left_chats_item"></div>
-          <div class="chat_page_left_chats_item"></div>
+          {{{ ChatUser }}}
         </div>
       </section>
       <section class="chat_page_right">
         {{#if isEmpty}}
-          <div class="chat_page_right_empty">
-            <div class="chat_page_right_empty_message">
-              Выберите чат чтобы отправить сообщение
-            </div>
-          </div>
+          {{{ EmptyChat }}}
           {{else}}
-          <div class="chat_page_right_chatArea">
-            <div class="chat_page_right_chatArea_header"> header</div>
-            <div class="chat_page_right_chatArea_messages">messages</div>
-            <div class="chat_page_right_chatArea_send">
-              send area
-            </div>
-          </div>
+          {{{ ChatArea }}}
         {{/if}}
       </section>
       </main>

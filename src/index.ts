@@ -13,6 +13,14 @@ import EditRow from './components/EditRow';
 import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
 import BackLink from './components/BackLink';
+import ChatArea from './components/ChatArea';
+import EmptyChat from './components/EmptyChat';
+import TextArea from './components/TextArea';
+import SendButton from './components/SendButton';
+import ClipButton from './components/ClipButton';
+import ChatUser from './components/ChatUser';
+import ChatMessage from './components/ChatMessage';
+import SearchInput from './components/SearchInput';
 
 
 // pages
@@ -23,6 +31,7 @@ import { UserPage } from './pages/User/User';
 import EditPasswordPage  from './pages/EditPassword';
 import ErrorPage from './pages/500';
 import NotFoundPage from './pages/404';
+import ChatPage from './pages/Chat/';
 
 // components
 registerComponent(Button);
@@ -35,6 +44,14 @@ registerComponent(EditRow);
 registerComponent(RegistrationForm);
 registerComponent(LoginForm);
 registerComponent(BackLink);
+registerComponent(ChatArea);
+registerComponent(EmptyChat);
+registerComponent(TextArea);
+registerComponent(SendButton);
+registerComponent(ClipButton);
+registerComponent(ChatUser);
+registerComponent(ChatMessage);
+registerComponent(SearchInput);
 
 
 // pages
@@ -45,8 +62,9 @@ registerComponent(UserPage);
 registerComponent(EditPasswordPage);
 registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
+registerComponent(ChatPage);
 
-class MyComponent extends LoginPage {
+class MyComponent extends ChatPage {
   constructor() {
       super({});
   }

@@ -8,6 +8,12 @@
     "build": "parcel build ./src/pages/index.hbs",
     "lint": "eslint"
   },
+  "alias": {
+    "core": "./src/core",
+    "components": "./src/components",
+    "pages": "./src/pages",
+    "utils": "./src/utils"
+  },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "Kirill Pavloskii",
   "license": "ISC",
