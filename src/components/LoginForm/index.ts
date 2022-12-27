@@ -1,38 +1,52 @@
 import Block from 'core/Block';
 
 interface LoginFormProps {
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onClick: () => void;
 }
 
 class LoginForm extends Block {
   static componentName: 'LoginForm';
 
-  constructor({ onSubmit, onClick }: LoginFormProps) {
-    super({ events: { submit: onSubmit, click: onClick } });
+  constructor({ onClick }: LoginFormProps) {
+    super({ events: { click: onClick } });
 
     this.setProps({
-      onSubmit: (e: unknown) => this.handleAuth(e),
-      onClick: (e) => this.handleAuth(e),
+      onClick: (e: Event) => this.handleAuth(e),
     });
-
-    console.log(this.props);
   }
 
-  handleAuth(e) {
+  handleAuth(e: Event) {
     e.preventDefault();
-    console.log(e);
+    const { loginInput, passwordInput } = this.refs;
+    const inputLoginElement = loginInput.children[0] as HTMLInputElement;
+    const inputPasswordElement = passwordInput.children[0] as HTMLInputElement;
+    console.log({
+      login: inputLoginElement.value,
+      password: inputPasswordElement.value,
+    });
   }
 
+  // TODO переделать на тег формы и событие submit
   protected render(): string {
     return `
-    <div>
+    <form id="login_form">
       <div class="login_inputs">
-        {{{ Input name="login" placeholder="Логин" type="text" }}}
-        {{{ Input name="password" placeholder="Пароль" type="password" }}}
+        {{{ Input
+            name="login"
+            placeholder="Логин"
+            type="text"
+            ref="loginInput"
+        }}}
+        {{{ Input
+            name="password"
+            placeholder="Пароль"
+            type="password"
+            ref="passwordInput"
+        }}}
       </div>
-      {{{ Button textBtn="Зарегестрироваться" onClick=handleAuth }}}
-    </div>
+      {{{ Button type="submit" textBtn="Зарегестрироваться" onClick=onClick }}}
+    </form>
     `;
   }
 }

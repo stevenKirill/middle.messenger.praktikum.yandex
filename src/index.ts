@@ -62,7 +62,7 @@ registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
-class MyComponent extends LoginPage {
+class MyComponent extends RegistrationPage {
   renderContent() {
     return this.render();
   }

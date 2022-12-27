@@ -16,7 +16,7 @@
     "linebreak-style": 0,
     "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": false }],
     "prefer-destructuring": ["error", {"object": true, "array": false}],
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": "off",
     "class-methods-use-this": "off"
   }
 }
