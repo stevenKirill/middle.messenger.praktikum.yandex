@@ -8,6 +8,8 @@ interface RowProps {
 }
 
 class Row extends Block {
+  static componentName: 'Row';
+
   constructor({ title, value }: RowProps) {
     super({ title, value });
   }
@@ -18,7 +20,7 @@ class Row extends Block {
       <div class="row_info_title">{{title}}</div>
       <div class="row_info_value">{{value}}</div>
     </div>
-    `
+    `;
   }
 }
 

@@ -6,9 +6,7 @@ export interface SearchInputProps {
 }
 
 class SearchInput extends Block {
-  constructor({ }: SearchInputProps) {
-    super({});
-  }
+  static componentName: 'SearchInput';
 
   protected render(): string {
     return `
@@ -21,7 +19,7 @@ class SearchInput extends Block {
         alt="magnifier"
       />
       </label>
-    `
+    `;
   }
 }
 

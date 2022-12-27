@@ -5,10 +5,7 @@ export interface ChatAreaProps {
 }
 
 class ChatArea extends Block {
-  constructor() {
-    super();
-  }
-
+  static componentName: 'ChatArea';
   protected render(): string {
     return `
     <div class="chat_page_right_chatArea">

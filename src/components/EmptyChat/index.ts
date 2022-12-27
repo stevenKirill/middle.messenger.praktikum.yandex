@@ -4,10 +4,7 @@ export interface EmptyChatProps {
 }
 
 class EmptyChat extends Block {
-  constructor() {
-    super();
-  }
-
+  static componentName: 'EmptyChat';
   protected render(): string {
     return `
     <div class="chat_page_right_empty">

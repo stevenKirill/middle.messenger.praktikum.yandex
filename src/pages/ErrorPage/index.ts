@@ -1,14 +1,10 @@
 import Block from '../../core/Block';
 import './error.css';
 
-interface ErrorPageProps {
+export interface ErrorPageProps {
 }
 
 class ErrorPage extends Block {
-  constructor({}: ErrorPageProps) {
-    super({ });
-  }
-
   protected render(): string {
     return `
     <div class="root">
@@ -24,7 +20,7 @@ class ErrorPage extends Block {
       </div>
       </main>
     </div>
-    `
+    `;
   }
 }
 

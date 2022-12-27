@@ -4,13 +4,13 @@
 @import "../components/Row/row.css";
 @import "../components/EditRow/editRow.css";
 @import "../components/AvatarModal/avatarModal.css";
-@import "../pages/Login/login.css";
-@import "../pages/Registration/registration.css";
+@import "../pages/LoginPage/login.css";
+@import "../pages/RegistrationPage/registration.css";
 @import "../pages/User/user.css";
-@import "../pages/EditUser/editUser.css";
+@import "../pages/EditUserPage/editUser.css";
 @import "../pages/EditPassword/editPassword.css";
-@import "../pages/404/error.css";
-@import "../pages/500/error.css";
+@import "../pages/ErrorPage/error.css";
+@import "../pages/NotFoundPage/error.css";
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
 

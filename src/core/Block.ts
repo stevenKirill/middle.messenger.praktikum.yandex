@@ -19,6 +19,8 @@ export default class Block<P extends object = {}> {
   public id = nanoid(6);
   private readonly _meta: BlockMeta;
 
+  static componentName: string;
+
   protected _element: Nullable<HTMLElement> = null;
   protected readonly props: P;
   protected children: {[id: string]: Block} = {};

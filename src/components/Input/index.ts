@@ -10,6 +10,7 @@ interface InputProps {
 }
 
 class Input extends Block {
+  static componentName: 'Input';
   constructor({ name, type, placeholder, onChange }: InputProps) {
     super({
       events: {change: onChange },
@@ -31,7 +32,7 @@ class Input extends Block {
       />
       <label for="custom_input" class="form__label">{{placeholder}}</label>
     </div>
-    `
+    `;
   }
 }
 

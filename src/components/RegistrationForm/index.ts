@@ -5,6 +5,8 @@ interface RegistrationFormProps {
 }
 
 class RegistrationForm extends Block {
+  static componentName: 'RegistrationForm';
+
   constructor({ onSubmit }: RegistrationFormProps) {
     super({ events: { submit: onSubmit } });
   }
@@ -23,10 +25,10 @@ class RegistrationForm extends Block {
       </div>
       {{{ Button
           textBtn="Зарегестрироваться"
-          onClick=handleRegister
+          onSubmit=handleRegister
       }}}
     </form>
-    `
+    `;
   }
 }
 

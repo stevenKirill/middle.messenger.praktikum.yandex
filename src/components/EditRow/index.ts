@@ -11,6 +11,7 @@ interface EditRowProps {
 }
 
 class EditRow extends Block {
+  static componentName: 'EditRow';
   constructor({ name, type, value, onChange, title }: EditRowProps) {
     super({
       events: { change: onChange },
@@ -34,7 +35,7 @@ class EditRow extends Block {
           />
         </div>
       </div>
-    `
+    `;
   }
 }
 export default EditRow;

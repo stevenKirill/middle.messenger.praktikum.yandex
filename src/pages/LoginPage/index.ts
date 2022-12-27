@@ -7,24 +7,12 @@ export interface LoginPageProps {
 }
 
 class LoginPage extends Block {
-  constructor() {
-    super({ });
-    this.setProps({
-      onSubmit: (e: unknown) => this.handleAuth(e),
-    });
-  }
-
-  handleAuth(e: unknown) {
-    // e.preventDefault();
-    // console.log(e);
-  }
-
   protected render(): string {
     return `
     <div class="root">
       <main class="login">
         <div class="login_header">Вход</div>
-        {{{ LoginForm onSubmit=handleAuth }}}
+        {{{ LoginForm }}}
         {{{ Link url="#" text="Нет аккаунта" }}}
       </main>
     </div>

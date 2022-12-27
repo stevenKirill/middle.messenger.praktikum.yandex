@@ -8,6 +8,7 @@ interface LinkProps {
 }
 
 class Link extends Block {
+  static componentName: 'Link';
   constructor({ className, url, text }: LinkProps) {
     super({ className, url, text });
   }

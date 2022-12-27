@@ -1,15 +1,13 @@
 import Block from 'core/Block';
 import './textArea.css';
 
-interface TextAreaProps {
+export interface TextAreaProps {
   title: string;
   value: string;
 }
 
 class TextArea extends Block {
-  constructor({ }: TextAreaProps) {
-    super({ });
-  }
+  static componentName: 'TextArea';
 
   protected render(): string {
     return `
@@ -22,7 +20,7 @@ class TextArea extends Block {
       </textarea>
       {{{ SendButton }}}
     </div>
-    `
+    `;
   }
 }
 

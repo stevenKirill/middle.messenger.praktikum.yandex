@@ -4,8 +4,9 @@ import './clipButton.css';
 interface ClipButtonProps {
   onClick: () => void;
 }
-  // TODO имитация клика на инпут при клике на лейбл
+// TODO имитация клика на инпут при клике на лейбл
 class ClipButton extends Block {
+  static componentName: 'ClipButton';
   constructor({ onClick }: ClipButtonProps) {
     super({ events: { click: onClick }});
   }

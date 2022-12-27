@@ -1,4 +1,4 @@
-import { Block, renderDOM, registerComponent }  from './core';
+import { Block, renderDOM, registerComponent } from './core';
 
 import './styles/styles.css';
 
@@ -22,16 +22,15 @@ import ChatUser from './components/ChatUser';
 import ChatMessage from './components/ChatMessage';
 import SearchInput from './components/SearchInput';
 
-
 // pages
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import EditUserPage from './pages/EditUserPage';
 import UserPage from './pages/User/User';
-import EditPasswordPage  from './pages/EditPassword';
-import ErrorPage from './pages/500';
-import NotFoundPage from './pages/404';
-import ChatPage from './pages/Chat/';
+import EditPasswordPage from './pages/EditPassword';
+import ErrorPage from './pages/ErrorPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ChatPage from './pages/Chat';
 
 // components
 registerComponent(Button);
@@ -53,7 +52,6 @@ registerComponent(ChatUser);
 registerComponent(ChatMessage);
 registerComponent(SearchInput);
 
-
 // pages
 registerComponent(LoginPage);
 registerComponent(RegistrationPage);
@@ -64,15 +62,12 @@ registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
-class MyComponent extends ChatPage {
-  constructor() {
-      super({});
-  }
+class MyComponent extends LoginPage {
   renderContent() {
     return this.render();
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   renderDOM(new MyComponent());
 });

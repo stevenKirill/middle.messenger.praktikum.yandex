@@ -24,7 +24,7 @@ class RegistrationPage extends Block {
       <main class="registration">
         <div class="registration_header">Регистрация</div>
         {{{ RegistrationForm onSubmit=handleRegister }}}
-        {{{ Link url="" text="Войти" }}}
+        {{{ Link url="#" text="Войти" }}}
       </main>
     </div>
     `;
