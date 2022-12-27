@@ -1,21 +1,22 @@
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 import './login.css';
 
-interface LoginPageProps {
+export interface LoginPageProps {
+  name: string;
 }
 
-export class LoginPage extends Block {
-  constructor({}: LoginPageProps) {
+class LoginPage extends Block {
+  constructor() {
     super({ });
     this.setProps({
-      onSubmit: (e: any) => this.handleAuth(e),
-    })
+      onSubmit: (e: unknown) => this.handleAuth(e),
+    });
   }
 
-  handleAuth(e: any) {
-    e.preventDefault();
-    console.log(e);
+  handleAuth(e: unknown) {
+    // e.preventDefault();
+    // console.log(e);
   }
 
   protected render(): string {
@@ -27,6 +28,8 @@ export class LoginPage extends Block {
         {{{ Link url="#" text="Нет аккаунта" }}}
       </main>
     </div>
-    `
+    `;
   }
 }
+
+export default LoginPage;

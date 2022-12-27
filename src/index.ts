@@ -24,10 +24,10 @@ import SearchInput from './components/SearchInput';
 
 
 // pages
-import LoginPage from './pages/Login';;
-import RegistrationPage from './pages/Registration';
-import EditUserPage from './pages/EditUser';
-import { UserPage } from './pages/User/User';
+import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage';
+import EditUserPage from './pages/EditUserPage';
+import UserPage from './pages/User/User';
 import EditPasswordPage  from './pages/EditPassword';
 import ErrorPage from './pages/500';
 import NotFoundPage from './pages/404';

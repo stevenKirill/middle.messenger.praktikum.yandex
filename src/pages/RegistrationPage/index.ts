@@ -1,21 +1,21 @@
-import Block from '../../core/Block';
+import Block from 'core/Block';
 
 import './registration.css';
 
-interface RegistrationPageProps {
+export interface RegistrationPageProps {
+  name: string
 }
 
-export class RegistrationPage extends Block {
-  constructor({}: RegistrationPageProps) {
+class RegistrationPage extends Block {
+  constructor() {
     super();
     this.setProps({
-      onSubmit: (e: any) => this.handleRegister(e),
-    })
+      onSubmit: (e: unknown) => this.handleRegister(e),
+    });
   }
 
-  handleRegister(e: any) {
-    e.preventDefault();
-    console.log(e);
+  handleRegister(e: unknown) {
+    // e.preventDefault();
   }
 
   protected render(): string {
@@ -27,6 +27,8 @@ export class RegistrationPage extends Block {
         {{{ Link url="" text="Войти" }}}
       </main>
     </div>
-    `
+    `;
   }
 }
+
+export default RegistrationPage;

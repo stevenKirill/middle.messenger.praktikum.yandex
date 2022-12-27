@@ -1,4 +1,4 @@
-import Block from '../../core/Block';
+import Block from 'core/Block';
 import './editPassword.css';
 import { TUserData } from './types';
 
@@ -8,7 +8,7 @@ const data = [
   { title: 'Повторить новый пароль', value: '1', type: 'password' },
 ];
 
-interface EditPasswordPageProps {
+export interface EditPasswordPageProps {
   editableAvatar: boolean;
   userData: TUserData[];
 }
@@ -29,7 +29,7 @@ class EditPasswordPage extends Block {
     this.setProps({
       editableAvatar: true,
       userData: data,
-    })
+    });
   }
 
   protected render(): string {
@@ -56,7 +56,7 @@ class EditPasswordPage extends Block {
         </div>
       </div>
     </div>
-    `
+    `;
   }
 }
 

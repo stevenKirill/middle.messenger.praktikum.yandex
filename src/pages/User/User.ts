@@ -1,24 +1,24 @@
-import Block from '../../core/Block';
+import Block from 'core/Block';
 import { TUserData } from './types';
 
 import './user.css';
 
 // temp data
 const data = [
-  { title: 'Почта', value: 'yandex', },
-  { title: 'Логин', value: 'kirill15', },
-  { title: 'Имя', value: 'Кирилл',  },
-  { title: 'Фамилия', value: 'Павловский', },
-  { title: 'Имя в чате', value: 'kirill', },
-  { title: 'Телефон', value: '+7 999 111 11 11', },
+  { title: 'Почта', value: 'yandex' },
+  { title: 'Логин', value: 'kirill15' },
+  { title: 'Имя', value: 'Кирилл' },
+  { title: 'Фамилия', value: 'Павловский' },
+  { title: 'Имя в чате', value: 'kirill' },
+  { title: 'Телефон', value: '+7 999 111 11 11' },
 ];
 
-interface UserPageProps {
+export interface UserPageProps {
   userData: TUserData;
   userName: string;
 }
 
-export class UserPage extends Block {
+class UserPage extends Block {
   constructor() {
     super();
     this.setProps({
@@ -53,6 +53,8 @@ export class UserPage extends Block {
         </div>
       </div>
     </div>
-    `
+    `;
   }
 }
+
+export default UserPage;
