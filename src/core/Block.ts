@@ -1,6 +1,6 @@
-import EventBus from './EventBus';
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
+import EventBus from './EventBus';
 
 interface BlockMeta<P = any> {
   props: P;
@@ -37,7 +37,7 @@ export default class Block<P extends object = {}> {
       props,
     };
 
-    this.getStateFromProps(props)
+    this.getStateFromProps(props);
 
     this.props = this._makePropsProxy(props || {} as P);
     this.state = this._makePropsProxy(this.state);
@@ -122,16 +122,16 @@ export default class Block<P extends object = {}> {
 
   protected render(): string {
     return '';
-  };
+  }
 
   getContent(): HTMLElement {
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
-        if (this.element?.parentNode?.nodeType !==  Node.DOCUMENT_FRAGMENT_NODE ) {
+        if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
           this.eventBus().emit(Block.EVENTS.FLOW_CDM);
         }
-      }, 100)
+      }, 100);
     }
 
     return this.element!;
@@ -235,7 +235,6 @@ export default class Block<P extends object = {}> {
      */
     return fragment.content;
   }
-
 
   show() {
     this.getContent().style.display = 'block';

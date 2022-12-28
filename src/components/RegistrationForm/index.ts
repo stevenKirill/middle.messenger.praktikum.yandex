@@ -14,7 +14,12 @@ class RegistrationForm extends Block {
   }
 
   handleBlur() {
-    console.log('aaaaa');
+    console.log(this.refs);
+    this.setProps({
+      ...this.props,
+      error: 'hello',
+    });
+    console.log(this.props);
     // this.refs.incorrectEmail.setProps({
     //   error: 'hello',
     // });
@@ -51,12 +56,10 @@ class RegistrationForm extends Block {
             onFocus=onFocus
             onBlur=onBlur
         }}}
-        {{# if error}}
         {{{ ErrorComponent
             error=text
             ref="incorrectEmail"
         }}}
-        {{/if}}
         {{{ Input
             name="login"
             placeholder="Логин"

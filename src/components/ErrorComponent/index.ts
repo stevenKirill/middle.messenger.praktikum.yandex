@@ -1,4 +1,5 @@
 import Block from 'core/Block';
+import './error.css';
 
 export interface ErrorComponentProps {
   error: string;
@@ -13,7 +14,7 @@ class ErrorComponent extends Block {
 
   protected render(): string {
     return `
-    <div class="chat_page_right_empty">
+    <div class="error_message">
       {{error}}
     </div>
   `;

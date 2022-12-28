@@ -67,8 +67,47 @@ registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
 class MyComponent extends RegistrationPage {
+  renderMenu() {
+    return `
+      <ul class="app_pages_menu">
+        <li class="app_pages_menu_item">
+          <a href="#">Registration</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">Login</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">User</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">EditUser</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">EditPassword</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">404</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">500</a>
+        </li>
+        <li class="app_pages_menu_item">
+          <a href="#">Chat</a>
+        </li>
+            <li class="app_pages_menu_item">
+          <a href="#">Modal example</a>
+        </li>
+      </ul>
+    `;
+  }
+
   renderContent() {
-    return this.render();
+    return `
+      <div>
+        ${this.renderMenu()}
+        ${this.render()}
+      </div>
+    `;
   }
 }
 
