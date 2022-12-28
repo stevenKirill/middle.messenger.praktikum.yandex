@@ -1,19 +1,24 @@
 import Block from 'core/Block';
 
-interface RegistrationFormProps {
-  onSubmit?: () => void;
-  onClick: () => void;
-}
-
 class RegistrationForm extends Block {
   static componentName: 'RegistrationForm';
 
-  constructor({ onClick }: RegistrationFormProps) {
-    super({ events: { click: onClick } });
+  constructor() {
+    super();
 
     this.setProps({
       onClick: this.handleRegister.bind(this),
+      onFocus: this.handleFocus.bind(this),
+      onBlur: this.handleBlur.bind(this),
     });
+  }
+
+  handleBlur() {
+    console.log('b;lurr');
+  }
+
+  handleFocus() {
+    console.log('focus');
   }
 
   handleRegister(e: Event) {
@@ -40,42 +45,80 @@ class RegistrationForm extends Block {
             placeholder="Почта"
             type="email"
             ref="emailInput"
+            onFocus=onFocus
+            onBlur=onBlur
         }}}
+        {{# if error}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectEmail"
+        }}}
+        {{/if}}
         {{{ Input
             name="login"
             placeholder="Логин"
             type="text"
             ref="loginInput"
+            onFocus=onFocus
+        }}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectLogin"
         }}}
         {{{ Input
             name="first_name"
             placeholder="Имя"
             type="text"
             ref="nameInput"
+            onFocus=onFocus
+        }}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectName"
         }}}
         {{{ Input
             name="second_name"
             placeholder="Фамилия"
             type="text"
             ref="surnameInput"
+            onFocus=onFocus
+        }}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectsurName"
         }}}
         {{{ Input
             name="phone"
             placeholder="Телефон"
             type="text"
             ref="phoneInput"
+            onFocus=onFocus
+        }}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectPhone"
         }}}
         {{{ Input
             name="password"
             placeholder="Пароль"
             type="password"
             ref="passwordInput"
+            onFocus=onFocus
+        }}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectPassword"
         }}}
         {{{ Input
             name="password"
             placeholder="Пароль (еще раз)"
             type="password"
             ref="passwordAgainInput"
+            onFocus=onFocus
+        }}}
+        {{{ ErrorComponent
+            error=text
+            ref="incorrectPasswordAgain"
         }}}
       </div>
       {{{ Button

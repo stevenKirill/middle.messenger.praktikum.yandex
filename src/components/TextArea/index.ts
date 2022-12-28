@@ -20,8 +20,8 @@ class TextArea extends Block {
     super({
       events: {
         change: onChange,
-        focusin: onFocus,
-        focusout: onBlur,
+        focus: onFocus,
+        blur: onBlur,
       },
       name,
       type,

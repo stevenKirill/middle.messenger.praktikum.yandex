@@ -5,6 +5,7 @@ export interface EmptyChatProps {
 
 class EmptyChat extends Block {
   static componentName: 'EmptyChat';
+
   protected render(): string {
     return `
     <div class="chat_page_right_empty">
@@ -12,7 +13,7 @@ class EmptyChat extends Block {
         Выберите чат чтобы отправить сообщение
       </div>
     </div>
-  `
+  `;
   }
 }
 

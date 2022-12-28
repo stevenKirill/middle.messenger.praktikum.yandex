@@ -1,8 +1,10 @@
 import Block from 'core/Block';
+import { validateMessage } from 'utils/validation';
 
 export interface ControlledTextAreaProps {
-  title: string;
-  value: string;
+  onClick: () => void;
+  onFocus: () => void;
+  text: string;
 }
 
 class ControlledTextArea extends Block {
@@ -17,6 +19,16 @@ class ControlledTextArea extends Block {
     });
   }
 
+  // handleFocus(e: Event) {
+  //   const target = e.target as HTMLTextAreaElement;
+  //   console.log(target.value);
+  // }
+
+  // handleBlur(e: Event) {
+  //   const target = e.target as HTMLTextAreaElement;
+  //   console.log(target.value);
+  // }
+
   handleSendMessage(e: Event) {
     e.preventDefault();
     const target = e.target as HTMLElement;
@@ -25,7 +37,13 @@ class ControlledTextArea extends Block {
     }
     const { textArea } = this.refs;
     const myTextArea = textArea as HTMLTextAreaElement;
-    console.log(myTextArea.value);
+    const validate = validateMessage(myTextArea.value);
+    if (validate) {
+      this.setProps({
+        text: validate,
+      });
+    }
+    console.log(validate);
   }
 
   protected render(): string {
@@ -38,6 +56,7 @@ class ControlledTextArea extends Block {
       }}}
       {{{ SendButton onClick=handleSendMessage }}}
     </div>
+    {{{ ErrorComponent error=text }}}
     `;
   }
 }

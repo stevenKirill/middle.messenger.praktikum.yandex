@@ -16,7 +16,7 @@ class Input extends Block {
   static componentName: 'Input';
 
   constructor({
-    name, type, placeholder, value, onChange, onFocus, onBlur,
+    name, type, placeholder, onChange, onFocus, onBlur,
   }: InputProps) {
     super({
       events: {
@@ -27,7 +27,6 @@ class Input extends Block {
       name,
       type,
       placeholder,
-      value,
     });
   }
 
@@ -39,7 +38,6 @@ class Input extends Block {
         class="form__field"
         name={{name}}
         placeholder={{placeholder}}
-        value={{value}}
         data-name={{name}}
       />
       <label for="custom_input" class="form__label">{{placeholder}}</label>
