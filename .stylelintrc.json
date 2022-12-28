@@ -2,5 +2,6 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "selector-class-pattern": ""
-  }
+  },
+  "ignoreFiles": ["./dist/*.css"]
 }

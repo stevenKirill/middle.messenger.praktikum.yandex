@@ -15,7 +15,7 @@ class BackLink extends Block {
         <i class="user_left_link_arrow"></i>
       </a>
     </div>
-    `
+    `;
   }
 }
 
