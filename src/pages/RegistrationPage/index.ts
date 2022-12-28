@@ -2,22 +2,7 @@ import Block from 'core/Block';
 
 import './registration.css';
 
-export interface RegistrationPageProps {
-  name: string
-}
-
 class RegistrationPage extends Block {
-  constructor() {
-    super();
-    this.setProps({
-      onSubmit: (e: unknown) => this.handleRegister(e),
-    });
-  }
-
-  handleRegister(e: unknown) {
-    // e.preventDefault();
-  }
-
   protected render(): string {
     return `
     <div class="root">

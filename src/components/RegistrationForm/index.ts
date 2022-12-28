@@ -1,5 +1,12 @@
 import Block from 'core/Block';
-import { validateEmail, validateLogin } from 'utils/validation';
+import {
+  validateEmail,
+  validateLogin,
+  validatePassword,
+  validatePhone,
+  validateFirstName,
+  validatePassword2,
+} from 'utils/validation';
 
 class RegistrationForm extends Block {
   static componentName: 'RegistrationForm';
@@ -75,18 +82,36 @@ class RegistrationForm extends Block {
       };
     }, {});
     console.log(inputValues);
-    // this.setProps({
-    //   ...this.props,
-    //   error: {
-    //     email: '',
-    //     login: '',
-    //     name: '',
-    //     surName: '',
-    //     phone: '',
-    //     password: '',
-    //     passwordAgain: '',
-    //   },
-    // });
+    const validatedEmail = validateEmail(inputValues.email);
+    const validatedLogin = validateLogin(inputValues.login);
+    const validatedName = validateFirstName(inputValues.first_name);
+    const validatedSurName = validateFirstName(inputValues.second_name);
+    const validatedPhone = validatePhone(inputValues.phone);
+    const validatedPassword = validatePassword(inputValues.password);
+    const validatedPassword2 = validatePassword2(inputValues.password2, inputValues.password);
+    this.setProps({
+      ...this.props,
+      error: {
+        email: validatedEmail,
+        login: validatedLogin,
+        name: validatedName,
+        surName: validatedSurName,
+        phone: validatedPhone,
+        password: validatedPassword,
+        passwordAgain: validatedPassword2,
+      },
+    });
+    const allValid = [
+      validatedEmail,
+      validatedLogin,
+      validatedName,
+      validatedSurName,
+      validatedPhone,
+      validatedPassword,
+      validatedPassword2,
+    ].every((val: string) => val !== '');
+
+    console.log(allValid);
   }
 
   protected render(): string {

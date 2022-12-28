@@ -23,6 +23,20 @@ export const validatePassword = (text: string): string => {
   return '';
 };
 
+export const validatePassword2 = (text: string, prevPass: string): string => {
+  if (text.length < 8
+    || text.length > 40
+    || !/(.*[A-Z].*)/g.test(text)
+    || !/(.*\W.*)/g.test(text)
+  ) {
+    return 'Пароль должен содержать хотя бы 1 заглавную букву и 1 цифру. От 8 до 40 символов';
+  }
+  if (text !== prevPass) {
+    return 'Пароли должны совпадать';
+  }
+  return '';
+};
+
 export const validatePhone = (text: string): string => {
   if (text.length < 10 || text.length > 15) {
     return 'Номер от 10 до 15 символов';
