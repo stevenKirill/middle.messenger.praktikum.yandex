@@ -16,6 +16,10 @@
     "sourceMap": true
   },
   "exclude": [
-    "./src/core",
+    "src/core",
+  ],
+  "include": [
+    "./types",
+    "./src"
   ]
 }

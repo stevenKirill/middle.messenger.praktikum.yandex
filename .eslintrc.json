@@ -18,5 +18,6 @@
     "prefer-destructuring": ["error", {"object": true, "array": false}],
     "no-console": "off",
     "class-methods-use-this": "off"
-  }
+  },
+  "ignorePatterns": ["src/core/"]
 }
