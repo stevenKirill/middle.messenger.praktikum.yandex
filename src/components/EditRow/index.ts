@@ -12,7 +12,10 @@ interface EditRowProps {
 
 class EditRow extends Block {
   static componentName: 'EditRow';
-  constructor({ name, type, value, onChange, title }: EditRowProps) {
+
+  constructor({
+    name, type, value, onChange, title,
+  }: EditRowProps) {
     super({
       events: { change: onChange },
       name,
@@ -27,7 +30,7 @@ class EditRow extends Block {
       <div class="edit_row">
         <label class="edit_row_title">{{title}}</label>
         <div class="edit_row_input_container">
-          <input
+          <Input
             class="edit_row_input"
             value={{value}}
             type={{type}}

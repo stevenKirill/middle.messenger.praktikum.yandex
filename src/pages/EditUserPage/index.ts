@@ -32,6 +32,7 @@ const data = [
 export interface EditUserPageProps {
   userData: TUserData[];
   editableAvatar: boolean;
+  onClick: () => void;
 }
 
 class EditUserPage extends Block {
@@ -41,10 +42,28 @@ class EditUserPage extends Block {
     this.setProps({
       editableAvatar: true,
       userData: data,
+      events: { click: (e: Event) => this.handleEdit(e) },
     });
   }
 
+  handleEdit(e: Event) {
+    console.log(e);
+    const inputValues = Object.values(this.refs).map((val) => {
+      const input = val.querySelector('input') as HTMLInputElement;
+      if (input) {
+        return {
+          [input.name]: input.value,
+        };
+      }
+      return {
+        noValue: '',
+      };
+    });
+    console.log(inputValues);
+  }
+
   protected render(): string {
+    console.log(this.refs);
     return `
     <div class="user">
       {{{ BackLink }}}
@@ -60,11 +79,12 @@ class EditUserPage extends Block {
                   type=this.type
                   value=this.value
                   name=this.name
+                  ref=this.name
               }}}
             {{/each}}
           </div>
           <div class="edit_user_footer">
-            {{{ Button textBtn="Сохранить" }}}
+            {{{ Button textBtn="Сохранить" onClick=handleEdit }}}
           </div>
         </div>
       </div>

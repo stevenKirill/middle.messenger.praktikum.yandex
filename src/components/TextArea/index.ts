@@ -2,27 +2,44 @@ import Block from 'core/Block';
 import './textArea.css';
 
 export interface TextAreaProps {
-  title: string;
-  value: string;
+  name: string;
+  type: string;
+  placeholder: string;
+  value?: string;
+  onChange?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 class TextArea extends Block {
   static componentName: 'TextArea';
 
+  constructor({
+    name, type, placeholder, value, onChange, onFocus, onBlur,
+  }: TextAreaProps) {
+    super({
+      events: {
+        change: onChange,
+        focusin: onFocus,
+        focusout: onBlur,
+      },
+      name,
+      type,
+      placeholder,
+      value,
+    });
+  }
+
   protected render(): string {
     return `
-    <div class="chat_page_right_chatArea_send">
-      {{{ ClipButton }}}
       <textarea
         class="chat_text_area"
         id="textArea1"
+        ref="textArea"
       >
       </textarea>
-      {{{ SendButton }}}
-    </div>
     `;
   }
 }
 
 export default TextArea;
-

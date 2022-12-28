@@ -15,6 +15,7 @@ import LoginForm from './components/LoginForm';
 import BackLink from './components/BackLink';
 import ChatArea from './components/ChatArea';
 import EmptyChat from './components/EmptyChat';
+import ControlledTextArea from './components/ControlledTextArea';
 import TextArea from './components/TextArea';
 import SendButton from './components/SendButton';
 import ClipButton from './components/ClipButton';
@@ -51,6 +52,7 @@ registerComponent(ClipButton);
 registerComponent(ChatUser);
 registerComponent(ChatMessage);
 registerComponent(SearchInput);
+registerComponent(ControlledTextArea);
 
 // pages
 registerComponent(LoginPage);
@@ -62,12 +64,12 @@ registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
-class MyComponent extends RegistrationPage {
+class MyComponent extends ChatPage {
   renderContent() {
     return this.render();
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderDOM(new MyComponent());
+  renderDOM(new MyComponent({}));
 });

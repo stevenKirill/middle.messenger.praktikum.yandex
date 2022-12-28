@@ -18,7 +18,6 @@ class RegistrationForm extends Block {
 
   handleRegister(e: Event) {
     e.preventDefault();
-    console.log(this.refs);
     const inputValues = Object.values(this.refs).reduce((
       acc: { [key: string]: string },
       curr: HTMLElement,
