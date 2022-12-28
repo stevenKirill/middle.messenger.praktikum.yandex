@@ -14,15 +14,18 @@
   border: 1px solid var(--dark-white);
   border-radius: 15px;
   z-index: 2;
+
   &_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+
     h2 {
       text-align: center;
     }
   }
+
   &_btn_close {
     transform: translate(10px, -35px);
     padding: 0.5rem 0.7rem;
@@ -32,10 +35,12 @@
     border: none;
     font-weight: 600;
   }
+
   &_body {
     input {
       display: none;
     }
+
     label {
       font-style: normal;
       font-weight: 500;
@@ -49,6 +54,7 @@
       cursor: pointer;
     }
   }
+
   &_footer {
     display: flex;
     justify-content: center;

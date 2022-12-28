@@ -1,13 +1,17 @@
 .app_pages_menu {
   list-style-type: none;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
+
   &_item {
     margin-top: 10px;
     font-size: 20px;
+
     a {
       text-decoration: none;
       color: black;
+
       &:hover {
+        /* stylelint-disable-next-line color-function-notation */
         color: rgb(239, 124, 82);
       }
     }

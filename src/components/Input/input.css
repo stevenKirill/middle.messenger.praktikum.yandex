@@ -25,8 +25,12 @@
     cursor: text;
     top: 20px;
   }
+
+  &:required,
+  &:invalid { box-shadow: none; }
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .form__label {
   position: absolute;
   top: 0;
@@ -45,12 +49,9 @@
     font-size: 1rem;
     color: var(--main-blue);
   }
+  /* stylelint-disable-next-line declaration-empty-line-before */
   border-bottom: 2px solid var(--main-blue);
   padding-bottom: 6px;
   border-width: 3px;
   border-image-slice: 1;
-}
-
-.form__field {
-  &:required,&:invalid { box-shadow:none; }
 }

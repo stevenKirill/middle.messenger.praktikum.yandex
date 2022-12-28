@@ -1,5 +1,4 @@
 import Block from 'core/Block';
-import './chatUser.css';
 
 export interface ChatUserProps {
 }
@@ -7,12 +6,12 @@ export interface ChatUserProps {
 // возможность перейти в сам чат
 class ChatUser extends Block {
   static componentName: 'ChatUser';
+
   protected render(): string {
     return `
     <div class="chat_page_left_chats_item"></div>
-    `
+    `;
   }
 }
 
 export default ChatUser;
-

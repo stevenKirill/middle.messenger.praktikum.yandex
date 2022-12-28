@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
   &_title {
     font-style: normal;
     font-weight: 500;
@@ -11,8 +12,10 @@
     text-align: center;
     color: var(--black);
   }
+
   &_text {
-    font-family: 'Inter';
+    /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+    font-family: Inter;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
@@ -20,12 +23,14 @@
     color: var(--black);
     margin-top: 20px;
   }
+
   &_link {
     margin-top: 50px;
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
     color: var(--main-blue);
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
     margin-top: 15px;
     text-decoration: none;
     display: flex;

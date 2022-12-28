@@ -4,12 +4,12 @@
 }
 
 .clip_icon {
- background-image: url('../../assets/clip.png');
- background-repeat: no-repeat;
- background-size: auto;
- margin-left: 10px;
- display: block;
- width: 32px;
- height: 32px;
- cursor: pointer
+  background-image: url("../../assets/clip.png");
+  background-repeat: no-repeat;
+  background-size: auto;
+  margin-left: 10px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }

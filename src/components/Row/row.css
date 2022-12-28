@@ -2,12 +2,14 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 5px;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid #eaeaea;
   margin-top: 20px;
+
   &_title {
     font-size: 13px;
     color: var(--black);
   }
+
   &_value {
     font-size: 13px;
     color: var(--black);

@@ -1,5 +1,4 @@
 import Block from 'core/Block';
-import './searchInput.css';
 import logo from '../../assets/loop.png';
 
 export interface SearchInputProps {

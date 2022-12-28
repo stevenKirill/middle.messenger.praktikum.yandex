@@ -2,6 +2,7 @@
   width: 150px;
   height: 150px;
   cursor: pointer;
+
   &:hover {
     background-color: #ccc;
     border-radius: 50%;
@@ -12,6 +13,7 @@
 .nonEditable_avatar {
   width: 150px;
   height: 150px;
+
   &:hover {
     background-color: #ccc;
     border-radius: 50%;
