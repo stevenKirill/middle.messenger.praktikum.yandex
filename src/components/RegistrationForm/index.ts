@@ -14,7 +14,10 @@ class RegistrationForm extends Block {
   }
 
   handleBlur() {
-    console.log('b;lurr');
+    console.log('aaaaa');
+    // this.refs.incorrectEmail.setProps({
+    //   error: 'hello',
+    // });
   }
 
   handleFocus() {
