@@ -1,27 +1,57 @@
 import Block from 'core/Block';
+import { validateEmail, validateLogin } from 'utils/validation';
 
 class RegistrationForm extends Block {
   static componentName: 'RegistrationForm';
 
   constructor() {
     super();
-
     this.setProps({
       onClick: this.handleRegister.bind(this),
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
+      onChange: this.handleChange.bind(this),
+      // values: {
+      //   email: 'e',
+      //   login: 'a',
+      //   first_name: '1',
+      //   second_name: '2',
+      //   phone: '4',
+      //   password: '1',
+      //   password2: '2',
+      // },
+      error: null,
     });
   }
 
   handleBlur() {
-    console.log(this.refs);
-    this.setProps({
-      ...this.props,
-      error: 'hello',
-    });
-    console.log(this.props);
-    // this.refs.incorrectEmail.setProps({
-    //   error: 'hello',
+    // @ts-ignore
+    if (this.props.error === null) {
+      this.setProps({
+        ...this.props,
+        error: {
+          email: 'roror',
+          login: 'jaja',
+          name: 'lol',
+          surName: 'lala',
+          phone: '1',
+          password: '2',
+          passwordAgain: '3',
+        },
+      });
+    }
+  }
+  // Сообщения пропадают после ввода и на кнопку доп проверка
+
+  handleChange(e: Event) {
+    console.log(e);
+    // const target = e.target as HTMLInputElement;
+    // this.setProps({
+    //   ...this.props,
+    //   values: {
+    //     ...this.props.values,
+    //     [target.name]: target.value,
+    //   },
     // });
   }
 
@@ -35,13 +65,28 @@ class RegistrationForm extends Block {
       acc: { [key: string]: string },
       curr: HTMLElement,
     ) => {
-      const el = curr.children[0] as HTMLInputElement;
+      const input = curr.querySelector('input') as HTMLInputElement;
+      if (!input) {
+        return { ...acc };
+      }
       return {
         ...acc,
-        [el.name]: el.value,
+        [input.name]: input.value,
       };
     }, {});
     console.log(inputValues);
+    // this.setProps({
+    //   ...this.props,
+    //   error: {
+    //     email: '',
+    //     login: '',
+    //     name: '',
+    //     surName: '',
+    //     phone: '',
+    //     password: '',
+    //     passwordAgain: '',
+    //   },
+    // });
   }
 
   protected render(): string {
@@ -55,9 +100,10 @@ class RegistrationForm extends Block {
             ref="emailInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
-            error=text
+            error=error.email
             ref="incorrectEmail"
         }}}
         {{{ Input
@@ -66,9 +112,10 @@ class RegistrationForm extends Block {
             type="text"
             ref="loginInput"
             onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ ErrorComponent
-            error=text
+            error=error.login
             ref="incorrectLogin"
         }}}
         {{{ Input
@@ -77,9 +124,10 @@ class RegistrationForm extends Block {
             type="text"
             ref="nameInput"
             onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ ErrorComponent
-            error=text
+            error=error.name
             ref="incorrectName"
         }}}
         {{{ Input
@@ -88,8 +136,10 @@ class RegistrationForm extends Block {
             type="text"
             ref="surnameInput"
             onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ ErrorComponent
+            error=error.surName
             error=text
             ref="incorrectsurName"
         }}}
@@ -99,8 +149,10 @@ class RegistrationForm extends Block {
             type="text"
             ref="phoneInput"
             onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ ErrorComponent
+            error=error.phone
             error=text
             ref="incorrectPhone"
         }}}
@@ -110,19 +162,23 @@ class RegistrationForm extends Block {
             type="password"
             ref="passwordInput"
             onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ ErrorComponent
+            error=error.password
             error=text
             ref="incorrectPassword"
         }}}
         {{{ Input
-            name="password"
+            name="password2"
             placeholder="Пароль (еще раз)"
             type="password"
             ref="passwordAgainInput"
             onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ ErrorComponent
+            error=error.passwordAgain
             error=text
             ref="incorrectPasswordAgain"
         }}}

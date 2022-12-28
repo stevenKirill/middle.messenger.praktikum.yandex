@@ -7,7 +7,7 @@ interface InputProps {
   type: string;
   placeholder: string;
   value?: string;
-  onChange?: () => void;
+  onInput?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
 }
@@ -16,17 +16,18 @@ class Input extends Block {
   static componentName: 'Input';
 
   constructor({
-    name, type, placeholder, onChange, onFocus, onBlur,
+    name, type, placeholder, value, onInput, onFocus, onBlur,
   }: InputProps) {
     super({
       events: {
-        change: onChange,
+        input: onInput,
         focusin: onFocus,
         focusout: onBlur,
       },
       name,
       type,
       placeholder,
+      value,
     });
   }
 

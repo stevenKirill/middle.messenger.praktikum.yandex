@@ -15,7 +15,9 @@ class ErrorComponent extends Block {
   protected render(): string {
     return `
     <div class="error_message">
-      {{error}}
+      {{#if error}}
+        {{error}}
+      {{/if}}
     </div>
   `;
   }
