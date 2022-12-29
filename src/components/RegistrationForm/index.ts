@@ -194,10 +194,12 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="incorrectPasswordAgain"
         }}}
       </div>
-      {{{ Button
-          textBtn="Зарегестрироваться"
-          onClick=onClick
-      }}}
+      <div class="registration_btn">
+        {{{ Button
+            textBtn="Зарегестрироваться"
+            onClick=onClick
+        }}}
+      </div>
     </form>
     `;
   }

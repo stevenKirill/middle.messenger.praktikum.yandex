@@ -1,7 +1,7 @@
 .registration {
   justify-content: space-between;
   align-items: center;
-  width: 300px;
+  width: 500px;
   padding: 20px;
   margin-top: 20px;
   background: #fff;
@@ -36,4 +36,9 @@
     color: var(--black);
     margin-bottom: 10px;
   }
+}
+
+.registration_btn {
+  display: flex;
+  justify-content: center;
 }

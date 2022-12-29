@@ -66,43 +66,105 @@ registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
-class MyComponent extends EditUserPage {
-  renderMenu() {
-    return `
-      <ul class="app_pages_menu">
-        <li class="app_pages_menu_item">
-          <a href="#">Registration</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">Login</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">User</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">EditUser</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">EditPassword</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">404</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">500</a>
-        </li>
-        <li class="app_pages_menu_item">
-          <a href="#">Chat</a>
-        </li>
-            <li class="app_pages_menu_item">
-          <a href="#">Modal example</a>
-        </li>
-      </ul>
-    `;
+class MyComponent extends Block {
+  protected getStateFromProps(props: unknown): void {
+    console.log(props);
+    this.state = {
+      registrationPageMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/registartion`);
+        renderDOM(new RegistrationPage());
+      },
+      loginPageMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/login`);
+        renderDOM(new LoginPage());
+      },
+      editUserMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/user/edit`);
+        renderDOM(new EditUserPage());
+      },
+      userPageMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/user`);
+        renderDOM(new UserPage());
+      },
+      editPasswordMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/edit-password`);
+        renderDOM(new EditPasswordPage());
+      },
+      notFoundMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/not-found`);
+        renderDOM(new NotFoundPage());
+      },
+      errorPageMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/error`);
+        renderDOM(new ErrorPage());
+      },
+      chatPageMethod(e: Event) {
+        e.preventDefault();
+        window.history.pushState({}, '', `${window.location.origin}/chat`);
+        renderDOM(new ChatPage({}));
+      },
+    };
   }
 
-  renderContent() {
-    return this.render();
+  render() {
+    return `
+    <ul class="app_pages_menu">
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Registartion"
+          onClick=registrationPageMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Login"
+          onClick=loginPageMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Edit user"
+          onClick=editUserMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="User"
+          onClick=userPageMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Edit password"
+          onClick=editPasswordMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Notfound page"
+          onClick=notFoundMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Error page"
+          onClick=errorPageMethod
+        }}}
+      </li>
+      <li class="app_pages_menu_item">
+        {{{Button
+          textBtn="Chat page"
+          onClick=chatPageMethod
+        }}}
+    </ul>
+  `;
   }
 }
 
