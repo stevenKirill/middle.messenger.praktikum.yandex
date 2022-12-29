@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel src/index.html --no-cache --open --port=3000",
     "start": "parcel build ./src/index.html && node server.js",
-    "build": "parcel build ./src/index.html",
+    "build": "parcel build ./src/index.html && node server.js",
     "lint": "eslint"
   },
   "alias": {
