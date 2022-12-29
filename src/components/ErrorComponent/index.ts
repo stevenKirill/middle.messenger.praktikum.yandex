@@ -3,18 +3,19 @@ import './error.css';
 
 export interface ErrorComponentProps {
   error: string;
+  className: string;
 }
 
 class ErrorComponent extends Block {
   static componentName: 'ErrorComponent';
 
-  constructor({ error }: ErrorComponentProps) {
-    super({ error });
+  constructor({ error, className }: ErrorComponentProps) {
+    super({ error, className });
   }
 
   protected render(): string {
     return `
-    <div class="error_message">
+    <div class="error_message {{className}}">
       {{#if error}}
         {{error}}
       {{/if}}

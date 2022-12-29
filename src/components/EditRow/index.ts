@@ -3,26 +3,43 @@ import Block from 'core/Block';
 import './editRow.css';
 
 interface EditRowProps {
-  type: string;
-  name: string;
-  value: string;
-  title: string;
-  onChange: () => void;
+  type?: string;
+  name?: string;
+  value?: string;
+  title?: string;
+  onChange?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 class EditRow extends Block {
   static componentName: 'EditRow';
 
   constructor({
-    name, type, value, onChange, title,
+    name,
+    type,
+    value,
+    title,
   }: EditRowProps) {
     super({
-      events: { change: onChange },
       name,
       type,
       value,
       title,
     });
+    this.setProps({
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+    });
+  }
+
+  handleFocus() {
+    console.log('focus');
+  }
+
+  // TODO handle error
+  handleBlur() {
+    console.log('blur');
   }
 
   protected render(): string {

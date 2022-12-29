@@ -7,8 +7,9 @@ import {
   validateFirstName,
   validatePassword2,
 } from 'utils/validation';
+import { RegistrationProps } from './types';
 
-class RegistrationForm extends Block {
+class RegistrationForm extends Block<RegistrationProps> {
   static componentName: 'RegistrationForm';
 
   constructor() {
@@ -17,33 +18,22 @@ class RegistrationForm extends Block {
       onClick: this.handleRegister.bind(this),
       onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
-      onChange: this.handleChange.bind(this),
-      // values: {
-      //   email: 'e',
-      //   login: 'a',
-      //   first_name: '1',
-      //   second_name: '2',
-      //   phone: '4',
-      //   password: '1',
-      //   password2: '2',
-      // },
       error: null,
     });
   }
 
   handleBlur() {
-    // @ts-ignore
     if (this.props.error === null) {
       this.setProps({
         ...this.props,
         error: {
-          email: 'roror',
-          login: 'jaja',
-          name: 'lol',
-          surName: 'lala',
-          phone: '1',
-          password: '2',
-          passwordAgain: '3',
+          email: validateEmail(''),
+          login: validateLogin(''),
+          name: validateFirstName(''),
+          surName: validateFirstName(''),
+          phone: validatePhone(''),
+          password: validatePassword(''),
+          passwordAgain: validatePassword2('', ''),
         },
       });
     }
@@ -52,17 +42,10 @@ class RegistrationForm extends Block {
 
   handleChange(e: Event) {
     console.log(e);
-    // const target = e.target as HTMLInputElement;
-    // this.setProps({
-    //   ...this.props,
-    //   values: {
-    //     ...this.props.values,
-    //     [target.name]: target.value,
-    //   },
-    // });
   }
 
   handleFocus() {
+    // TODO подумать что сделать на фокус
     console.log('focus');
   }
 
@@ -101,7 +84,7 @@ class RegistrationForm extends Block {
         passwordAgain: validatedPassword2,
       },
     });
-    const allValid = [
+    const allValid: boolean = [
       validatedEmail,
       validatedLogin,
       validatedName,
@@ -109,9 +92,13 @@ class RegistrationForm extends Block {
       validatedPhone,
       validatedPassword,
       validatedPassword2,
-    ].every((val: string) => val !== '');
-
-    console.log(allValid);
+    ].every((val: string) => {
+      console.log(val);
+      return val !== '';
+    });
+    if (allValid) {
+      console.log('логика по переходу в приложение');
+    }
   }
 
   protected render(): string {
@@ -125,7 +112,6 @@ class RegistrationForm extends Block {
             ref="emailInput"
             onFocus=onFocus
             onBlur=onBlur
-            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.email

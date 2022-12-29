@@ -1,19 +1,33 @@
 import Block from 'core/Block';
+import { LoginFormProps } from './types';
 
-interface LoginFormProps {
-  onSubmit?: () => void;
-  onClick: () => void;
-}
-
-class LoginForm extends Block {
+class LoginForm extends Block<LoginFormProps> {
   static componentName: 'LoginForm';
 
-  constructor({ onClick }: LoginFormProps) {
-    super({ events: { click: onClick } });
+  constructor() {
+    super();
 
     this.setProps({
       onClick: (e: Event) => this.handleAuth(e),
+      onFocus: this.handleFocus.bind(this),
+      onBlur: this.handleBlur.bind(this),
+      error: '',
     });
+  }
+
+  handleFocus(e: Event) {
+    // TODO focus
+    console.log(e, 'focus');
+  }
+
+  handleBlur() {
+    const error = this.props.error as string;
+    if (error === '') {
+      this.setProps({
+        ...this.props,
+        error: 'Введите логин и пароль',
+      });
+    }
   }
 
   handleAuth(e: Event) {
@@ -25,9 +39,14 @@ class LoginForm extends Block {
       login: inputLoginElement.value,
       password: inputPasswordElement.value,
     });
+    if (this.props.error !== '') {
+      this.setProps({
+        ...this.props,
+        error: '',
+      });
+    }
   }
 
-  // TODO переделать на тег формы и событие submit
   protected render(): string {
     return `
     <form id="login_form">
@@ -37,15 +56,24 @@ class LoginForm extends Block {
             placeholder="Логин"
             type="text"
             ref="loginInput"
+            onFocus=onFocus
+            onBlur=onBlur
         }}}
         {{{ Input
             name="password"
             placeholder="Пароль"
             type="password"
             ref="passwordInput"
+            onFocus=onFocus
+            onBlur=onBlur
         }}}
       </div>
       {{{ Button type="submit" textBtn="Зарегестрироваться" onClick=onClick }}}
+      {{{ ErrorComponent
+          error=error
+          ref="error"
+          className="error_center"
+      }}}
     </form>
     `;
   }

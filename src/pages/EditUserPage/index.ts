@@ -28,21 +28,20 @@ const data = [
   },
 ];
 
-// Как тут использовать интерфейс
 export interface EditUserPageProps {
-  userData: TUserData[];
-  editableAvatar: boolean;
-  onClick: () => void;
+  userData?: TUserData[];
+  editableAvatar?: boolean;
+  onClick?: (e: Event) => void;
 }
 
-class EditUserPage extends Block {
+class EditUserPage extends Block<EditUserPageProps> {
   // запрашивать данные для редактирования с бэка
   constructor() {
     super();
     this.setProps({
       editableAvatar: true,
       userData: data,
-      events: { click: (e: Event) => this.handleEdit(e) },
+      onClick: (e: Event) => this.handleEdit(e),
     });
   }
 
@@ -63,7 +62,6 @@ class EditUserPage extends Block {
   }
 
   protected render(): string {
-    console.log(this.refs);
     return `
     <div class="user">
       {{{ BackLink }}}
@@ -73,18 +71,23 @@ class EditUserPage extends Block {
             {{{ Avatar editableAvatar=editableAvatar }}}
           </div>
           <div class="user_right_data_body">
-            {{#each userData}}
-              {{{ EditRow
-                  title=this.title
-                  type=this.type
-                  value=this.value
-                  name=this.name
-                  ref=this.name
-              }}}
-            {{/each}}
+          {{#each userData}}
+            {{{ EditRow
+                title=this.title
+                type=this.type
+                value=this.value
+                name=this.name
+                ref=this.name
+            }}}
+          {{/each}}
           </div>
+          {{{ ErrorComponent
+              error="error"
+              className="error_center"
+              ref="incorrectEmail"
+          }}}
           <div class="edit_user_footer">
-            {{{ Button textBtn="Сохранить" onClick=handleEdit }}}
+            {{{ Button textBtn="Сохранить" onClick=onClick }}}
           </div>
         </div>
       </div>

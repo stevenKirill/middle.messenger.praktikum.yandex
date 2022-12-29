@@ -66,7 +66,7 @@ registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
-class MyComponent extends RegistrationPage {
+class MyComponent extends EditUserPage {
   renderMenu() {
     return `
       <ul class="app_pages_menu">
@@ -102,12 +102,7 @@ class MyComponent extends RegistrationPage {
   }
 
   renderContent() {
-    return `
-      <div>
-        ${this.renderMenu()}
-        ${this.render()}
-      </div>
-    `;
+    return this.render();
   }
 }
 
