@@ -8,7 +8,7 @@ export interface ControlledTextAreaProps {
 }
 
 class ControlledTextArea extends Block {
-  static name: 'ControlledTextArea';
+  static name = 'ControlledTextArea';
 
   constructor() {
     super();

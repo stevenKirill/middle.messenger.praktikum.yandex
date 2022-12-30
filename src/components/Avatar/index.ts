@@ -7,7 +7,7 @@ interface AvatarProps {
 }
 
 class Avatar extends Block {
-  static name: 'Avatar';
+  static name = 'Avatar';
 
   constructor({ editableAvatar }: AvatarProps) {
     super({ editableAvatar });

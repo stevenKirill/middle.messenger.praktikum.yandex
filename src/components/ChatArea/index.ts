@@ -5,7 +5,7 @@ export interface ChatAreaProps {
 }
 
 class ChatArea extends Block {
-  static name: 'ChatArea';
+  static name = 'ChatArea';
 
   protected render(): string {
     return `

@@ -2,7 +2,7 @@ import Block from 'core/Block';
 import { LoginFormProps } from './types';
 
 class LoginForm extends Block<LoginFormProps> {
-  static name: 'LoginForm';
+  static name = 'LoginForm';
 
   constructor() {
     super();

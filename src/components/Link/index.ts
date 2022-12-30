@@ -8,7 +8,7 @@ interface LinkProps {
 }
 
 class Link extends Block<LinkProps> {
-  static name: 'Link';
+  static name = 'Link';
 
   constructor({ className, url, text }: LinkProps) {
     super({ className, url, text });

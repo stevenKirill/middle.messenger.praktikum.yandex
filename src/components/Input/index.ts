@@ -13,7 +13,7 @@ interface InputProps {
 }
 
 class Input extends Block {
-  static name: 'Input';
+  static name = 'Input';
 
   constructor({
     name, type, placeholder, value, onInput, onFocus, onBlur,
