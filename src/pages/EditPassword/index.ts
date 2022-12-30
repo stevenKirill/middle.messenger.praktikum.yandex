@@ -1,34 +1,19 @@
 import Block from 'core/Block';
 import './editPassword.css';
 import { TUserData } from './types';
-
-const data = [
-  { title: 'Старый пароль', value: '1', type: 'password' },
-  { title: 'Новый пароль', value: '1', type: 'password' },
-  { title: 'Повторить новый пароль', value: '1', type: 'password' },
-];
+import userTempData from './constants';
 
 export interface EditPasswordPageProps {
   editableAvatar: boolean;
   userData: TUserData[];
 }
 
-// stylesheets:
-// - ../../styles/styles.css
-// avatar: "avatar"
-// userData: [
-//   { title: 'Старый пароль', value: '1', type: 'password' },
-//   { title: 'Новый пароль', value: '1', type: 'password' },
-//   { title: 'Повторить новый пароль', value: '1', type: 'password' },
-// ]
-// textBtn: Сохранить
-
 class EditPasswordPage extends Block {
   constructor() {
     super();
     this.setProps({
       editableAvatar: true,
-      userData: data,
+      userData: userTempData,
     });
   }
 

@@ -22,7 +22,13 @@ class LoginForm extends Block<LoginFormProps> {
 
   handleBlur() {
     const error = this.props.error as string;
-    if (error === '') {
+    const { loginInput, passwordInput } = this.refs;
+    const inputLoginElement = loginInput.children[0] as HTMLInputElement;
+    const inputPasswordElement = passwordInput.children[0] as HTMLInputElement;
+    if (error === ''
+      && inputLoginElement.value === ''
+      && inputPasswordElement.value === ''
+    ) {
       this.setProps({
         ...this.props,
         error: 'Введите логин и пароль',
@@ -43,6 +49,15 @@ class LoginForm extends Block<LoginFormProps> {
       this.setProps({
         ...this.props,
         error: '',
+      });
+    }
+    if (this.props.error === ''
+    && inputLoginElement.value === ''
+    && inputPasswordElement.value === ''
+    ) {
+      this.setProps({
+        ...this.props,
+        error: 'Введите логин и пароль',
       });
     }
   }
@@ -68,7 +83,7 @@ class LoginForm extends Block<LoginFormProps> {
             onBlur=onBlur
         }}}
       </div>
-      {{{ Button type="submit" textBtn="Зарегестрироваться" onClick=onClick }}}
+      {{{ Button type="submit" textBtn="Войти" onClick=onClick }}}
       {{{ ErrorComponent
           error=error
           ref="error"

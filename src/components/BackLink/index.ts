@@ -1,13 +1,6 @@
 import Block from 'core/Block';
 
-interface BackLinkProps {
-}
-
 class BackLink extends Block {
-  constructor({}: BackLinkProps) {
-    super({});
-  }
-
   protected render(): string {
     return `
     <div class="user_left">

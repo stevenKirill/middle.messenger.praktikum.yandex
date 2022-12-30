@@ -24,7 +24,7 @@ class Avatar extends Block {
         alt="avatar"
       />
     </div>
-    `
+    `;
   }
 }
 

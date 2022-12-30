@@ -34,10 +34,10 @@ class AvatarModal extends Block {
           {{> "Button/Button" textBtn="Поменять"}}
         </div>
         {{#if isError}}
-        <div>Нужно выбрать файл</div>
+        <p>Нужно выбрать файл</p>
         {{/if}}
     </div>
-    `
+    `;
   }
 }
 

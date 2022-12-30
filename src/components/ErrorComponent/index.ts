@@ -15,11 +15,11 @@ class ErrorComponent extends Block {
 
   protected render(): string {
     return `
-    <div class="error_message {{className}}">
+    <h4 class="error_message {{className}}">
       {{#if error}}
         {{error}}
       {{/if}}
-    </div>
+    </h4>
   `;
   }
 }

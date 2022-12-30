@@ -11,7 +11,7 @@ class LoginPage extends Block {
     return `
     <div class="root">
       <main class="login">
-        <div class="login_header">Вход</div>
+        <h1 class="login_header">Вход</h1>
         {{{ LoginForm }}}
         {{{ Link url="#" text="Нет аккаунта" }}}
       </main>

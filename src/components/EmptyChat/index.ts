@@ -9,9 +9,9 @@ class EmptyChat extends Block {
   protected render(): string {
     return `
     <div class="chat_page_right_empty">
-      <div class="chat_page_right_empty_message">
+      <p class="chat_page_right_empty_message">
         Выберите чат чтобы отправить сообщение
-      </div>
+      </p>
     </div>
   `;
   }

@@ -7,8 +7,9 @@ interface ClipButtonProps {
 // TODO имитация клика на инпут при клике на лейбл
 class ClipButton extends Block {
   static componentName: 'ClipButton';
+
   constructor({ onClick }: ClipButtonProps) {
-    super({ events: { click: onClick }});
+    super({ events: { click: onClick } });
   }
 
   protected render(): string {
@@ -24,9 +25,8 @@ class ClipButton extends Block {
       <label class="clip_icon" htmlFor="chatFiles">
       </label>
     </div>
-    `
+    `;
   }
 }
 
 export default ClipButton;
-
