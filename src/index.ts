@@ -163,6 +163,8 @@ class MyComponent extends Block {
           textBtn="Chat page"
           onClick=chatPageMethod
         }}}
+      </li>
+        <li class="app_pages_menu_item">hello</li>
     </ul>
   `;
   }
