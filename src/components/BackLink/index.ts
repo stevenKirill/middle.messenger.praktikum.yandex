@@ -1,7 +1,7 @@
 import Block from 'core/Block';
 
 class BackLink extends Block {
-  static name = 'BackLink';
+  static componentName = 'BackLink';
 
   protected render(): string {
     return `

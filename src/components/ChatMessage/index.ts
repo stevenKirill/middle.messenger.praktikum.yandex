@@ -7,7 +7,7 @@ interface ChatMessageProps {
 }
 
 class ChatMessage extends Block {
-  static name = 'ChatMessage';
+  static componentName = 'ChatMessage';
 
   constructor({ message, userName, time }: ChatMessageProps) {
     super({ message, userName, time });

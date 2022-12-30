@@ -5,7 +5,7 @@ export interface SearchInputProps {
 }
 
 class SearchInput extends Block {
-  static name = 'SearchInput';
+  static componentName = 'SearchInput';
 
   protected render(): string {
     return `

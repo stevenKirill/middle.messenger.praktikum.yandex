@@ -67,7 +67,7 @@ registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
 class MyComponent extends Block {
-  static name: 'MyComponent';
+  static componentName: 'MyComponent';
 
   protected getStateFromProps(): void {
     this.state = {

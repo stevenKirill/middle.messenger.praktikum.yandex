@@ -9,7 +9,7 @@ export interface EditPasswordPageProps {
 }
 
 class EditPasswordPage extends Block {
-  static name: 'EditPasswordPage';
+  static componentName: 'EditPasswordPage';
 
   constructor() {
     super();

@@ -11,7 +11,7 @@ export interface EditUserPageProps {
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
-  static name: 'EditUserPage';
+  static componentName: 'EditUserPage';
 
   // запрашивать данные для редактирования с бэка
   constructor() {

@@ -4,11 +4,11 @@ import Block from './Block';
 interface BlockConstructable<Props = unknown> {
   new(props: Props): Block;
   name: string;
+  componentName: string;
 }
 
 export default function registerComponent<Props extends {}>(Component: BlockConstructable<Props>) {
-  console.log(Component.name, '> name');
-  Handlebars.registerHelper(Component.name,
+  Handlebars.registerHelper(Component.componentName,
     function (this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
       if (!data.root.children) {
         data.root.children = {};
