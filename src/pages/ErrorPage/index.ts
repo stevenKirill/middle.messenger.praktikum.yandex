@@ -5,6 +5,8 @@ export interface ErrorPageProps {
 }
 
 class ErrorPage extends Block {
+  static componentName: 'ErrorPage';
+
   protected render(): string {
     return `
     <div class="root">

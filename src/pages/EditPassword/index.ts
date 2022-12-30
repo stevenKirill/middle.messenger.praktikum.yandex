@@ -9,6 +9,8 @@ export interface EditPasswordPageProps {
 }
 
 class EditPasswordPage extends Block {
+  static componentName: 'EditPasswordPage';
+
   constructor() {
     super();
     this.setProps({

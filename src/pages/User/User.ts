@@ -2,16 +2,7 @@ import Block from 'core/Block';
 import { TUserData } from './types';
 
 import './user.css';
-
-// temp data
-const data = [
-  { title: 'Почта', value: 'yandex' },
-  { title: 'Логин', value: 'kirill15' },
-  { title: 'Имя', value: 'Кирилл' },
-  { title: 'Фамилия', value: 'Павловский' },
-  { title: 'Имя в чате', value: 'kirill' },
-  { title: 'Телефон', value: '+7 999 111 11 11' },
-];
+import userTestData from './constants';
 
 export interface UserPageProps {
   userData: TUserData;
@@ -19,11 +10,13 @@ export interface UserPageProps {
 }
 
 class UserPage extends Block {
+  static componentName: 'UserPage';
+
   constructor() {
     super();
     this.setProps({
       editableAvatar: false,
-      userData: data,
+      userData: userTestData,
       userName: 'Кирилл',
     });
   }

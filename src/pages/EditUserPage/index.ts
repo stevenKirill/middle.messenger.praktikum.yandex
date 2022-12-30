@@ -2,31 +2,7 @@ import Block from 'core/Block';
 
 import './editUser.css';
 import { TUserData } from './types';
-
-// temp data
-const data = [
-  {
-    title: 'Почта',
-    value: 'yandex',
-    type: 'text',
-    name: 'email',
-  },
-  {
-    title: 'Логин', value: 'kirill15', type: 'text', name: 'login',
-  },
-  {
-    title: 'Имя', value: 'Кирилл', type: 'text', name: 'first_name',
-  },
-  {
-    title: 'Фамилия', value: 'Павловский', type: 'text', name: 'second_name',
-  },
-  {
-    title: 'Имя в чате', value: 'kirill', type: 'text', name: 'display_name',
-  },
-  {
-    title: 'Телефон', value: '+7 999 111 11 11', type: 'text', name: 'phone',
-  },
-];
+import userTestData from './constants';
 
 export interface EditUserPageProps {
   userData?: TUserData[];
@@ -35,12 +11,14 @@ export interface EditUserPageProps {
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
+  static componentName: 'EditUserPage';
+
   // запрашивать данные для редактирования с бэка
   constructor() {
     super();
     this.setProps({
       editableAvatar: true,
-      userData: data,
+      userData: userTestData,
       onClick: (e: Event) => this.handleEdit(e),
     });
   }

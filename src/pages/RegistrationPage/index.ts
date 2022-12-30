@@ -3,6 +3,8 @@ import Block from 'core/Block';
 import './registration.css';
 
 class RegistrationPage extends Block {
+  static componentName: 'RegistrationPage';
+
   protected render(): string {
     return `
     <div class="root">

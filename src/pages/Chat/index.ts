@@ -2,6 +2,8 @@ import Block from 'core/Block';
 import './chat.css';
 
 class ChatPage extends Block {
+  static componentName: 'ChatPage';
+
   protected render(): string {
     return `
     <div>
