@@ -108,7 +108,7 @@ class MyComponent extends Block {
       chatPageMethod(e: Event) {
         e.preventDefault();
         window.history.pushState({}, '', `${window.location.origin}/chat`);
-        renderDOM(new ChatPage({}));
+        renderDOM(new ChatPage());
       },
     };
   }
@@ -169,5 +169,6 @@ class MyComponent extends Block {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('loaded');
   renderDOM(new MyComponent());
 });
