@@ -67,6 +67,8 @@ registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
 class MyComponent extends Block {
+  static name: 'MyComponent';
+
   protected getStateFromProps(): void {
     this.state = {
       registrationPageMethod(e: Event) {
@@ -169,6 +171,6 @@ class MyComponent extends Block {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('loaded new');
+  console.log('loaded new again');
   renderDOM(new MyComponent());
 });
