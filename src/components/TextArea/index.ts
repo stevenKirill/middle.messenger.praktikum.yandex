@@ -12,7 +12,7 @@ export interface TextAreaProps {
 }
 
 class TextArea extends Block {
-  static componentName: 'TextArea';
+  static name: 'TextArea';
 
   constructor({
     name, type, placeholder, value, onChange, onFocus, onBlur,

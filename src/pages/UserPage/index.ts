@@ -10,7 +10,7 @@ export interface UserPageProps {
 }
 
 class UserPage extends Block {
-  static componentName: 'UserPage';
+  static name: 'UserPage';
 
   constructor() {
     super();

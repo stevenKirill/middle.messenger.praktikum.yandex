@@ -28,7 +28,7 @@ import ErrorComponent from 'components/ErrorComponent';
 import LoginPage from 'pages/LoginPage';
 import RegistrationPage from 'pages/RegistrationPage';
 import EditUserPage from 'pages/EditUserPage';
-import UserPage from 'pages/User/User';
+import UserPage from 'pages/UserPage';
 import EditPasswordPage from 'pages/EditPassword';
 import ErrorPage from 'pages/ErrorPage';
 import NotFoundPage from 'pages/NotFoundPage';
@@ -67,8 +67,7 @@ registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
 class MyComponent extends Block {
-  protected getStateFromProps(props: unknown): void {
-    console.log(props);
+  protected getStateFromProps(): void {
     this.state = {
       registrationPageMethod(e: Event) {
         e.preventDefault();
@@ -164,7 +163,6 @@ class MyComponent extends Block {
           onClick=chatPageMethod
         }}}
       </li>
-        <li class="app_pages_menu_item">hello</li>
     </ul>
   `;
   }

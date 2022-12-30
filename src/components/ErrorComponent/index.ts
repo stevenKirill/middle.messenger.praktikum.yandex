@@ -7,7 +7,7 @@ export interface ErrorComponentProps {
 }
 
 class ErrorComponent extends Block {
-  static componentName: 'ErrorComponent';
+  static name: 'ErrorComponent';
 
   constructor({ error, className }: ErrorComponentProps) {
     super({ error, className });

@@ -8,7 +8,7 @@ interface RowProps {
 }
 
 class Row extends Block {
-  static componentName: 'Row';
+  static name: 'Row';
 
   constructor({ title, value }: RowProps) {
     super({ title, value });

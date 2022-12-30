@@ -7,7 +7,7 @@ export interface LoginPageProps {
 }
 
 class LoginPage extends Block {
-  static componentName: 'LoginPage';
+  static name: 'LoginPage';
 
   protected render(): string {
     return `

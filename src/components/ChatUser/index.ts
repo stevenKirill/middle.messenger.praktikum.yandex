@@ -5,7 +5,7 @@ export interface ChatUserProps {
 // TODO отрисовка пользователя чата
 // возможность перейти в сам чат
 class ChatUser extends Block {
-  static componentName: 'ChatUser';
+  static name: 'ChatUser';
 
   protected render(): string {
     return `

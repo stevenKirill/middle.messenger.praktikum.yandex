@@ -4,7 +4,7 @@ export interface EmptyChatProps {
 }
 
 class EmptyChat extends Block {
-  static componentName: 'EmptyChat';
+  static name: 'EmptyChat';
 
   protected render(): string {
     return `

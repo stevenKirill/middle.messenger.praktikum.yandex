@@ -5,7 +5,7 @@ export interface NotFoundPageProps {
 }
 
 class NotFoundPage extends Block {
-  static componentName: 'NotFoundPage';
+  static name: 'NotFoundPage';
 
   protected render(): string {
     return `

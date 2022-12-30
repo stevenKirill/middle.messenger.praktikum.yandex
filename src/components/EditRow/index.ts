@@ -13,7 +13,7 @@ interface EditRowProps {
 }
 
 class EditRow extends Block {
-  static componentName: 'EditRow';
+  static name: 'EditRow';
 
   constructor({
     name,

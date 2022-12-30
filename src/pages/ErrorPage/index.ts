@@ -5,7 +5,7 @@ export interface ErrorPageProps {
 }
 
 class ErrorPage extends Block {
-  static componentName: 'ErrorPage';
+  static name: 'ErrorPage';
 
   protected render(): string {
     return `

@@ -10,7 +10,7 @@ import {
 import { RegistrationProps } from './types';
 
 class RegistrationForm extends Block<RegistrationProps> {
-  static componentName: 'RegistrationForm';
+  static name: 'RegistrationForm';
 
   constructor() {
     super();

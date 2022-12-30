@@ -6,7 +6,7 @@ interface ClipButtonProps {
 }
 // TODO имитация клика на инпут при клике на лейбл
 class ClipButton extends Block {
-  static componentName: 'ClipButton';
+  static name: 'ClipButton';
 
   constructor({ onClick }: ClipButtonProps) {
     super({ events: { click: onClick } });

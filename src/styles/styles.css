@@ -7,7 +7,7 @@
 @import "../components/AvatarModal/avatarModal.css";
 @import "../pages/LoginPage/login.css";
 @import "../pages/RegistrationPage/registration.css";
-@import "../pages/User/user.css";
+@import "../pages/UserPage/user.css";
 @import "../pages/EditUserPage/editUser.css";
 @import "../pages/EditPassword/editPassword.css";
 @import "../pages/ErrorPage/error.css";
