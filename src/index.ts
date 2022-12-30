@@ -169,6 +169,6 @@ class MyComponent extends Block {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('loaded');
+  console.log('loaded new');
   renderDOM(new MyComponent());
 });
