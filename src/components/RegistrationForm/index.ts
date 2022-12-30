@@ -7,18 +7,30 @@ import {
   validateFirstName,
   validatePassword2,
 } from 'utils/validation';
-import { RegistrationProps } from './types';
+import { RegistrationProps, TState } from './types';
 
 class RegistrationForm extends Block<RegistrationProps> {
   static componentName = 'RegistrationForm';
+
+  state: TState = {
+    values: {
+      email: '',
+      login: '',
+      name: '',
+      surName: '',
+      phone: '',
+      password: '',
+      passwordAgain: '',
+    },
+  };
 
   constructor() {
     super();
     this.setProps({
       onClick: this.handleRegister.bind(this),
-      onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
       error: null,
+      onChange: (e) => this.handleChange(e),
     });
   }
 
@@ -38,15 +50,16 @@ class RegistrationForm extends Block<RegistrationProps> {
       });
     }
   }
-  // Сообщения пропадают после ввода и на кнопку доп проверка
 
   handleChange(e: Event) {
-    console.log(e);
-  }
-
-  handleFocus() {
-    // TODO подумать что сделать на фокус
-    console.log('focus');
+    const target = e.target as HTMLInputElement;
+    this.state = {
+      ...this.state,
+      values: {
+        ...this.state.values,
+        [target.name]: target.value,
+      },
+    };
   }
 
   handleRegister(e: Event) {
@@ -112,6 +125,8 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="emailInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
+            value=this.state.values.email
         }}}
         {{{ ErrorComponent
             error=error.email
@@ -124,6 +139,7 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="loginInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.login
@@ -136,6 +152,7 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="nameInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.name
@@ -148,6 +165,7 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="surnameInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.surName
@@ -161,6 +179,7 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="phoneInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.phone
@@ -174,6 +193,7 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="passwordInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.password
@@ -187,6 +207,7 @@ class RegistrationForm extends Block<RegistrationProps> {
             ref="passwordAgainInput"
             onFocus=onFocus
             onBlur=onBlur
+            onInput=onChange
         }}}
         {{{ ErrorComponent
             error=error.passwordAgain

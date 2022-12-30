@@ -9,15 +9,9 @@ class LoginForm extends Block<LoginFormProps> {
 
     this.setProps({
       onClick: (e: Event) => this.handleAuth(e),
-      onFocus: this.handleFocus.bind(this),
       onBlur: this.handleBlur.bind(this),
       error: '',
     });
-  }
-
-  handleFocus(e: Event) {
-    // TODO focus
-    console.log(e, 'focus');
   }
 
   handleBlur() {
@@ -52,8 +46,8 @@ class LoginForm extends Block<LoginFormProps> {
       });
     }
     if (this.props.error === ''
-    && inputLoginElement.value === ''
-    && inputPasswordElement.value === ''
+    && (inputLoginElement.value === ''
+    || inputPasswordElement.value === '')
     ) {
       this.setProps({
         ...this.props,

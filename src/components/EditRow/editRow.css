@@ -3,6 +3,7 @@
   justify-content: space-between;
   margin-bottom: 10px;
   padding-bottom: 10px;
+  align-items: center;
 
   &_title {
     color: var(--black);
@@ -10,6 +11,8 @@
 
   &_input_container {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   &_input {

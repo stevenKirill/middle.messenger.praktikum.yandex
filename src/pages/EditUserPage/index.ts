@@ -7,24 +7,22 @@ import userTestData from './constants';
 export interface EditUserPageProps {
   userData?: TUserData[];
   editableAvatar?: boolean;
-  onClick?: (e: Event) => void;
+  onClick?: () => void;
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
   static componentName: 'EditUserPage';
 
-  // запрашивать данные для редактирования с бэка
   constructor() {
     super();
     this.setProps({
       editableAvatar: true,
       userData: userTestData,
-      onClick: (e: Event) => this.handleEdit(e),
+      onClick: () => this.handleEdit(),
     });
   }
 
-  handleEdit(e: Event) {
-    console.log(e);
+  handleEdit() {
     const inputValues = Object.values(this.refs).map((val) => {
       const input = val.querySelector('input') as HTMLInputElement;
       if (input) {
@@ -56,14 +54,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value=this.value
                 name=this.name
                 ref=this.name
+                onBlur=onBlur
             }}}
           {{/each}}
           </div>
-          {{{ ErrorComponent
-              error="error"
-              className="error_center"
-              ref="incorrectEmail"
-          }}}
           <div class="edit_user_footer">
             {{{ Button textBtn="Сохранить" onClick=onClick }}}
           </div>

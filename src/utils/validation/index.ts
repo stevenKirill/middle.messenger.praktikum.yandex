@@ -58,14 +58,25 @@ export const validateFirstName = (text: string): string => {
   return 'Ошибка - допустимо латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)';
 };
 
-export const validateSecondName = (text: string): string => {
-  console.log(text);
-  return '';
-};
-
 export const validateMessage = (text: string): string => {
   if (text === '') {
     return 'Сообщение не может быть пустым';
   }
   return '';
+};
+
+export const validateFactory = (name: string, value: string, extra?: Record<string, unknown>) => {
+  if (name === 'email') return validateEmail(value);
+  if (name === 'login') return validateLogin(value);
+  if (name === 'first_name') return validateFirstName(value);
+  if (name === 'second_name') return validateFirstName(value);
+  if (name === 'phone') return validatePhone(value);
+  if (name === 'password') return validatePassword(value);
+  if (name === 'password2') {
+    if (extra) {
+      const prev = extra.prevPass as string;
+      return validatePassword2(value, prev);
+    }
+  }
+  return null;
 };

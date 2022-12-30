@@ -1,40 +1,43 @@
-import { METHODS } from "./constants";
-import { TOptions } from "./types";
-
+import { METHODS } from './constants';
+import { HTTPMethod, TOptions } from './types';
 
 export function queryStringify(data: { [key: string]: unknown }) {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
 
-  // Здесь достаточно и [object Object] для объекта
   const keys = Object.keys(data);
   return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
 }
 
 export class HTTPTransport {
-  get = (
-    url: string,
-    options = {},
-  ) => this.request(url, { ...options, method: METHODS.GET, timeout: 5000, });
+  get: HTTPMethod = (
+    url,
+    options,
+  ) => this.request(url, { ...options, method: METHODS.GET, timeout: 5000 });
 
-  post = (
+  post: HTTPMethod = (
     url: string,
-    options = {},
-  ) => this.request(url, { ...options, method: METHODS.POST, timeout: 5000, });
+    options,
+  ) => this.request(url, { ...options, method: METHODS.POST, timeout: 5000 });
 
-  put = (
+  put: HTTPMethod = (
     url: string,
-    options = {},
-  ) => this.request(url, { ...options, method: METHODS.PUT, timeout: 5000, });
+    options,
+  ) => this.request(url, { ...options, method: METHODS.PUT, timeout: 5000 });
 
-  delete = (
+  delete: HTTPMethod = (
     url: string,
-    options = {},
-  ) => this.request(url, { ...options, method: METHODS.DELETE, timeout: 5000, });
+    options,
+  ) => this.request(url, { ...options, method: METHODS.DELETE, timeout: 5000 });
 
   request = (url: string, options: TOptions) => {
-    const { headers = {}, method, data, timeout } = options;
+    const {
+      headers = {},
+      method,
+      data,
+      timeout,
+    } = options;
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -80,7 +83,7 @@ export class HTTPTransport {
 export function fetchWithRetry(url: string, options: { retries: number }) {
   const http = new HTTPTransport();
   let { retries } = options;
-  const response = http.get(url, options);
+  const response = http.get(url, { ...options, method: METHODS.GET, timeout: 5000 });
   return response
     .catch((err) => {
       retries--;

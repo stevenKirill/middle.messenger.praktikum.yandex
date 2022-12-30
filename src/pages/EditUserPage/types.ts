@@ -3,4 +3,4 @@ export type TUserData = {
   value: string;
   type: string;
   name: string;
-}
+};

@@ -1,12 +1,12 @@
-import { METHODS } from "./constants";
+import { METHODS } from './constants';
 
 export type THeaders = {
   [key: string]: string;
-}
+};
 
 export type TData = {
   [key: string]: unknown;
-}
+};
 
 export type TOptions = {
   headers?: THeaders;
@@ -14,3 +14,5 @@ export type TOptions = {
   data?: TData;
   timeout: number
 };
+
+export type HTTPMethod = (url: string, options?: TOptions) => Promise<unknown>;

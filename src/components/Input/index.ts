@@ -40,6 +40,11 @@ class Input extends Block {
         name={{name}}
         placeholder={{placeholder}}
         data-name={{name}}
+        {{#if value}}
+        value={{value}}
+        {{else}}
+        value=""
+        {{/if}}
       />
       <label for="custom_input" class="form__label">{{placeholder}}</label>
     </div>

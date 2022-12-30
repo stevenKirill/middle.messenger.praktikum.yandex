@@ -17,7 +17,8 @@
     "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": false }],
     "prefer-destructuring": ["error", {"object": true, "array": false}],
     "no-console": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-plusplus": "off"
   },
   "ignorePatterns": ["src/core/"]
 }
