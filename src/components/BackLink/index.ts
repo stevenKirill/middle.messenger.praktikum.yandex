@@ -1,6 +1,8 @@
 import Block from 'core/Block';
 
 class BackLink extends Block {
+  static name: 'BackLink';
+
   protected render(): string {
     return `
     <div class="user_left">

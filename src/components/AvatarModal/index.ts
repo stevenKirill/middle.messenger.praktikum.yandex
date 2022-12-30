@@ -7,6 +7,8 @@ interface AvatarModalProps {
 }
 
 class AvatarModal extends Block {
+  static name: 'AvatarModal';
+
   constructor({ isError }: AvatarModalProps) {
     super({ isError });
   }
