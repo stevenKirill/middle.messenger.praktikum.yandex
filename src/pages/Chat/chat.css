@@ -4,18 +4,22 @@
   width: 1000px;
   margin: 20px auto;
   padding: 5px;
+
   &_left {
     background: var(--dark-white);
-    border-radius: 1px solid #EAEAEA;
+    border-radius: 1px solid #eaeaea;
     height: 500px;
     padding: 5px;
+
     &_profile {
       display: flex;
       justify-content: flex-end;
+
       &_input {
         display: flex;
         flex-direction: row;
         position: relative;
+
         input {
           width: 100%;
           border-radius: 4px;
@@ -26,6 +30,7 @@
           font-size: 15px;
           background: var(--white);
         }
+
         img {
           width: 15px;
           position: absolute;
@@ -34,6 +39,7 @@
           left: 10px;
         }
       }
+
       &_link {
         margin-top: 15px;
         cursor: pointer;
@@ -41,43 +47,44 @@
         margin-right: 10px;
         margin-bottom: 15px;
         color: var(--gray);
-        &_arrow {
-          display: inline-block;
-          border: solid var(--gray);
-          border-width: 0 3px 3px 0;
-          padding: 3px;
-          transform: rotate(-45deg);
-        }
       }
     }
   }
+
   &_right {
     border: 1px solid var(--white);
+
     &_empty {
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
+
       &_message {
         color: var(--gray);
         margin-top: 100px;
       }
     }
+
     &_chatArea {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
       &_header {
-        border: 1px solid red;
+        padding: 10px;
         min-height: 10%;
       }
+
       &_messages {
-        border: 1px solid green;
-        min-height: 50%;
+        border-top: 1px solid #eaeaea;
+        border-bottom: 1px solid #eaeaea;
+        height: 350px;
+        padding: 10px;
       }
+
       &_send {
-        border: 1px solid blue;
-        min-height: 40%;
+        margin-top: 10px;
+        grid-template-columns: 10% 76% 10%;
+        display: grid;
+        grid-gap: 2%;
+        align-items: center;
       }
     }
   }

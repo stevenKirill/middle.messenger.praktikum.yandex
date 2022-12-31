@@ -1,0 +1,27 @@
+.login {
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-top: 20px;
+  background: #fff;
+  /* stylelint-disable-next-line color-function-notation */
+  box-shadow: 0 0 6px rgba(0, 0, 0, 14%);
+  border-radius: 12px;
+
+  &_inputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 70px;
+  }
+
+  &_header {
+    text-align: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+    text-align: center;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+}

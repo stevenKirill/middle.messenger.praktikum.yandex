@@ -1,0 +1,9 @@
+.error_message {
+  color: red;
+  margin-top: 10px;
+}
+
+.error_center {
+  max-width: 300px;
+  margin-top: 10px;
+}

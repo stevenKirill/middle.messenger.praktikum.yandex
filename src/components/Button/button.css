@@ -1,0 +1,15 @@
+.app_button {
+  width: 263px;
+  height: 37px;
+  background: var(--main-blue);
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background ease-in 0.2s;
+
+  &:hover {
+    background-color: #183fa3;
+  }
+}

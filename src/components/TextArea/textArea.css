@@ -1,0 +1,9 @@
+.chat_text_area {
+  resize: none;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  background: #efefef;
+  border-radius: 18px;
+  color: #999;
+}
