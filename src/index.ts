@@ -116,56 +116,58 @@ class MyComponent extends Block {
 
   render() {
     return `
-    <ul class="app_pages_menu">
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Registartion"
-          onClick=registrationPageMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Login"
-          onClick=loginPageMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Edit user"
-          onClick=editUserMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="User"
-          onClick=userPageMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Edit password"
-          onClick=editPasswordMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Notfound page"
-          onClick=notFoundMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Error page"
-          onClick=errorPageMethod
-        }}}
-      </li>
-      <li class="app_pages_menu_item">
-        {{{Button
-          textBtn="Chat page"
-          onClick=chatPageMethod
-        }}}
-      </li>
-    </ul>
+    <nav>
+      <ul class="app_pages_menu">
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Registartion"
+            onClick=registrationPageMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Login"
+            onClick=loginPageMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Edit user"
+            onClick=editUserMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="User"
+            onClick=userPageMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Edit password"
+            onClick=editPasswordMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Notfound page"
+            onClick=notFoundMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Error page"
+            onClick=errorPageMethod
+          }}}
+        </li>
+        <li class="app_pages_menu_item">
+          {{{Button
+            textBtn="Chat page"
+            onClick=chatPageMethod
+          }}}
+        </li>
+      </ul>
+    </nav>
   `;
   }
 }
