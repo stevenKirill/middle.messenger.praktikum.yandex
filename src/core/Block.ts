@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from './EventBus';
+import { Values, Nullable } from './types';
 
 interface BlockMeta<P = any> {
   props: P;
@@ -23,12 +24,12 @@ export default class Block<P extends object = {}> {
 
   protected _element: Nullable<HTMLElement> = null;
   protected readonly props: P;
-  protected children: {[id: string]: Block} = {};
+  protected children: { [id: string]: Block } = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
-  protected refs: {[key: string]: HTMLElement} = {};
+  protected refs: { [key: string]: HTMLElement } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();

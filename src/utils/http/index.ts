@@ -1,4 +1,4 @@
-import { METHODS } from './constants';
+import METHODS from './constants';
 import { HTTPMethod, TOptions } from './types';
 
 export function queryStringify(data: { [key: string]: unknown }) {
@@ -17,17 +17,17 @@ export class HTTPTransport {
   ) => this.request(url, { ...options, method: METHODS.GET, timeout: 5000 });
 
   post: HTTPMethod = (
-    url: string,
+    url,
     options,
   ) => this.request(url, { ...options, method: METHODS.POST, timeout: 5000 });
 
   put: HTTPMethod = (
-    url: string,
+    url,
     options,
   ) => this.request(url, { ...options, method: METHODS.PUT, timeout: 5000 });
 
   delete: HTTPMethod = (
-    url: string,
+    url,
     options,
   ) => this.request(url, { ...options, method: METHODS.DELETE, timeout: 5000 });
 

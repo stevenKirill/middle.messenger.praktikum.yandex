@@ -1,4 +1,4 @@
-import { METHODS } from './constants';
+import METHODS from './constants';
 
 export type THeaders = {
   [key: string]: string;
