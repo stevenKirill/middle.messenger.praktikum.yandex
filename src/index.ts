@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { Block, renderDOM, registerComponent } from 'core';
 
 import './styles/styles.css';
@@ -33,7 +34,6 @@ import EditPasswordPage from 'pages/EditPassword';
 import ErrorPage from 'pages/ErrorPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ChatPage from 'pages/Chat';
-import merge from 'utils/mydash/merge';
 
 // components
 registerComponent(Button);
@@ -176,28 +176,3 @@ class MyComponent extends Block {
 document.addEventListener('DOMContentLoaded', () => {
   renderDOM(new MyComponent());
 });
-
-console.log(merge(
-  {
-    a: {
-      b: {
-        a: 2,
-        f: {
-          name: 'kirill',
-        },
-      },
-      tmp: {
-        w: '11',
-      },
-    },
-    d: 5,
-  },
-  {
-    a: {
-      b: {
-        c: 1,
-        e: 0,
-      },
-    },
-  },
-));
