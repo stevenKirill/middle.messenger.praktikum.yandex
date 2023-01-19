@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 
 export interface ChatUserProps {
 }

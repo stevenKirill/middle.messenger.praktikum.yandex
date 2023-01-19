@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 
 class BackLink extends Block {
   static componentName = 'BackLink';

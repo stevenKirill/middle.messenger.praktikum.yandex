@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
-import EventBus from './EventBus';
-import { Values, Nullable } from './types';
+import EventBus from '../EventBus';
+import { Values, Nullable } from '../types';
 
 interface BlockMeta<P = any> {
   props: P;

@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 import './link.css';
 
 interface LinkProps {

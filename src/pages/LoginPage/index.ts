@@ -1,10 +1,6 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 
 import './login.css';
-
-export interface LoginPageProps {
-  name: string;
-}
 
 class LoginPage extends Block {
   static componentName: 'LoginPage';

@@ -1,15 +1,16 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 import { TUserData } from './types';
 
 import './user.css';
 import userTestData from './constants';
 
 export interface UserPageProps {
-  userData: TUserData;
+  userData: TUserData[];
   userName: string;
+  editableAvatar: boolean;
 }
 
-class UserPage extends Block {
+class UserPage extends Block<UserPageProps> {
   static componentName: 'UserPage';
 
   constructor() {

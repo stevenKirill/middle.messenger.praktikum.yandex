@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 import './editPassword.css';
 import { TUserData } from './types';
 import userTempData from './constants';

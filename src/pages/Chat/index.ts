@@ -1,4 +1,4 @@
-import Block from 'core/Block';
+import Block from 'core/block/Block';
 import './chat.css';
 
 class ChatPage extends Block {
