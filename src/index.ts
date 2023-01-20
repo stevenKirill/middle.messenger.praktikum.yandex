@@ -1,6 +1,11 @@
-/* eslint-disable prefer-const */
-import { Block, renderDOM, registerComponent } from 'core';
+// core
+import { renderDOM, registerComponent } from 'core';
+import Store from 'core/store';
+import { initRouter } from 'core/router/init';
+import { AppState } from 'store/types';
+import appRouter from 'core/router';
 
+// styles
 import './styles/styles.css';
 
 // components
@@ -34,6 +39,7 @@ import EditPasswordPage from 'pages/EditPassword';
 import ErrorPage from 'pages/ErrorPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ChatPage from 'pages/Chat';
+import initialState from './store';
 
 // components
 registerComponent(Button);
@@ -67,112 +73,15 @@ registerComponent(ErrorPage);
 registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
-class MyComponent extends Block {
-  static componentName: 'MyComponent';
-
-  protected getStateFromProps(): void {
-    this.state = {
-      registrationPageMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/registartion`);
-        renderDOM(new RegistrationPage());
-      },
-      loginPageMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/login`);
-        renderDOM(new LoginPage());
-      },
-      editUserMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/user/edit`);
-        renderDOM(new EditUserPage());
-      },
-      userPageMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/user`);
-        renderDOM(new UserPage());
-      },
-      editPasswordMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/edit-password`);
-        renderDOM(new EditPasswordPage());
-      },
-      notFoundMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/not-found`);
-        renderDOM(new NotFoundPage());
-      },
-      errorPageMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/error`);
-        renderDOM(new ErrorPage());
-      },
-      chatPageMethod(e: Event) {
-        e.preventDefault();
-        window.history.pushState({}, '', `${window.location.origin}/chat`);
-        renderDOM(new ChatPage());
-      },
-    };
-  }
-
-  render() {
-    return `
-    <nav>
-      <ul class="app_pages_menu">
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Registartion"
-            onClick=registrationPageMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Login"
-            onClick=loginPageMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Edit user"
-            onClick=editUserMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="User"
-            onClick=userPageMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Edit password"
-            onClick=editPasswordMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Notfound page"
-            onClick=notFoundMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Error page"
-            onClick=errorPageMethod
-          }}}
-        </li>
-        <li class="app_pages_menu_item">
-          {{{Button
-            textBtn="Chat page"
-            onClick=chatPageMethod
-          }}}
-        </li>
-      </ul>
-    </nav>
-  `;
-  }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  renderDOM(new MyComponent());
+  const store = new Store<AppState>(initialState);
+  console.log(store, '=> initial store');
+
+  // renderDOM(new LoginPage({}));
+
+  initRouter(appRouter, store);
+  //  /**
+  //   * Загружаем данные для приложения
+  //   */
+  store.dispatch({ app: { appIsInited: true } });
 });

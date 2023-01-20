@@ -39,7 +39,7 @@ export class Router implements CoreRouter {
     const found = Object.entries(this.routes).find(([routeHash]) => {
       return routeHash === pathname;
     });
-    console.log(found, '=> found route');
+
     if (found) {
       const [,callback] = found;
       callback();
@@ -50,3 +50,6 @@ export class Router implements CoreRouter {
     }
   }
 }
+
+const appRouter = new Router();
+export default appRouter;

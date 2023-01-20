@@ -2,16 +2,21 @@ import Block from 'core/block/Block';
 import './link.css';
 
 interface LinkProps {
-  text?: string;
-  url?: string;
-  className?: string;
+  text: string;
+  url: string;
+  className: string;
+  onClick: () => void;
 }
 
 class Link extends Block<LinkProps> {
   static componentName = 'Link';
 
-  constructor({ className, url, text }: LinkProps) {
-    super({ className, url, text });
+  constructor({
+    className, url, text, onClick,
+  }: LinkProps) {
+    super({
+      className, url, text, events: { click: onClick },
+    });
   }
 
   protected render(): string {

@@ -1,6 +1,6 @@
 import { AppState } from './types';
 
-const store: AppState = {
+const initialState: AppState = {
   app: {
     screen: null,
     appIsInited: false,
@@ -17,4 +17,4 @@ const store: AppState = {
   },
 };
 
-export default store;
+export default initialState;
