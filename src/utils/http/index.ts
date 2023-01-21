@@ -52,8 +52,6 @@ class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-      xhr.setRequestHeader('Content-Type', 'application/json');
       const isGet = method === METHODS.GET;
 
       xhr.open(
@@ -62,6 +60,9 @@ class HTTPTransport {
           ? `${this.baseUrl}${url}${queryStringify(data)}`
           : `${this.baseUrl}${url}`,
       );
+
+      xhr.withCredentials = true;
+      xhr.setRequestHeader('Content-Type', 'application/json');
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
