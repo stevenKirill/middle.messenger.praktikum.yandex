@@ -10,9 +10,9 @@ export type TData = {
 
 export type TOptions = {
   headers?: THeaders;
-  method: METHODS;
+  method?: METHODS;
   data?: TData;
-  timeout: number
+  timeout?: number
 };
 
 export type HTTPMethod = (url: string, options?: TOptions) => Promise<unknown>;

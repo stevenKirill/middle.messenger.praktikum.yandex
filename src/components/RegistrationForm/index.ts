@@ -7,6 +7,8 @@ import {
   validateFirstName,
   validatePassword2,
 } from 'utils/validation';
+import { store } from 'core/store';
+import { signUp } from 'services/login';
 import { RegistrationProps, TState } from './types';
 
 class RegistrationForm extends Block<RegistrationProps> {
@@ -77,7 +79,6 @@ class RegistrationForm extends Block<RegistrationProps> {
         [input.name]: input.value,
       };
     }, {});
-    console.log(inputValues);
     const validatedEmail = validateEmail(inputValues.email);
     const validatedLogin = validateLogin(inputValues.login);
     const validatedName = validateFirstName(inputValues.first_name);
@@ -105,13 +106,14 @@ class RegistrationForm extends Block<RegistrationProps> {
       validatedPhone,
       validatedPassword,
       validatedPassword2,
-    ].every((val: string) => {
-      console.log(val);
-      return val !== '';
-    });
+    ].every((val: string) => val !== '');
+    console.log(allValid, '=> all valid');
     if (allValid) {
       console.log('логика по переходу в приложение');
+      console.log(inputValues, '=> inputValues valid');
+      store.dispatch(signUp, inputValues);
     }
+    console.log(inputValues, '=> inputValues');
   }
 
   protected render(): string {

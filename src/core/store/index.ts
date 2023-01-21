@@ -1,5 +1,6 @@
+import initialState from './initial';
 import EventBus from '../EventBus';
-import { Action } from './types';
+import { Action, AppState } from './types';
 
 class Store<State extends Record<string, any>> extends EventBus {
   private state: State = {} as State;
@@ -31,5 +32,7 @@ class Store<State extends Record<string, any>> extends EventBus {
     }
   }
 }
+
+export const store = new Store<AppState>(initialState);
 
 export default Store;

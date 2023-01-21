@@ -1,4 +1,4 @@
-import METHODS from './constants';
+import METHODS, { BASE_URL } from './constants';
 import { HTTPMethod, TOptions } from './types';
 
 export function queryStringify(data: { [key: string]: unknown }) {
@@ -10,7 +10,13 @@ export function queryStringify(data: { [key: string]: unknown }) {
   return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
 }
 
-export class HTTPTransport {
+class HTTPTransport {
+  baseUrl: string = '';
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
+
   get: HTTPMethod = (
     url,
     options,
@@ -51,8 +57,8 @@ export class HTTPTransport {
       xhr.open(
         method,
         isGet && !!data
-          ? `${url}${queryStringify(data)}`
-          : url,
+          ? `${this.baseUrl}/${url}${queryStringify(data)}`
+          : `${this.baseUrl}/${url}`,
       );
 
       Object.keys(headers).forEach((key) => {
@@ -66,7 +72,7 @@ export class HTTPTransport {
 
       xhr.onabort = reject;
       xhr.onerror = reject;
-
+      // @ts-ignore
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
@@ -80,8 +86,10 @@ export class HTTPTransport {
   };
 }
 
+export const appHTTP = new HTTPTransport(BASE_URL);
+
 export function fetchWithRetry(url: string, options: { retries: number }) {
-  const http = new HTTPTransport();
+  const http = new HTTPTransport(BASE_URL);
   let { retries } = options;
   const response = http.get(url, { ...options, method: METHODS.GET, timeout: 5000 });
   return response

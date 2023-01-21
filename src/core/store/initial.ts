@@ -15,6 +15,10 @@ const initialState: AppState = {
     error: false,
     loading: false,
   },
+  registration: {
+    loading: false,
+    error: false,
+  }
 };
 
 export default initialState;

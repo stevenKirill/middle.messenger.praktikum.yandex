@@ -6,3 +6,5 @@ const enum METHODS {
 }
 
 export default METHODS;
+
+export const BASE_URL = 'ya-praktikum.tech/api/v2';

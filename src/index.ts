@@ -1,8 +1,7 @@
 // core
-import { renderDOM, registerComponent } from 'core';
-import Store from 'core/store';
+import { registerComponent } from 'core';
+import { store } from 'core/store';
 import { initRouter } from 'core/router/init';
-import { AppState } from 'store/types';
 import appRouter from 'core/router';
 
 // styles
@@ -39,7 +38,6 @@ import EditPasswordPage from 'pages/EditPassword';
 import ErrorPage from 'pages/ErrorPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ChatPage from 'pages/Chat';
-import initialState from './store';
 
 // components
 registerComponent(Button);
@@ -74,14 +72,11 @@ registerComponent(NotFoundPage);
 registerComponent(ChatPage);
 
 document.addEventListener('DOMContentLoaded', () => {
-  const store = new Store<AppState>(initialState);
-  console.log(store, '=> initial store');
-
-  // renderDOM(new LoginPage({}));
-
   initRouter(appRouter, store);
-  //  /**
-  //   * Загружаем данные для приложения
-  //   */
-  store.dispatch({ app: { appIsInited: true } });
+  store.dispatch({
+    app: {
+      ...store.getState().app,
+      appIsInited: true,
+    },
+  });
 });

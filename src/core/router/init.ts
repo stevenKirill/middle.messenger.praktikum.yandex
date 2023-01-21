@@ -11,12 +11,21 @@ export function initRouter(router: typeof Router, store: Store<AppState>) {
       const currentScreen = Boolean(store.getState().app.screen);
 
       if (isAuthorized || !route.shouldAuthorized) {
-        store.dispatch({ app: { screen: route.block } });
+        store.dispatch({
+          app: {
+            ...store.getState().app,
+            screen: route.block
+          }
+        });
         return;
       }
-      console.log(currentScreen ,'=> currentScreen')
       if (!currentScreen) {
-        store.dispatch({ app: { screen: Screens.Login } });
+        store.dispatch({
+          app: {
+            ...store.getState().app,
+            screen: Screens.Login,
+          }
+        });
       }
     });
   });

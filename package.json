@@ -13,7 +13,9 @@
     "core": "./src/core",
     "components": "./src/components",
     "pages": "./src/pages",
-    "utils": "./src/utils"
+    "utils": "./src/utils",
+    "api": "./src/api",
+    "services": "./src/services"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "Kirill Pavloskii",
