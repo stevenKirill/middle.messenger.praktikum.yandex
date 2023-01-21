@@ -1,5 +1,4 @@
-import Block from 'core/block/Block';
-
+import { Block } from 'core';
 import './input.css';
 
 interface InputProps {

@@ -1,6 +1,7 @@
 import Block from 'core/block/Block';
 import { CoreRouter } from 'core/router/types';
 import withRouter from 'utils/HOCS/withRouter';
+import { store } from 'core/store';
 import './registration.css';
 
 type RegistrationPageProps = {
@@ -26,13 +27,27 @@ class RegistrationPage extends Block<RegistrationPageProps> {
   }
 
   protected render(): string {
+    const { loading, error, errorReason } = store.getState().registration;
     return `
     <div class="root">
-      <main class="registration">
-        <h1 class="registration_header">Регистрация</h1>
-        {{{ RegistrationForm onSubmit=handleRegister }}}
-        {{{ Link url="#" text="Войти" onClick=onClick }}}
-      </main>
+    {{#if ${error}}}
+    {{{ ErrorComponent
+      error=${errorReason}
+      ref="incorrectEmail"
+    }}}
+    {{else}}
+    <div></div>
+    {{/if}}
+    <div>
+    {{#if ${loading}}}
+      <div>loadind</div>
+    {{else}}
+    <main class="registration">
+      <h1 class="registration_header">Регистрация</h1>
+      {{{ RegistrationForm onSubmit=handleRegister }}}
+      {{{ Link url="#" text="Войти" onClick=onClick }}}
+    </main>
+    {{/if}}
     </div>
     `;
   }

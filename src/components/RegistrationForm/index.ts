@@ -106,14 +106,10 @@ class RegistrationForm extends Block<RegistrationProps> {
       validatedPhone,
       validatedPassword,
       validatedPassword2,
-    ].every((val: string) => val !== '');
-    console.log(allValid, '=> all valid');
+    ].every((val: string) => val === '');
     if (allValid) {
-      console.log('логика по переходу в приложение');
-      console.log(inputValues, '=> inputValues valid');
       store.dispatch(signUp, inputValues);
     }
-    console.log(inputValues, '=> inputValues');
   }
 
   protected render(): string {
@@ -224,6 +220,7 @@ class RegistrationForm extends Block<RegistrationProps> {
         }}}
       </div>
     </form>
+    </div>
     `;
   }
 }

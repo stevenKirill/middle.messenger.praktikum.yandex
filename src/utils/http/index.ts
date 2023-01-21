@@ -37,7 +37,7 @@ class HTTPTransport {
     options,
   ) => this.request(url, { ...options, method: METHODS.DELETE, timeout: 5000 });
 
-  request = (url: string, options: TOptions) => {
+  request = <T>(url: string, options: TOptions): Promise<T> => {
     const {
       headers = {},
       method,
@@ -52,21 +52,23 @@ class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+      xhr.setRequestHeader('Content-Type', 'application/json');
       const isGet = method === METHODS.GET;
 
       xhr.open(
         method,
         isGet && !!data
-          ? `${this.baseUrl}/${url}${queryStringify(data)}`
-          : `${this.baseUrl}/${url}`,
+          ? `${this.baseUrl}${url}${queryStringify(data)}`
+          : `${this.baseUrl}${url}`,
       );
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
-      // eslint-disable-next-line func-names
       xhr.onload = function () {
+        // @ts-ignore
         resolve(xhr);
       };
 

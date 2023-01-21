@@ -15,4 +15,4 @@ export type TOptions = {
   timeout?: number
 };
 
-export type HTTPMethod = (url: string, options?: TOptions) => Promise<unknown>;
+export type HTTPMethod = <T>(url: string, options?: TOptions) => Promise<T>;

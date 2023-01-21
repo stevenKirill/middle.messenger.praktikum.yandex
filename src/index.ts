@@ -38,6 +38,7 @@ import EditPasswordPage from 'pages/EditPassword';
 import ErrorPage from 'pages/ErrorPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import ChatPage from 'pages/Chat';
+import { initApp } from 'services/login';
 
 // components
 registerComponent(Button);
@@ -73,10 +74,5 @@ registerComponent(ChatPage);
 
 document.addEventListener('DOMContentLoaded', () => {
   initRouter(appRouter, store);
-  store.dispatch({
-    app: {
-      ...store.getState().app,
-      appIsInited: true,
-    },
-  });
+  store.dispatch(initApp);
 });
