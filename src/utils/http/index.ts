@@ -1,5 +1,5 @@
 import METHODS, { BASE_URL } from './constants';
-import { HTTPMethod, TOptions } from './types';
+import { HTTPMethod, TData, TOptions } from './types';
 
 export function queryStringify(data: { [key: string]: unknown }) {
   if (typeof data !== 'object') {
@@ -57,7 +57,7 @@ class HTTPTransport {
       xhr.open(
         method,
         isGet && !!data
-          ? `${this.baseUrl}${url}${queryStringify(data)}`
+          ? `${this.baseUrl}${url}${queryStringify(data as TData)}`
           : `${this.baseUrl}${url}`,
       );
 
@@ -70,7 +70,8 @@ class HTTPTransport {
 
       xhr.onload = function () {
         // @ts-ignore
-        resolve(xhr);
+        const response = JSON.parse(xhr.response);
+        resolve(response);
       };
 
       xhr.onabort = reject;

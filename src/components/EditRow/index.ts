@@ -1,6 +1,5 @@
 import Block from 'core/block/Block';
 import './editRow.css';
-import { validateFactory } from 'utils/validation';
 
 interface EditRowProps {
   type?: string;
@@ -9,8 +8,7 @@ interface EditRowProps {
   title?: string;
   onChange?: (e: Event) => void;
   onFocus?: () => void;
-  onBlur?: (e: Event) => void;
-  error?: string | null;
+  onBlur: (e: Event) => void;
 }
 
 class EditRow extends Block<EditRowProps> {
@@ -21,46 +19,19 @@ class EditRow extends Block<EditRowProps> {
     type,
     value,
     title,
-    error,
+    onBlur,
   }: EditRowProps) {
     super({
       name,
       type,
       value,
       title,
-      error,
+      onBlur,
     });
-
-    // this.state = {
-    //   [this.props.name as string]: this.props.value,
-    // };
 
     this.setProps({
-      onBlur: (e: Event) => this.handleBlur(e),
-      error: null,
-      onChange: (e: Event) => this.handleChange(e),
+      onBlur: (e: Event) => onBlur(e),
     });
-  }
-
-  handleChange(e: Event) {
-    const { value } = e.target! as HTMLInputElement;
-    console.log(value);
-  }
-
-  handleBlur(e: Event) {
-    const target = e.target as HTMLInputElement;
-    const isValid = validateFactory(target.name, target.value);
-    if (!this.props.error && isValid !== '') {
-      this.setProps({
-        ...this.props,
-        error: isValid,
-      });
-    } else {
-      this.setProps({
-        ...this.props,
-        error: '',
-      });
-    }
   }
 
   protected render(): string {
@@ -76,11 +47,6 @@ class EditRow extends Block<EditRowProps> {
           onBlur=onBlur
           ref=name
           onInput=onChange
-        }}}
-        {{{ ErrorComponent
-          error=error
-          className="error_center"
-          ref="errorRef"
         }}}
         </div>
       </div>

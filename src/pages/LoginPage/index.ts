@@ -1,7 +1,8 @@
 import Block from 'core/block/Block';
 import withRouter from 'utils/HOCS/withRouter';
-import './login.css';
 import { CoreRouter } from 'core/router/types';
+import { store } from 'core/store';
+import './login.css';
 
 type LoginPageProps = {
   router: CoreRouter;
@@ -26,13 +27,24 @@ class LoginPage extends Block<LoginPageProps> {
   }
 
   protected render(): string {
+    const { error, errorReason } = store.getState().user;
     return `
     <div class="root">
-      <main class="login">
-        <h1 class="login_header">Вход</h1>
-        {{{ LoginForm }}}
-        {{{ Link url="#" text="Нет аккаунта" onClick=onClick }}}
-      </main>
+      <div>
+        <main class="login">
+          <h1 class="login_header">Вход</h1>
+          {{{ LoginForm }}}
+          {{{ Link url="#" text="Нет аккаунта" onClick=onClick }}}
+        </main>
+        {{#if ${error}}}
+        {{{ ErrorComponent
+          error="${errorReason}"
+          ref="incorrectEmail"
+        }}}
+        {{else}}
+        <div></div>
+        {{/if}}
+      </div>
     </div>
     `;
   }

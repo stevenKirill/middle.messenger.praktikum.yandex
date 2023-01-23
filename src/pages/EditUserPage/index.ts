@@ -1,13 +1,12 @@
 import Block from 'core/block/Block';
-
+import { store } from 'core/store';
 import './editUser.css';
-import { TUserData } from './types';
-import userTestData from './constants';
+import { validateFactory } from 'utils/validation';
 
 export interface EditUserPageProps {
-  userData?: TUserData[];
   editableAvatar?: boolean;
   onClick?: () => void;
+  onBlur?: (e: Event) => void;
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
@@ -17,27 +16,34 @@ class EditUserPage extends Block<EditUserPageProps> {
     super();
     this.setProps({
       editableAvatar: true,
-      userData: userTestData,
       onClick: () => this.handleEdit(),
+      onBlur: (e: Event) => this.handleBlur(e),
     });
   }
 
+  handleBlur(e: Event) {
+    const target = e.target as HTMLInputElement;
+  }
+
   handleEdit() {
-    const inputValues = Object.values(this.refs).map((val) => {
+    const inputuserData = Object.values(this.refs).reduce((acc, val) => {
       const input = val.querySelector('input') as HTMLInputElement;
       if (input) {
         return {
+          ...acc,
           [input.name]: input.value,
         };
       }
       return {
-        noValue: '',
+        acc,
+        [input.name]: '',
       };
-    });
-    console.log(inputValues);
+    }, {});
+    console.log(inputuserData);
   }
 
   protected render(): string {
+    const userData = store.getState().user.data;
     return `
     <div class="user">
       {{{ BackLink }}}
@@ -47,16 +53,59 @@ class EditUserPage extends Block<EditUserPageProps> {
             {{{ Avatar editableAvatar=editableAvatar }}}
           </div>
           <div class="user_right_data_body">
-          {{#each userData}}
             {{{ EditRow
-                title=this.title
-                type=this.type
-                value=this.value
-                name=this.name
-                ref=this.name
+                title="Почта"
+                type="email"
+                value="${userData?.email || ''}"
+                name="email"
+                ref="email"
                 onBlur=onBlur
             }}}
-          {{/each}}
+            {{{ ErrorComponent
+                className="error_center"
+                error=error.email
+                ref="incorrectEmail"
+            }}}
+            {{{ EditRow
+                title="Логин"
+                type="text"
+                value="${userData?.login || ''}"
+                name="login"
+                ref="login"
+                onBlur=onBlur
+            }}}
+            {{{ EditRow
+                title="Имя"
+                type="text"
+                value="${userData?.first_name || ''}"
+                name="first_name"
+                ref="first_name"
+                onBlur=onBlur
+            }}}
+            {{{ EditRow
+                title="Фамилия"
+                type="text"
+                value="${userData?.second_name || ''}"
+                name="second_name"
+                ref="second_name"
+                onBlur=onBlur
+            }}}
+            {{{ EditRow
+                title="Имя в чате"
+                type="text"
+                value="${userData?.display_name || ''}"
+                name="display_name"
+                ref="display_name"
+                onBlur=onBlur
+            }}}
+            {{{ EditRow
+                title="Телефон"
+                type="text"
+                value="${userData?.phone || ''}"
+                name="phone"
+                ref="phone"
+                onBlur=onBlur
+            }}}
           </div>
           <div class="edit_user_footer">
             {{{ Button textBtn="Сохранить" onClick=onClick }}}

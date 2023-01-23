@@ -2,7 +2,7 @@ import { APP_ROUTES, Screens, getScreenComponent } from './constants';
 import renderDOM from '../block/renderDOM';
 import Store from '../store';
 import Router from './index';
-import { AppState } from 'store/types';
+import { AppState } from 'core/store/types';
 
 export function initRouter(router: typeof Router, store: Store<AppState>) {
   APP_ROUTES.forEach(route => {
@@ -10,7 +10,15 @@ export function initRouter(router: typeof Router, store: Store<AppState>) {
       const isAuthorized = Boolean(store.getState().user.data);
       const currentScreen = Boolean(store.getState().app.screen);
 
+      console.log(currentScreen, '=> currentScreen')
+
+      console.log(isAuthorized, '=> isAuthorized')
+
       if (isAuthorized || !route.shouldAuthorized) {
+        if (route.path === '/') {
+          router.go('/chats');
+          return
+        }
         store.dispatch({
           app: {
             ...store.getState().app,

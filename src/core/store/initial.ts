@@ -6,18 +6,26 @@ const initialState: AppState = {
     appIsInited: false,
   },
   user: {
-    data: {},
+    data: null,
     error: false,
     loading: false,
+    errorReason: '',
   },
   chats: {
-    data: {},
+    data: null,
     error: false,
     loading: false,
+    errorReason: '',
   },
   registration: {
     loading: false,
     error: false,
+    errorReason: '',
+  },
+  login: {
+    loading: false,
+    error: false,
+    errorReason: '',
   }
 };
 

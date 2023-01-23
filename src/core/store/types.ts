@@ -1,3 +1,4 @@
+import { UserInfoResponse } from "api/login/types";
 import { Screens } from "core/router/constants";
 
 export type Dispatch<State> = (
@@ -17,7 +18,7 @@ export type TApp = {
 };
 
 export type TUser = {
-  data: any;
+  data: UserInfoResponse | null;
   error: boolean;
   loading: boolean;
   errorReason?: string;
@@ -35,9 +36,17 @@ export type AppState = {
   user: TUser;
   chats: TChats;
   registration: TRegistartionState;
+  login: TLoginState;
 };
 
 export type TRegistartionState = {
+  loading: boolean;
+  error: boolean;
+  errorReason?: string;
+};
+
+
+export type TLoginState = {
   loading: boolean;
   error: boolean;
   errorReason?: string;

@@ -1,5 +1,10 @@
 import loginApi from 'api/login';
-import { RegistrationRequestData } from 'api/login/types';
+import {
+  LoginRequestData,
+  RegistrationRequestData,
+  RegistrationResponseData,
+} from 'api/login/types';
+import { APIError } from 'api/types';
 import appRouter from 'core/router';
 import { AppState, Dispatch } from 'core/store/types';
 
@@ -15,17 +20,23 @@ export const initApp = async (
   });
   try {
     const response = await loginApi.user();
-    console.log(response, '=> response user');
-    if (response?.reason) {
+    console.log(response, '=> ответ первого запроса');
+    if ('reason' in response) {
       dispatch({
         user: {
           ...state.user,
           error: true,
-          errorReason: response.reason,
+          errorReason: 'Пользователь неавторизован',
         },
       });
       return;
     }
+    dispatch({
+      user: {
+        ...state.user,
+        data: response,
+      },
+    });
   } catch (error) {
     console.error(error);
   } finally {
@@ -41,7 +52,7 @@ export const initApp = async (
 export const signUp = async (
   dispatch: Dispatch<AppState>,
   state: AppState,
-  action: RegistrationRequestData,
+  requestData: RegistrationRequestData,
 ) => {
   dispatch({
     registration: {
@@ -49,13 +60,11 @@ export const signUp = async (
       loading: true,
     },
   });
-  const response = await loginApi.signUp(action);
+  const response: RegistrationResponseData | APIError = await loginApi.signUp(requestData);
 
-  console.log(response, '=> response');
-
-  if (response?.reason) {
+  if ('reason' in response) {
     dispatch({
-      registration: {
+      login: {
         ...state.registration,
         error: true,
         errorReason: response.reason,
@@ -64,4 +73,50 @@ export const signUp = async (
     return;
   }
   appRouter.go('/login');
+};
+
+export const singIn = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  requestData: LoginRequestData,
+) => {
+  dispatch({
+    login: {
+      ...state.login,
+      loading: true,
+    },
+  });
+  try {
+    const response: APIError = await loginApi.login(requestData);
+    if ('reason' in response) {
+      dispatch({
+        login: {
+          ...state.login,
+          error: true,
+          errorReason: response.reason,
+        },
+      });
+      return;
+    }
+    const userResponse = await loginApi.user();
+    if ('reason' in userResponse) {
+      dispatch({
+        user: {
+          ...state.user,
+          error: true,
+          errorReason: 'Ошибка загрузки данных по пользователю',
+        },
+      });
+      return;
+    }
+    dispatch({
+      user: {
+        ...state.user,
+        data: userResponse,
+      },
+    });
+    appRouter.go('/chats');
+  } catch (error) {
+    console.error(error);
+  }
 };

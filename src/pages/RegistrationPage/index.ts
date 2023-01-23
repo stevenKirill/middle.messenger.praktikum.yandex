@@ -32,7 +32,7 @@ class RegistrationPage extends Block<RegistrationPageProps> {
     <div class="root">
     {{#if ${error}}}
     {{{ ErrorComponent
-      error=${errorReason}
+      error="${errorReason}"
       ref="incorrectEmail"
     }}}
     {{else}}

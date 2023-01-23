@@ -1,4 +1,6 @@
 import Block from 'core/block/Block';
+import { store } from 'core/store';
+import { singIn } from 'services/login';
 import { LoginFormProps } from './types';
 
 class LoginForm extends Block<LoginFormProps> {
@@ -52,6 +54,12 @@ class LoginForm extends Block<LoginFormProps> {
       this.setProps({
         ...this.props,
         error: 'Введите логин и пароль',
+      });
+    }
+    if (inputLoginElement.value && inputPasswordElement.value) {
+      store.dispatch(singIn, {
+        login: inputLoginElement.value,
+        password: inputPasswordElement.value,
       });
     }
   }
