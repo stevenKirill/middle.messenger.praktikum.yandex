@@ -1,12 +1,20 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
 import './editUser.css';
-import { validateFactory } from 'utils/validation';
+import {
+  validateEmail,
+  validateFirstName,
+  validateLogin,
+  validatePhone,
+} from 'utils/validation';
+import { UserInfoResponse } from 'api/login/types';
+import { UserDataKeys } from './types';
 
 export interface EditUserPageProps {
-  editableAvatar?: boolean;
   onClick?: () => void;
-  onBlur?: (e: Event) => void;
+  error: {
+    [key: string]: string
+  }
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
@@ -15,31 +23,63 @@ class EditUserPage extends Block<EditUserPageProps> {
   constructor() {
     super();
     this.setProps({
-      editableAvatar: true,
       onClick: () => this.handleEdit(),
-      onBlur: (e: Event) => this.handleBlur(e),
+      error: {},
     });
   }
 
-  handleBlur(e: Event) {
-    const target = e.target as HTMLInputElement;
-  }
-
   handleEdit() {
-    const inputuserData = Object.values(this.refs).reduce((acc, val) => {
+    const inputUserData = Object.values(this.refs).reduce((
+      acc,
+      val: HTMLElement,
+    ) => {
       const input = val.querySelector('input') as HTMLInputElement;
-      if (input) {
+      if (input.value) {
         return {
           ...acc,
           [input.name]: input.value,
         };
       }
       return {
-        acc,
+        ...acc,
         [input.name]: '',
       };
-    }, {});
-    console.log(inputuserData);
+    }, {} as { [key in UserDataKeys]: string });
+    const validatedEmail = validateEmail(inputUserData.email);
+    const validatedLogin = validateLogin(inputUserData.login);
+    const validatedName = validateFirstName(inputUserData.first_name);
+    const validatedSurName = validateFirstName(inputUserData.second_name);
+    const validatedPhone = validatePhone(inputUserData.phone);
+    store.dispatch({
+      user: {
+        ...store.getState().user,
+        data: {
+          ...store.getState().user.data as UserInfoResponse,
+          ...inputUserData,
+        },
+      },
+    });
+    this.setProps({
+      ...this.props,
+      error: {
+        email: validatedEmail,
+        login: validatedLogin,
+        name: validatedName,
+        surName: validatedSurName,
+        phone: validatedPhone,
+      },
+    });
+    const allValid: boolean = [
+      validatedEmail,
+      validatedLogin,
+      validatedName,
+      validatedSurName,
+      validatedPhone,
+    ].every((val: string) => val === '');
+    if (allValid) {
+      console.log('send req to change data');
+      console.log(inputUserData);
+    }
   }
 
   protected render(): string {
@@ -50,7 +90,10 @@ class EditUserPage extends Block<EditUserPageProps> {
       <div class="user_right">
         <div class="user_right_data">
           <div class="user_right_data_head">
-            {{{ Avatar editableAvatar=editableAvatar }}}
+            {{{ Avatar
+                editableAvatar=editableAvatar
+                source="${userData?.avatar}"
+            }}}
           </div>
           <div class="user_right_data_body">
             {{{ EditRow
@@ -59,12 +102,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value="${userData?.email || ''}"
                 name="email"
                 ref="email"
-                onBlur=onBlur
             }}}
             {{{ ErrorComponent
-                className="error_center"
+                className="edit_uder_data_error"
                 error=error.email
-                ref="incorrectEmail"
             }}}
             {{{ EditRow
                 title="Логин"
@@ -72,7 +113,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value="${userData?.login || ''}"
                 name="login"
                 ref="login"
-                onBlur=onBlur
+            }}}
+            {{{ ErrorComponent
+                className="edit_uder_data_error"
+                error=error.login
             }}}
             {{{ EditRow
                 title="Имя"
@@ -80,7 +124,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value="${userData?.first_name || ''}"
                 name="first_name"
                 ref="first_name"
-                onBlur=onBlur
+            }}}
+            {{{ ErrorComponent
+                className="edit_uder_data_error"
+                error=error.name
             }}}
             {{{ EditRow
                 title="Фамилия"
@@ -88,7 +135,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value="${userData?.second_name || ''}"
                 name="second_name"
                 ref="second_name"
-                onBlur=onBlur
+            }}}
+            {{{ ErrorComponent
+                className="edit_uder_data_error"
+                error=error.surName
             }}}
             {{{ EditRow
                 title="Имя в чате"
@@ -96,7 +146,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value="${userData?.display_name || ''}"
                 name="display_name"
                 ref="display_name"
-                onBlur=onBlur
+            }}}
+            {{{ ErrorComponent
+                className="edit_uder_data_error"
+                error=error.login
             }}}
             {{{ EditRow
                 title="Телефон"
@@ -104,7 +157,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                 value="${userData?.phone || ''}"
                 name="phone"
                 ref="phone"
-                onBlur=onBlur
+            }}}
+            {{{ ErrorComponent
+                className="edit_uder_data_error"
+                error=error.phone
             }}}
           </div>
           <div class="edit_user_footer">

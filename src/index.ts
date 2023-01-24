@@ -3,6 +3,7 @@ import { registerComponent } from 'core';
 import { store } from 'core/store';
 import { initRouter } from 'core/router/init';
 import appRouter from 'core/router';
+import { initApp } from 'services/login';
 
 // styles
 import './styles/styles.css';
@@ -28,17 +29,7 @@ import ChatUser from 'components/ChatUser';
 import ChatMessage from 'components/ChatMessage';
 import SearchInput from 'components/SearchInput';
 import ErrorComponent from 'components/ErrorComponent';
-
-// pages
-import LoginPage from 'pages/LoginPage';
-import RegistrationPage from 'pages/RegistrationPage';
-import EditUserPage from 'pages/EditUserPage';
-import UserPage from 'pages/UserPage';
-import EditPasswordPage from 'pages/EditPassword';
-import ErrorPage from 'pages/ErrorPage';
-import NotFoundPage from 'pages/NotFoundPage';
-import ChatPage from 'pages/Chat';
-import { initApp } from 'services/login';
+import FileInput from 'components/FileInput';
 
 // components
 registerComponent(Button);
@@ -61,16 +52,7 @@ registerComponent(ChatMessage);
 registerComponent(SearchInput);
 registerComponent(ControlledTextArea);
 registerComponent(ErrorComponent);
-
-// pages
-registerComponent(LoginPage);
-registerComponent(RegistrationPage);
-registerComponent(EditUserPage);
-registerComponent(UserPage);
-registerComponent(EditPasswordPage);
-registerComponent(ErrorPage);
-registerComponent(NotFoundPage);
-registerComponent(ChatPage);
+registerComponent(FileInput);
 
 document.addEventListener('DOMContentLoaded', () => {
   initRouter(appRouter, store);

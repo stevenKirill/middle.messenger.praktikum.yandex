@@ -1,28 +1,29 @@
 import Block from 'core/block/Block';
-
+import logo from '../../assets/tg.png';
 import './avatar.css';
 
 interface AvatarProps {
-  editableAvatar: boolean;
+  source?: string;
 }
 
-class Avatar extends Block {
+class Avatar extends Block<AvatarProps> {
   static componentName = 'Avatar';
 
-  constructor({ editableAvatar }: AvatarProps) {
-    super({ editableAvatar });
+  constructor({ source }: AvatarProps) {
+    super({ source });
   }
 
   protected render(): string {
     return `
     <div class="avatar_container">
       <img
-        {{#if editableAvatar}}
+        {{#if ${this.props.source}}}
         class="editable_avatar"
+        src="${this.props.source || ''}"
         {{else}}
         class="nonEditable_avatar"
+        src="${logo}"
         {{/if}}
-        src="../../assets/tg.png"
         alt="avatar"
       />
     </div>

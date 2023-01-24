@@ -28,10 +28,6 @@ class EditRow extends Block<EditRowProps> {
       title,
       onBlur,
     });
-
-    this.setProps({
-      onBlur: (e: Event) => onBlur(e),
-    });
   }
 
   protected render(): string {

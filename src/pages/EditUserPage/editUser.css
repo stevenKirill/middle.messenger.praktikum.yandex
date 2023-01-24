@@ -3,3 +3,10 @@
   justify-content: center;
   margin-top: 16px;
 }
+
+.edit_uder_data_error {
+  display: flex;
+  justify-content: flex-end;
+  max-width: unset;
+  margin-right: 13%;
+}
