@@ -3,25 +3,25 @@ import { CoreRouter } from 'core/router/types';
 import withRouter from 'utils/HOCS/withRouter';
 
 interface BackLinkProps {
-  onClick: () => void;
+  onClick: (e: Event) => void;
   router: CoreRouter;
 }
 
-class BackLink extends Block<BackLinkProps> {
+class BackLink extends Block {
   static componentName = 'BackLink';
 
   constructor({ onClick }: BackLinkProps) {
-    // @ts-ignore
     super({ events: { click: onClick } });
     this.setProps({
       ...this.props,
-      onClick: () => this.handleGoBack(),
+      onClick: (e: Event) => this.handleGoBack(e),
     });
   }
 
-  handleGoBack() {
+  handleGoBack(e: Event) {
+    e.preventDefault();
     // TODO back link
-    console.log('hello');
+    console.log('helo');
     this.props.router.back();
   }
 

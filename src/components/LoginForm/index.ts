@@ -37,10 +37,6 @@ class LoginForm extends Block<LoginFormProps> {
     const { loginInput, passwordInput } = this.refs;
     const inputLoginElement = loginInput.children[0] as HTMLInputElement;
     const inputPasswordElement = passwordInput.children[0] as HTMLInputElement;
-    console.log({
-      login: inputLoginElement.value,
-      password: inputPasswordElement.value,
-    });
     if (this.props.error !== '') {
       this.setProps({
         ...this.props,

@@ -8,7 +8,7 @@ export type TChangeProfileRequest = {
 };
 
 export type TChangeAvatarRequest = {
-  file: File;
+  avatar: File;
 };
 
 export type TChangeProfileResponse = {

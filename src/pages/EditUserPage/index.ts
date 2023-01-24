@@ -8,7 +8,7 @@ import {
   validatePhone,
 } from 'utils/validation';
 import { UserInfoResponse } from 'api/login/types';
-import { changeUserDataAction } from 'services/user';
+import { changeUserAvatarAction, changeUserDataAction } from 'services/user';
 import { UserDataKeys } from './types';
 
 export interface EditUserPageProps {
@@ -101,7 +101,13 @@ class EditUserPage extends Block<EditUserPageProps> {
 
   handleInputChange(e: Event) {
     const target = e.target as HTMLInputElement;
-    console.log(target.files[0]);
+    let file;
+    if (target.files) {
+      file = target.files[0];
+    }
+    const formData = new FormData();
+    formData.append('avatar', file as Blob);
+    store.dispatch(changeUserAvatarAction, formData);
   }
 
   protected render(): string {
@@ -173,7 +179,7 @@ class EditUserPage extends Block<EditUserPageProps> {
                 title="Имя в чате"
                 type="text"
                 value="${userData?.display_name || ''}"
-                name="display_name"
+                name="Имя в чате"
                 ref="display_name"
             }}}
             {{{ ErrorComponent

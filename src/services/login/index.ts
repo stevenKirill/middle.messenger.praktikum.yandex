@@ -86,6 +86,7 @@ export const singIn = async (
   });
   try {
     const response: APIError = await loginApi.login(requestData);
+    console.log(response, '[> response');
     if ('reason' in response) {
       dispatch({
         login: {
@@ -140,4 +141,5 @@ export const logOutAction = async (
       data: null,
     },
   });
+  appRouter.go('/login');
 };

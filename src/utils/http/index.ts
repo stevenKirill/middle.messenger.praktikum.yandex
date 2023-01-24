@@ -68,16 +68,21 @@ class HTTPTransport {
         xhr.setRequestHeader(key, headers[key]);
       });
 
-      xhr.onload = function () {
-        // @ts-ignore
-        const response = JSON.parse(xhr.response);
-        resolve(response);
+      xhr.onload = () => {
+        if (xhr.response !== 'OK') {
+          const response = JSON.parse(xhr.response);
+          resolve(response);
+        } else {
+          resolve({
+            // @ts-ignore
+            ok: xhr.response,
+          });
+        }
       };
 
       xhr.onabort = reject;
       xhr.onerror = reject;
-      // @ts-ignore
-      xhr.timeout = timeout;
+      xhr.timeout = timeout as number;
       xhr.ontimeout = reject;
 
       if (isGet || !data) {

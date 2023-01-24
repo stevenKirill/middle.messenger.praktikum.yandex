@@ -23,6 +23,9 @@ const userApi = {
   }),
   changeAvatar: (file: TChangeAvatarRequest): Promise<TChangeProfileResponse | APIError> => appHTTP.put('/user/profile/avatar', {
     data: file,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   }),
 };
 

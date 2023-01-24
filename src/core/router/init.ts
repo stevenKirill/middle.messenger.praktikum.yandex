@@ -10,10 +10,6 @@ export function initRouter(router: typeof Router, store: Store<AppState>) {
       const isAuthorized = Boolean(store.getState().user.data);
       const currentScreen = Boolean(store.getState().app.screen);
 
-      console.log(currentScreen, '=> currentScreen')
-
-      console.log(isAuthorized, '=> isAuthorized')
-
       if (isAuthorized || !route.shouldAuthorized) {
         if (route.path === '/') {
           router.go('/chats');

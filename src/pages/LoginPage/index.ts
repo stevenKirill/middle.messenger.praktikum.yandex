@@ -20,6 +20,11 @@ class LoginPage extends Block<LoginPageProps> {
       onClick: (e: Event) => this.handleGoToRegistration(e),
     });
   }
+  // TODO обновлять ошибку неправильного пароля
+  // componentDidUpdate(oldProps: LoginPageProps, newProps: LoginPageProps): boolean {
+  //   console.log(oldProps, '=> oldProps')
+  //   console.log(newProps, '=> newProps')
+  // }
 
   handleGoToRegistration(e: Event) {
     e.preventDefault();
@@ -38,8 +43,8 @@ class LoginPage extends Block<LoginPageProps> {
         </main>
         {{#if ${error}}}
         {{{ ErrorComponent
-          error="${errorReason}"
-          ref="incorrectEmail"
+            error="${errorReason}"
+            className="edit_uder_data_error"
         }}}
         {{else}}
         <div></div>

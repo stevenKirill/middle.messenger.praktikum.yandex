@@ -10,6 +10,7 @@ export interface UserPageProps {
   router: CoreRouter;
   onEditDataPage?: (e: Event) => void;
   onEditPasswordPage?: (e: Event) => void;
+  onChat?: (e: Event) => void;
   onLogout?: () => void;
 }
 
@@ -23,6 +24,7 @@ class UserPage extends Block<UserPageProps> {
       editableAvatar: true,
       onEditDataPage: (e: Event) => this.handleGoToEditDataPage(e),
       onEditPasswordPage: (e: Event) => this.handleGoToEditPasswordPage(e),
+      onChat: (e: Event) => this.handleGoToChat(e),
       onLogout: () => this.handleLogout(),
     });
   }
@@ -35,6 +37,11 @@ class UserPage extends Block<UserPageProps> {
   handleGoToEditPasswordPage(e: Event) {
     e.preventDefault();
     this.props.router.go('/edit/password');
+  }
+
+  handleGoToChat(e: Event) {
+    e.preventDefault();
+    this.props.router.go('/chats');
   }
 
   handleLogout() {
@@ -61,12 +68,13 @@ class UserPage extends Block<UserPageProps> {
             {{{ Row title="email" value="${userData?.email || 'Нет данных'}" }}}
             {{{ Row title="Логин" value="${userData?.login || 'Нет данных'}" }}}
             {{{ Row title="Телефон" value="${userData?.phone || 'Нет данных'}" }}}
-            {{{ Row title="display_name" value="${userData?.display_name || 'Нет данных'}" }}}
+            {{{ Row title="Имя в чате" value="${userData?.display_name || 'Нет данных'}" }}}
           </div>
           <div class="user_right_data_footer">
             <div class="user_right_data_footer_link">
               {{{ Link url="#" text="Изменить данные" onClick=onEditDataPage }}}
               {{{ Link url="#" text="Изменить пароль" onClick=onEditPasswordPage  }}}
+              {{{ Link url="#" text="Чаты" onClick=onChat  }}}
               {{{ Link url="#" text="Выйти" onClick=onLogout  }}}
             </div>
           </div>
