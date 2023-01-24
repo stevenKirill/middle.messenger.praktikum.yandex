@@ -1,5 +1,9 @@
 import userApi from 'api/user';
-import { TChangeProfileRequest } from 'api/user/types';
+import {
+  TChangeAvatarRequest,
+  TChangePasswordRequest,
+  TChangeProfileRequest,
+} from 'api/user/types';
 import { AppState, Dispatch } from 'core/store/types';
 
 export const changeUserDataAction = async (
@@ -37,4 +41,65 @@ export const changeUserDataAction = async (
   }
 };
 
-export const one = 1;
+export const changeUserAvatarAction = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  data: TChangeAvatarRequest,
+) => {
+  dispatch({
+    user: {
+      ...state.user,
+      loading: true,
+    },
+  });
+  try {
+    const changeUserAvatarResponse = await userApi.changeAvatar(data);
+    console.log(changeUserAvatarResponse, '=> ответ изменения аватара');
+    if ('reason' in changeUserAvatarResponse) {
+      dispatch({
+        user: {
+          ...state.user,
+          error: true,
+          errorReason: changeUserAvatarResponse.reason,
+        },
+      });
+      return;
+    }
+    dispatch({
+      user: {
+        ...state.user,
+        data: changeUserAvatarResponse,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const changeUserPasswordAction = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  data: TChangePasswordRequest,
+) => {
+  dispatch({
+    user: {
+      ...state.user,
+      loading: true,
+    },
+  });
+  try {
+    const changePasswordResponse = await userApi.changePassword(data);
+    if ('reason' in changePasswordResponse) {
+      dispatch({
+        user: {
+          ...state.user,
+          error: true,
+          errorReason: changePasswordResponse.reason,
+        },
+      });
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

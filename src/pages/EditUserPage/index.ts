@@ -8,13 +8,18 @@ import {
   validatePhone,
 } from 'utils/validation';
 import { UserInfoResponse } from 'api/login/types';
+import { changeUserDataAction } from 'services/user';
 import { UserDataKeys } from './types';
 
 export interface EditUserPageProps {
-  onClick?: () => void;
+  onDataChange?: () => void;
+  onAvatarChange?: () => void;
+  onOpen: () => void;
+  onInput: (e: Event) => void;
   error: {
     [key: string]: string
-  }
+  },
+  avatar: string
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
@@ -23,8 +28,12 @@ class EditUserPage extends Block<EditUserPageProps> {
   constructor() {
     super();
     this.setProps({
-      onClick: () => this.handleEdit(),
+      onDataChange: () => this.handleEdit(),
+      onAvatarChange: () => this.handleChangeAvatar(),
+      onOpen: () => this.handleOpenWindow(),
+      onInput: (e: Event) => this.handleInputChange(e),
       error: {},
+      avatar: store.getState().user.data?.avatar as string,
     });
   }
 
@@ -77,9 +86,22 @@ class EditUserPage extends Block<EditUserPageProps> {
       validatedPhone,
     ].every((val: string) => val === '');
     if (allValid) {
-      console.log('send req to change data');
-      console.log(inputUserData);
+      store.dispatch(changeUserDataAction, inputUserData);
     }
+  }
+
+  handleChangeAvatar() {
+
+  }
+
+  handleOpenWindow() {
+    const input = document.getElementById('logo') as HTMLInputElement;
+    input.click();
+  }
+
+  handleInputChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    console.log(target.files[0]);
   }
 
   protected render(): string {
@@ -90,10 +112,17 @@ class EditUserPage extends Block<EditUserPageProps> {
       <div class="user_right">
         <div class="user_right_data">
           <div class="user_right_data_head">
-            {{{ Avatar
-                editableAvatar=editableAvatar
-                source="${userData?.avatar}"
+            {{{ FileInput
+                source="${this.props.avatar}"
+                onOpen=onOpen
+                onInput=onInput
             }}}
+            <div class="edit_user_footer">
+              {{{ Button
+                  textBtn="Изменить аватар"
+                  onClick=onAvatarChange
+              }}}
+            </div>
           </div>
           <div class="user_right_data_body">
             {{{ EditRow
@@ -164,7 +193,7 @@ class EditUserPage extends Block<EditUserPageProps> {
             }}}
           </div>
           <div class="edit_user_footer">
-            {{{ Button textBtn="Сохранить" onClick=onClick }}}
+            {{{ Button textBtn="Сохранить" onClick=onDataChange }}}
           </div>
         </div>
       </div>

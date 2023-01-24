@@ -1,6 +1,7 @@
 import { APIError } from 'api/types';
 import { appHTTP } from 'utils/http';
 import {
+  TChangeAvatarRequest,
   TChangePasswordRequest,
   TChangeProfileRequest,
   TChangeProfileResponse,
@@ -19,6 +20,9 @@ const userApi = {
   getUser: (id: number): Promise<TUserByIdResponse | APIError> => appHTTP.get(`/user/${id}`),
   searchUser: (data: TSearchUserRequest): Promise<TSearchUserResponse | APIError> => appHTTP.post('/user/search', {
     data: JSON.stringify(data),
+  }),
+  changeAvatar: (file: TChangeAvatarRequest): Promise<TChangeProfileResponse | APIError> => appHTTP.put('/user/profile/avatar', {
+    data: file,
   }),
 };
 

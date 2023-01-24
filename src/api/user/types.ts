@@ -7,6 +7,10 @@ export type TChangeProfileRequest = {
   phone: string;
 };
 
+export type TChangeAvatarRequest = {
+  file: File;
+};
+
 export type TChangeProfileResponse = {
   first_name: string;
   second_name: string;

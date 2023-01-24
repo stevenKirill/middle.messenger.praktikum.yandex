@@ -3,6 +3,7 @@ import { CoreRouter } from 'core/router/types';
 import withRouter from 'utils/HOCS/withRouter';
 import { store } from 'core/store';
 import './user.css';
+import { logOutAction } from 'services/login';
 
 export interface UserPageProps {
   editableAvatar: boolean;
@@ -37,8 +38,7 @@ class UserPage extends Block<UserPageProps> {
   }
 
   handleLogout() {
-    // TODO log out
-    console.log('logout');
+    store.dispatch(logOutAction);
   }
 
   protected render(): string {

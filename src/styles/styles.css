@@ -5,6 +5,7 @@
 @import "../components/Row/row.css";
 @import "../components/EditRow/editRow.css";
 @import "../components/AvatarModal/avatarModal.css";
+@import "../components/FileInput/input.css";
 @import "../pages/LoginPage/login.css";
 @import "../pages/RegistrationPage/registration.css";
 @import "../pages/UserPage/user.css";
