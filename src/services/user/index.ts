@@ -1,9 +1,12 @@
+import { APIError } from 'api/types';
 import userApi from 'api/user';
 import {
   TChangeAvatarRequest,
   TChangePasswordRequest,
   TChangeProfileRequest,
+  TChangeProfileResponse,
 } from 'api/user/types';
+import appRouter from 'core/router';
 import { AppState, Dispatch } from 'core/store/types';
 
 export const changeUserDataAction = async (
@@ -18,26 +21,23 @@ export const changeUserDataAction = async (
     },
   });
   try {
-    const changeUserDataResposne = await userApi.changeProfile(data);
-    console.log(changeUserDataResposne, '=> ответ изменения данных');
-    if ('reason' in changeUserDataResposne) {
-      dispatch({
-        user: {
-          ...state.user,
-          error: true,
-          errorReason: changeUserDataResposne.reason,
-        },
-      });
-      return;
-    }
+    const changeUserDataResposne = await userApi.changeProfile(data) as TChangeProfileResponse;
     dispatch({
       user: {
         ...state.user,
         data: changeUserDataResposne,
       },
     });
+    appRouter.go('/profile');
   } catch (error) {
-    console.error(error);
+    const responseError = error as APIError;
+    dispatch({
+      user: {
+        ...state.user,
+        error: true,
+        errorReason: responseError.reason,
+      },
+    });
   }
 };
 
@@ -53,26 +53,23 @@ export const changeUserAvatarAction = async (
     },
   });
   try {
-    const changeUserAvatarResponse = await userApi.changeAvatar(data);
-    console.log(changeUserAvatarResponse, '=> ответ изменения аватара');
-    if ('reason' in changeUserAvatarResponse) {
-      dispatch({
-        user: {
-          ...state.user,
-          error: true,
-          errorReason: changeUserAvatarResponse.reason,
-        },
-      });
-      return;
-    }
+    const changeUserAvatarResponse = await userApi.changeAvatar(data) as TChangeProfileResponse;
     dispatch({
       user: {
         ...state.user,
         data: changeUserAvatarResponse,
       },
     });
+    appRouter.go('/profile');
   } catch (error) {
-    console.error(error);
+    const responseError = error as APIError;
+    dispatch({
+      user: {
+        ...state.user,
+        error: true,
+        errorReason: responseError.reason,
+      },
+    });
   }
 };
 
@@ -88,18 +85,15 @@ export const changeUserPasswordAction = async (
     },
   });
   try {
-    const changePasswordResponse = await userApi.changePassword(data);
-    if ('reason' in changePasswordResponse) {
-      dispatch({
-        user: {
-          ...state.user,
-          error: true,
-          errorReason: changePasswordResponse.reason,
-        },
-      });
-      return;
-    }
+    await userApi.changePassword(data);
   } catch (error) {
-    console.error(error);
+    const responseError = error as APIError;
+    dispatch({
+      user: {
+        ...state.user,
+        error: true,
+        errorReason: responseError.reason,
+      },
+    });
   }
 };

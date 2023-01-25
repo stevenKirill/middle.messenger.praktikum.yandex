@@ -1,4 +1,5 @@
 import { Block } from 'core';
+import { appHTTP } from 'utils/http';
 import logo from '../../assets/tg.png';
 import './input.css';
 
@@ -16,7 +17,7 @@ class FileInput extends Block<FileInputProps> {
   }
 
   getAvatar() {
-    return this.props.source === 'null' ? logo : this.props.source;
+    return this.props.source ? `${appHTTP.baseUrl}/resources/${this.props.source}` : logo;
   }
 
   protected render(): string {

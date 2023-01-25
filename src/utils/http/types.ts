@@ -11,7 +11,7 @@ export type TData = {
 export type TOptions = {
   headers?: THeaders;
   method?: METHODS;
-  data?: TData | string;
+  data?: TData | string | FormData;
   timeout?: number
 };
 

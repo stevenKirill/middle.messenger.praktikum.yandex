@@ -7,9 +7,7 @@ export type TChangeProfileRequest = {
   phone: string;
 };
 
-export type TChangeAvatarRequest = {
-  avatar: File;
-};
+export type TChangeAvatarRequest = FormData;
 
 export type TChangeProfileResponse = {
   first_name: string;

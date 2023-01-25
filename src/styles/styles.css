@@ -2,6 +2,7 @@
 @import "../components/Button/button.css";
 @import "../components/Input/input.css";
 @import "../components/Avatar/avatar.css";
+@import "../components/EmptyAvatar/avatar.css";
 @import "../components/Row/row.css";
 @import "../components/EditRow/editRow.css";
 @import "../components/AvatarModal/avatarModal.css";

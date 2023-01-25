@@ -1,5 +1,5 @@
 import Block from 'core/block/Block';
-import logo from '../../assets/tg.png';
+import { appHTTP } from 'utils/http';
 import './avatar.css';
 
 interface AvatarProps {
@@ -17,13 +17,8 @@ class Avatar extends Block<AvatarProps> {
     return `
     <div class="avatar_container">
       <img
-        {{#if ${this.props.source}}}
         class="editable_avatar"
-        src="${this.props.source || ''}"
-        {{else}}
-        class="nonEditable_avatar"
-        src="${logo}"
-        {{/if}}
+        src="${appHTTP.baseUrl}/resources/${this.props.source || ''}"
         alt="avatar"
       />
     </div>

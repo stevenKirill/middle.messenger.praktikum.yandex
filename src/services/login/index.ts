@@ -2,7 +2,7 @@ import loginApi from 'api/login';
 import {
   LoginRequestData,
   RegistrationRequestData,
-  RegistrationResponseData,
+  UserInfoResponse,
 } from 'api/login/types';
 import { APIError } from 'api/types';
 import appRouter from 'core/router';
@@ -19,17 +19,7 @@ export const initApp = async (
     },
   });
   try {
-    const response = await loginApi.user();
-    if ('reason' in response) {
-      dispatch({
-        user: {
-          ...state.user,
-          error: true,
-          errorReason: 'Пользователь неавторизован',
-        },
-      });
-      return;
-    }
+    const response = await loginApi.user() as UserInfoResponse;
     dispatch({
       user: {
         ...state.user,
@@ -38,6 +28,13 @@ export const initApp = async (
     });
   } catch (error) {
     console.error(error);
+    dispatch({
+      user: {
+        ...state.user,
+        error: true,
+        errorReason: 'Пользователь неавторизован',
+      },
+    });
   } finally {
     dispatch({
       app: {
@@ -59,18 +56,19 @@ export const signUp = async (
       loading: true,
     },
   });
-  const response: RegistrationResponseData | APIError = await loginApi.signUp(requestData);
-  if ('reason' in response) {
+  try {
+    await loginApi.signUp(requestData);
+    appRouter.go('/login');
+  } catch (error) {
+    const errorResponse = error as APIError;
     dispatch({
       login: {
         ...state.registration,
         error: true,
-        errorReason: response.reason,
+        errorReason: errorResponse.reason,
       },
     });
-    return;
   }
-  appRouter.go('/login');
 };
 
 export const singIn = async (
@@ -85,29 +83,8 @@ export const singIn = async (
     },
   });
   try {
-    const response: APIError = await loginApi.login(requestData);
-    console.log(response, '[> response');
-    if ('reason' in response) {
-      dispatch({
-        login: {
-          ...state.login,
-          error: true,
-          errorReason: response.reason,
-        },
-      });
-      return;
-    }
-    const userResponse = await loginApi.user();
-    if ('reason' in userResponse) {
-      dispatch({
-        user: {
-          ...state.user,
-          error: true,
-          errorReason: 'Ошибка загрузки данных по пользователю',
-        },
-      });
-      return;
-    }
+    await loginApi.login(requestData);
+    const userResponse = await loginApi.user() as UserInfoResponse;
     dispatch({
       user: {
         ...state.user,
@@ -116,7 +93,14 @@ export const singIn = async (
     });
     appRouter.go('/chats');
   } catch (error) {
-    console.error(error);
+    const responseError = error as APIError;
+    dispatch({
+      login: {
+        ...state.login,
+        error: true,
+        errorReason: responseError.reason,
+      },
+    });
   }
 };
 
@@ -130,16 +114,20 @@ export const logOutAction = async (
       loading: true,
     },
   });
-  await loginApi.logout();
-  dispatch({
-    login: {
-      ...state.login,
-      loading: false,
-    },
-    user: {
-      ...state.user,
-      data: null,
-    },
-  });
-  appRouter.go('/login');
+  try {
+    await loginApi.logout();
+    dispatch({
+      login: {
+        ...state.login,
+        loading: false,
+      },
+      user: {
+        ...state.user,
+        data: null,
+      },
+    });
+    appRouter.go('/login');
+  } catch (error) {
+    console.error(error);
+  }
 };

@@ -8,17 +8,35 @@ import {
 } from './types';
 
 const loginApi = {
-  login: (data: LoginRequestData): Promise<APIError> => appHTTP.post('/auth/signin', {
-    data: JSON.stringify(data),
-  }),
-  signUp: (data: RegistrationRequestData): Promise<RegistrationResponseData | APIError> => {
-    console.log('req');
-    return appHTTP.post('/auth/signup', {
+  login: (data: LoginRequestData): Promise<APIError> => appHTTP.post(
+    '/auth/signin',
+    {
       data: JSON.stringify(data),
-    });
-  },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  ),
+  signUp: (
+    data: RegistrationRequestData,
+  ): Promise<RegistrationResponseData | APIError> => appHTTP.post(
+    '/auth/signup',
+    {
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  ),
   logout: () => appHTTP.post('/auth/logout'),
-  user: (): Promise<UserInfoResponse | APIError> => appHTTP.get('/auth/user'),
+  user: (): Promise<UserInfoResponse | APIError> => appHTTP.get(
+    '/auth/user',
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  ),
 };
 
 export default loginApi;

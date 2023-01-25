@@ -12,14 +12,15 @@ import { changeUserAvatarAction, changeUserDataAction } from 'services/user';
 import { UserDataKeys } from './types';
 
 export interface EditUserPageProps {
-  onDataChange?: () => void;
-  onAvatarChange?: () => void;
-  onOpen: () => void;
-  onInput: (e: Event) => void;
+  onDataChange?: () => void,
+  onAvatarChange?: () => void,
+  onOpen: () => void,
+  onInput: (e: Event) => void,
   error: {
-    [key: string]: string
+    [key: string]: string,
   },
-  avatar: string
+  avatar: string,
+  file: File | null,
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
@@ -34,6 +35,7 @@ class EditUserPage extends Block<EditUserPageProps> {
       onInput: (e: Event) => this.handleInputChange(e),
       error: {},
       avatar: store.getState().user.data?.avatar as string,
+      file: null,
     });
   }
 
@@ -91,7 +93,9 @@ class EditUserPage extends Block<EditUserPageProps> {
   }
 
   handleChangeAvatar() {
-
+    const formData = new FormData();
+    formData.append('avatar', this.props.file as Blob);
+    store.dispatch(changeUserAvatarAction, formData);
   }
 
   handleOpenWindow() {
@@ -104,14 +108,15 @@ class EditUserPage extends Block<EditUserPageProps> {
     let file;
     if (target.files) {
       file = target.files[0];
+      this.setProps({
+        ...this.props,
+        file,
+      });
     }
-    const formData = new FormData();
-    formData.append('avatar', file as Blob);
-    store.dispatch(changeUserAvatarAction, formData);
   }
 
   protected render(): string {
-    const userData = store.getState().user.data;
+    const { data: userData, error, errorReason } = store.getState().user;
     return `
     <div class="user">
       {{{ BackLink }}}
@@ -129,6 +134,14 @@ class EditUserPage extends Block<EditUserPageProps> {
                   onClick=onAvatarChange
               }}}
             </div>
+            {{#if ${error}}}
+              {{{ ErrorComponent
+                  className="edit_uder_data_error"
+                  error="${errorReason}"
+              }}}
+            {{else}}
+              <div></div>
+            {{/if}}
           </div>
           <div class="user_right_data_body">
             {{{ EditRow
@@ -179,7 +192,7 @@ class EditUserPage extends Block<EditUserPageProps> {
                 title="Имя в чате"
                 type="text"
                 value="${userData?.display_name || ''}"
-                name="Имя в чате"
+                name="display_name"
                 ref="display_name"
             }}}
             {{{ ErrorComponent

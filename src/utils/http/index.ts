@@ -62,21 +62,23 @@ class HTTPTransport {
       );
 
       xhr.withCredentials = true;
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      // xhr.setRequestHeader('Content-Type', 'application/json');
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
       xhr.onload = () => {
-        if (xhr.response !== 'OK') {
-          const response = JSON.parse(xhr.response);
-          resolve(response);
+        if (xhr.status === 200) {
+          let res;
+          try {
+            res = JSON.parse(xhr.response);
+          } catch (error) {
+            res = xhr.response;
+          }
+          resolve(res);
         } else {
-          resolve({
-            // @ts-ignore
-            ok: xhr.response,
-          });
+          reject(JSON.parse(xhr.response));
         }
       };
 

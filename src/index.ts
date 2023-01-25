@@ -30,6 +30,7 @@ import ChatMessage from 'components/ChatMessage';
 import SearchInput from 'components/SearchInput';
 import ErrorComponent from 'components/ErrorComponent';
 import FileInput from 'components/FileInput';
+import EmptyAvatar from 'components/EmptyAvatar';
 
 // components
 registerComponent(Button);
@@ -53,6 +54,7 @@ registerComponent(SearchInput);
 registerComponent(ControlledTextArea);
 registerComponent(ErrorComponent);
 registerComponent(FileInput);
+registerComponent(EmptyAvatar);
 
 document.addEventListener('DOMContentLoaded', () => {
   initRouter(appRouter, store);
