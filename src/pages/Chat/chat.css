@@ -2,13 +2,12 @@
   display: grid;
   grid-template-columns: 25% 75%;
   width: 100%;
-  margin: 20px auto;
   padding: 5px;
 
   &_left {
     background: var(--dark-white);
     border-radius: 1px solid #eaeaea;
-    height: 700px;
+    max-height: 800px;
     padding: 5px;
     &_create {
       display: flex;
@@ -45,12 +44,17 @@
 
       &_link {
         margin-top: 15px;
+        font-size: 17px;
         cursor: pointer;
         text-decoration: none;
         margin-right: 10px;
         margin-bottom: 15px;
         color: var(--gray);
       }
+    }
+    &_chats {
+      overflow-y: scroll;
+      max-height: 600px;
     }
   }
 
@@ -91,4 +95,9 @@
       }
     }
   }
+}
+
+.chat_main_title {
+  margin: 0;
+  text-align: center;
 }

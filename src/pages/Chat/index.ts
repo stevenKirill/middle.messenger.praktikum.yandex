@@ -1,15 +1,20 @@
 import Block from 'core/block/Block';
 import withRouter from 'utils/HOCS/withRouter';
 import { CoreRouter } from 'core/router/types';
+// import Handlebars from 'handlebars';
 import './chat.css';
 import { store } from 'core/store';
 import { getChatsAction } from 'services/chat';
+import { TGetChatResponse } from 'api/chat/types';
 
 type ChatPageProps = {
   router: CoreRouter;
-  onProfileGo?: (e: Event) => void;
-  onChatCreate?: () => void;
+  onProfileGo: (e: Event) => void;
+  onChatCreate: () => void;
+  onChatClick: () => void
   isShow?: boolean;
+  chats: TGetChatResponse[];
+  currentChat?: string | null;
 };
 
 class ChatPage extends Block<ChatPageProps> {
@@ -22,15 +27,36 @@ class ChatPage extends Block<ChatPageProps> {
       ...this.props,
       onProfileGo: (e: Event) => this.handleGoToProfilePage(e),
       onChatCreate: () => this.handleCreateChat(),
+      chats: store.getState().chats.data,
+      currentChat: null,
     });
   }
 
   componentDidMount(): void {
     const init = async () => {
       await store.dispatch(getChatsAction);
-      console.log(store.getState().chats.data, '=> nen')
-    }
+    };
     init();
+    store.on('changed', () => this.onChangeStoreCallback());
+  }
+
+  onChangeStoreCallback() {
+    this.setProps({
+      ...this.props,
+      chats: store.getState().chats.data,
+    });
+    this.initChatItemListener();
+  }
+
+  initChatItemListener() {
+    // TODO убрать костыль с сделать по нормальному
+    const chatItems = document.querySelector('.chat_page_left_chats');
+    chatItems?.addEventListener('click', this.handleClickChat.bind(this));
+  }
+
+  removeChatItemListener() {
+    const chatItems = document.querySelector('.chat_page_left_chats');
+    chatItems?.removeEventListener('click', this.handleClickChat.bind(this));
   }
 
   handleGoToProfilePage(e: Event) {
@@ -45,9 +71,23 @@ class ChatPage extends Block<ChatPageProps> {
     });
   }
 
+  handleClickChat(e: Event) {
+    const target = e.target as HTMLDivElement;
+    const closest = target.closest('[data-chat-id]') as HTMLDivElement;
+    if (closest) {
+      this.setProps({
+        ...this.props,
+        currentChat: closest.dataset.chatId,
+      });
+      this.removeChatItemListener();
+    }
+    this.initChatItemListener();
+  }
+
   protected render(): string {
     return `
     <div>
+    <h2 class="chat_main_title">Чаты</h2>
       {{#if ${this.props.isShow}}}
         {{{ Modal isShow=isShow }}}
       {{else}}
@@ -68,14 +108,24 @@ class ChatPage extends Block<ChatPageProps> {
           </div>
           {{{ SearchInput }}}
           <div class="chat_page_left_chats">
-            {{{ ChatItem }}}
+          {{#each chats}}
+          {{#with this}}
+            {{{ ChatItem
+                id=id
+                title=title
+                avatar=avatar
+                last_message=last_message
+                unread_count=unread_count
+            }}}
+          {{/with}}
+          {{/each}}
           </div>
         </section>
         <section class="chat_page_right">
-          {{#if isEmpty}}
-            {{{ EmptyChat }}}
-            {{else}}
-            {{{ ChatArea }}}
+        {{#if ${this.props.currentChat}}}
+          {{{ ChatArea }}}
+          {{else}}
+          {{{ EmptyChat }}}
           {{/if}}
         </section>
       </main>

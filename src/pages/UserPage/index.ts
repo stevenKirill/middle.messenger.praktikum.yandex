@@ -50,7 +50,6 @@ class UserPage extends Block<UserPageProps> {
 
   protected render(): string {
     const userData = store.getState().user.data;
-    console.log(Boolean(userData?.avatar));
     return `
     <div class="user">
       {{{ BackLink }}}
@@ -58,11 +57,9 @@ class UserPage extends Block<UserPageProps> {
         <div class="user_right_data">
           <div class="user_right_data_head">
             {{#if ${Boolean(userData?.avatar)}}}
-              {{{ Avatar
-                source="${userData?.avatar}"
-              }}}
+              {{{ Avatar source="${userData?.avatar}" }}}
             {{else}}
-              {{{ EmptyAvatar }}}
+              {{{ EmptyAvatar width="150" height="150" }}}
             {{/if}}
             <p>${userData?.first_name}</p>
           </div>

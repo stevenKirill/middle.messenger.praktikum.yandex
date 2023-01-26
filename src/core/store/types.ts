@@ -1,3 +1,4 @@
+import { TGetChatResponse } from "api/chat/types";
 import { UserInfoResponse } from "api/login/types";
 import { Screens } from "core/router/constants";
 
@@ -25,7 +26,7 @@ export type TUser = {
 };
 
 export type TChats = {
-  data: any;
+  data: TGetChatResponse[];
   error: boolean;
   loading: boolean;
   errorReason?: string;

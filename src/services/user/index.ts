@@ -28,7 +28,7 @@ export const changeUserDataAction = async (
         data: changeUserDataResposne,
       },
     });
-    appRouter.go('/profile');
+    // appRouter.go('/profile');
   } catch (error) {
     const responseError = error as APIError;
     dispatch({
@@ -60,7 +60,6 @@ export const changeUserAvatarAction = async (
         data: changeUserAvatarResponse,
       },
     });
-    appRouter.go('/profile');
   } catch (error) {
     const responseError = error as APIError;
     dispatch({
@@ -86,6 +85,7 @@ export const changeUserPasswordAction = async (
   });
   try {
     await userApi.changePassword(data);
+    appRouter.go('/profile');
   } catch (error) {
     const responseError = error as APIError;
     dispatch({

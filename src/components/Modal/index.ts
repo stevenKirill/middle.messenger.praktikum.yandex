@@ -1,7 +1,7 @@
 import Block from 'core/block/Block';
 import './modal.css';
 import { store } from 'core/store';
-import { createChatAction } from 'services/chat';
+import { createChatAction, getChatsAction } from 'services/chat';
 
 interface ModalProps {
   isShow: boolean;
@@ -26,6 +26,7 @@ class Modal extends Block<ModalProps> {
     store.dispatch(createChatAction, {
       title: input.value,
     });
+    store.dispatch(getChatsAction);
     this.setProps({
       isShow: false,
     });

@@ -16,6 +16,7 @@
 @import "../pages/NotFoundPage/error.css";
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
+@import "../components/ChatItem/chatItem.css";
 
 :root {
   --main-blue: #3369f3;

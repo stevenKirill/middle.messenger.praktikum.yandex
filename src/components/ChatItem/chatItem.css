@@ -1,0 +1,11 @@
+.chat_page_left_chats_item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  &:hover {
+    background-color: rgb(233, 228, 228);
+  }
+}

@@ -21,6 +21,9 @@ export interface EditUserPageProps {
   },
   avatar: string,
   file: File | null,
+  userData: UserInfoResponse,
+  changeDataError: boolean,
+  changeDataErrorReason: string,
 }
 
 class EditUserPage extends Block<EditUserPageProps> {
@@ -36,6 +39,23 @@ class EditUserPage extends Block<EditUserPageProps> {
       error: {},
       avatar: store.getState().user.data?.avatar as string,
       file: null,
+      userData: store.getState().user.data as UserInfoResponse,
+      changeDataError: store.getState().user.error,
+      changeDataErrorReason: store.getState().user.errorReason as string,
+    });
+  }
+
+  componentDidMount(): void {
+    store.on('changed', () => this.onChangeStoreCallback());
+  }
+
+  onChangeStoreCallback() {
+    this.setProps({
+      ...this.props,
+      avatar: store.getState().user.data?.avatar as string,
+      userData: store.getState().user.data as UserInfoResponse,
+      changeDataError: store.getState().user.error,
+      changeDataErrorReason: store.getState().user.errorReason as string,
     });
   }
 
@@ -116,7 +136,7 @@ class EditUserPage extends Block<EditUserPageProps> {
   }
 
   protected render(): string {
-    const { data: userData, error, errorReason } = store.getState().user;
+    const { userData, changeDataError, changeDataErrorReason } = this.props;
     return `
     <div class="user">
       {{{ BackLink }}}
@@ -134,10 +154,10 @@ class EditUserPage extends Block<EditUserPageProps> {
                   onClick=onAvatarChange
               }}}
             </div>
-            {{#if ${error}}}
+            {{#if ${changeDataError}}}
               {{{ ErrorComponent
                   className="edit_uder_data_error"
-                  error="${errorReason}"
+                  error="${changeDataErrorReason}"
               }}}
             {{else}}
               <div></div>

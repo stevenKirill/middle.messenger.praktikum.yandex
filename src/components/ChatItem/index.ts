@@ -1,14 +1,65 @@
 import Block from 'core/block/Block';
+import './chatItem.css';
 
 export interface ChatUserProps {
+  id: number;
+  title: string;
+  last_message: {
+    user: {
+      first_name: string;
+      second_name: string;
+      avatar: string;
+      email: string;
+      login: string;
+      phone: string;
+    },
+    time: string;
+    content: string;
+  }
+  unread_count: string;
+  avatar: string | null;
+  // onClick: () => void;
+  activeClassName: string;
 }
 
-class ChatItem extends Block {
-  static componentName = 'ChatUser';
+class ChatItem extends Block<ChatUserProps> {
+  static componentName = 'ChatItem';
+
+  constructor({
+    id,
+    title,
+    avatar,
+    last_message,
+    unread_count,
+    // onClick,
+    activeClassName,
+  }: ChatUserProps) {
+    super({
+      id,
+      title,
+      last_message,
+      unread_count,
+      avatar,
+      activeClassName,
+      // events: { click: onClick },
+    });
+  }
 
   protected render(): string {
     return `
-    <div class="chat_page_left_chats_item"></div>
+      <div class="chat_page_left_chats_item {{activeClassName}}" data-chat-id={{ id }}>
+        <div class="chat_page_list_item_right">
+          {{#if ${Boolean(this.props.avatar)}}}
+            {{{ Avatar source="${this.props.avatar}" }}}
+          {{else}}
+            {{{ EmptyAvatar width="50" height="50" }}}
+          {{/if}}
+          <span>{{ title }}<span>
+        </div>
+        <div class="chat_page_list_item_left">
+           время
+        </div>
+      </div>
     `;
   }
 }

@@ -7,6 +7,8 @@ import './login.css';
 type LoginPageProps = {
   router: CoreRouter;
   onClick?: (e: Event) => void;
+  error: boolean;
+  errorReason: string;
 };
 
 class LoginPage extends Block<LoginPageProps> {
@@ -20,11 +22,23 @@ class LoginPage extends Block<LoginPageProps> {
       onClick: (e: Event) => this.handleGoToRegistration(e),
     });
   }
-  // TODO обновлять ошибку неправильного пароля
-  // componentDidUpdate(oldProps: LoginPageProps, newProps: LoginPageProps): boolean {
-  //   console.log(oldProps, '=> oldProps')
-  //   console.log(newProps, '=> newProps')
-  // }
+
+  componentDidMount(): void {
+    this.setProps({
+      ...this.props,
+      error: store.getState().login.error,
+      errorReason: store.getState().login.errorReason as string,
+    });
+    store.on('changed', () => this.onChangeStoreCallback());
+  }
+
+  onChangeStoreCallback() {
+    this.setProps({
+      ...this.props,
+      error: store.getState().login.error,
+      errorReason: store.getState().login.errorReason as string,
+    });
+  }
 
   handleGoToRegistration(e: Event) {
     e.preventDefault();
@@ -32,7 +46,7 @@ class LoginPage extends Block<LoginPageProps> {
   }
 
   protected render(): string {
-    const { error, errorReason } = store.getState().user;
+    const { error, errorReason } = this.props;
     return `
     <div class="root">
       <div>

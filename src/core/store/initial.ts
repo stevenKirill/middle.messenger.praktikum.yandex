@@ -12,7 +12,7 @@ const initialState: AppState = {
     errorReason: '',
   },
   chats: {
-    data: null,
+    data: [],
     error: false,
     loading: false,
     errorReason: '',
@@ -29,8 +29,8 @@ const initialState: AppState = {
   },
   login: {
     loading: false,
-    error: false,
-    errorReason: '',
+    error: true,
+    errorReason: 'User is not authorized',
   }
 };
 
