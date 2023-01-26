@@ -6,18 +6,23 @@ interface ButtonProps {
   textBtn: string;
   onClick: () => void;
   type: string;
+  className?: string;
 }
 
 class Button extends Block {
   static componentName = 'Button';
 
-  constructor({ textBtn, onClick, type = 'button' }: ButtonProps) {
-    super({ textBtn, type, events: { click: onClick } });
+  constructor({
+    textBtn, onClick, type = 'button', className,
+  }: ButtonProps) {
+    super({
+      textBtn, type, events: { click: onClick }, className,
+    });
   }
 
   protected render(): string {
     return `
-      <button type={{type}} class="app_button">{{textBtn}}</button>
+      <button type={{type}} class="app_button {{className}}">{{textBtn}}</button>
     `;
   }
 }

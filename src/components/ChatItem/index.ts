@@ -18,7 +18,6 @@ export interface ChatUserProps {
   }
   unread_count: string;
   avatar: string | null;
-  // onClick: () => void;
   activeClassName: string;
 }
 
@@ -31,7 +30,6 @@ class ChatItem extends Block<ChatUserProps> {
     avatar,
     last_message,
     unread_count,
-    // onClick,
     activeClassName,
   }: ChatUserProps) {
     super({
@@ -41,7 +39,6 @@ class ChatItem extends Block<ChatUserProps> {
       unread_count,
       avatar,
       activeClassName,
-      // events: { click: onClick },
     });
   }
 

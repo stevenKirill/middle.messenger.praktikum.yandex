@@ -15,6 +15,7 @@ type ChatPageProps = {
   isShow?: boolean;
   chats: TGetChatResponse[];
   currentChat?: string | null;
+  currentChatName: string;
 };
 
 class ChatPage extends Block<ChatPageProps> {
@@ -29,6 +30,7 @@ class ChatPage extends Block<ChatPageProps> {
       onChatCreate: () => this.handleCreateChat(),
       chats: store.getState().chats.data,
       currentChat: null,
+      currentChatName: '',
     });
   }
 
@@ -49,7 +51,6 @@ class ChatPage extends Block<ChatPageProps> {
   }
 
   initChatItemListener() {
-    // TODO убрать костыль с сделать по нормальному
     const chatItems = document.querySelector('.chat_page_left_chats');
     chatItems?.addEventListener('click', this.handleClickChat.bind(this));
   }
@@ -74,10 +75,12 @@ class ChatPage extends Block<ChatPageProps> {
   handleClickChat(e: Event) {
     const target = e.target as HTMLDivElement;
     const closest = target.closest('[data-chat-id]') as HTMLDivElement;
+    const chatName = closest.querySelector('span') as HTMLSpanElement;
     if (closest) {
       this.setProps({
         ...this.props,
         currentChat: closest.dataset.chatId,
+        currentChatName: chatName.innerText as string,
       });
       this.removeChatItemListener();
     }
@@ -116,6 +119,7 @@ class ChatPage extends Block<ChatPageProps> {
                 avatar=avatar
                 last_message=last_message
                 unread_count=unread_count
+                currentChatName=currentChatName
             }}}
           {{/with}}
           {{/each}}
@@ -123,7 +127,7 @@ class ChatPage extends Block<ChatPageProps> {
         </section>
         <section class="chat_page_right">
         {{#if ${this.props.currentChat}}}
-          {{{ ChatArea }}}
+          {{{ ChatArea currentChatName=currentChatName }}}
           {{else}}
           {{{ EmptyChat }}}
           {{/if}}

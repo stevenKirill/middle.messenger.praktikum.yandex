@@ -17,6 +17,7 @@
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
 @import "../components/ChatItem/chatItem.css";
+@import "../components/ChatArea/chatArea.css";
 
 :root {
   --main-blue: #3369f3;
@@ -63,4 +64,8 @@ html {
   background: rgba(0, 0, 0, 50%);
   backdrop-filter: blur(2px);
   z-index: 1;
+}
+
+.mr10-right {
+  margin-right: 10px;
 }
