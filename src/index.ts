@@ -14,7 +14,7 @@ import Link from 'components/Link';
 import Input from 'components/Input';
 import Row from 'components/Row';
 import Avatar from 'components/Avatar';
-import AvatarModal from 'components/AvatarModal';
+import Modal from 'components/Modal';
 import EditRow from 'components/EditRow';
 import RegistrationForm from 'components/RegistrationForm';
 import LoginForm from 'components/LoginForm';
@@ -25,12 +25,13 @@ import ControlledTextArea from 'components/ControlledTextArea';
 import TextArea from 'components/TextArea';
 import SendButton from 'components/SendButton';
 import ClipButton from 'components/ClipButton';
-import ChatUser from 'components/ChatUser';
+import ChatUser from 'components/ChatItem';
 import ChatMessage from 'components/ChatMessage';
 import SearchInput from 'components/SearchInput';
 import ErrorComponent from 'components/ErrorComponent';
 import FileInput from 'components/FileInput';
 import EmptyAvatar from 'components/EmptyAvatar';
+import CloseButton from 'components/CloseButton';
 
 // components
 registerComponent(Button);
@@ -38,7 +39,7 @@ registerComponent(Link);
 registerComponent(Input);
 registerComponent(Row);
 registerComponent(Avatar);
-registerComponent(AvatarModal);
+registerComponent(Modal);
 registerComponent(EditRow);
 registerComponent(RegistrationForm);
 registerComponent(LoginForm);
@@ -55,6 +56,7 @@ registerComponent(ControlledTextArea);
 registerComponent(ErrorComponent);
 registerComponent(FileInput);
 registerComponent(EmptyAvatar);
+registerComponent(CloseButton);
 
 document.addEventListener('DOMContentLoaded', () => {
   initRouter(appRouter, store);

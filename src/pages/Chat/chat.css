@@ -1,16 +1,19 @@
 .chat_page {
   display: grid;
   grid-template-columns: 25% 75%;
-  width: 1000px;
+  width: 100%;
   margin: 20px auto;
   padding: 5px;
 
   &_left {
     background: var(--dark-white);
     border-radius: 1px solid #eaeaea;
-    height: 500px;
+    height: 700px;
     padding: 5px;
-
+    &_create {
+      display: flex;
+      justify-content: center;
+    }
     &_profile {
       display: flex;
       justify-content: flex-end;
@@ -75,7 +78,7 @@
       &_messages {
         border-top: 1px solid #eaeaea;
         border-bottom: 1px solid #eaeaea;
-        height: 350px;
+        height: 550px;
         padding: 10px;
       }
 

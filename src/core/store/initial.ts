@@ -17,6 +17,11 @@ const initialState: AppState = {
     loading: false,
     errorReason: '',
   },
+  createChat: {
+    error: false,
+    loading: false,
+    errorReason: '',
+  },
   registration: {
     loading: false,
     error: false,

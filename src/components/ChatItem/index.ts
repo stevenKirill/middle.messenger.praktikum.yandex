@@ -2,9 +2,8 @@ import Block from 'core/block/Block';
 
 export interface ChatUserProps {
 }
-// TODO отрисовка пользователя чата
-// возможность перейти в сам чат
-class ChatUser extends Block {
+
+class ChatItem extends Block {
   static componentName = 'ChatUser';
 
   protected render(): string {
@@ -14,4 +13,4 @@ class ChatUser extends Block {
   }
 }
 
-export default ChatUser;
+export default ChatItem;

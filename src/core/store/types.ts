@@ -31,13 +31,11 @@ export type TChats = {
   errorReason?: string;
 };
 
-export type AppState = {
-  app: TApp;
-  user: TUser;
-  chats: TChats;
-  registration: TRegistartionState;
-  login: TLoginState;
-};
+export type TCreateChat = {
+  error: boolean;
+  loading: boolean;
+  errorReason?: string;
+}
 
 export type TRegistartionState = {
   loading: boolean;
@@ -50,4 +48,15 @@ export type TLoginState = {
   loading: boolean;
   error: boolean;
   errorReason?: string;
+};
+
+
+
+export type AppState = {
+  app: TApp;
+  user: TUser;
+  chats: TChats;
+  registration: TRegistartionState;
+  login: TLoginState;
+  createChat: TCreateChat;
 };
