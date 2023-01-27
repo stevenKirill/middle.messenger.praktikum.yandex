@@ -64,8 +64,6 @@ export type TLoginState = {
   errorReason?: string;
 };
 
-
-
 export type AppState = {
   app: TApp;
   user: TUser;
@@ -76,4 +74,5 @@ export type AppState = {
   deleteChat: TDeleteChat;
   searchUser: TSearchUserState;
   sockets: object;
+  messages: [];
 };

@@ -29,12 +29,10 @@ class ControlledTextArea extends Block {
     const message = myTextArea.value.trim();
     const currentChatSocket: WebSocket = store.getState().sockets[this.props.currentChatId];
     console.log(currentChatSocket, '=> currentChatSocket');
-    currentChatSocket.addEventListener('open', () => {
-      currentChatSocket.send(JSON.stringify({
-        content: message,
-        type: 'message',
-      }));
-    });
+    currentChatSocket.send(JSON.stringify({
+      content: message,
+      type: 'message',
+    }));
   }
 
   protected render(): string {

@@ -2,6 +2,7 @@ import chatApi from 'api/chat';
 import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/chat/types';
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
+import initSocketListeners from './utils';
 
 export const getChatsAction = async (
   dispatch: Dispatch<AppState>,
@@ -74,7 +75,7 @@ export const deleteChatAction = async (
   });
   try {
     const deleteChatResponse = await chatApi.deleteChat(requestData);
-    console.log(deleteChatResponse, '=> delete chat response');
+    console.log(deleteChatResponse, '=> чат был удален');
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -90,33 +91,6 @@ export const deleteChatAction = async (
 type TSocketData = {
   chatId: string;
   token: string;
-};
-
-const initSocketListeners = (socket: WebSocket) => {
-  socket.addEventListener('open', () => {
-    console.log('Соединение установлено');
-    socket.send(JSON.stringify({
-      content: 'Моё первое сообщение миру!',
-      type: 'message',
-    }));
-  });
-
-  socket.addEventListener('close', (event) => {
-    if (event.wasClean) {
-      console.log('Соединение закрыто чисто');
-    } else {
-      console.log('Обрыв соединения');
-    }
-    console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-  });
-
-  socket.addEventListener('message', (event) => {
-    console.log('Получены данные', event.data);
-  });
-
-  socket.addEventListener('error', (event) => {
-    console.log('Ошибка', event.message);
-  });
 };
 
 export const createSocket = async (

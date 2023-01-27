@@ -76,7 +76,6 @@ class ChatPage extends Block<ChatPageProps> {
   async startChatAction(chatId: string) {
     try {
       const startChatResponse = await chatApi.startChat(chatId);
-      console.log(startChatResponse, '=> startChatResponse');
       store.dispatch(createSocket, {
         token: startChatResponse.token,
         chatId,

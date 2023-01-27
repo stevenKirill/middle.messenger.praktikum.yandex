@@ -17,7 +17,6 @@
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
 @import "../components/ChatItem/chatItem.css";
-@import "../components/ChatArea/chatArea.css";
 
 :root {
   --main-blue: #3369f3;

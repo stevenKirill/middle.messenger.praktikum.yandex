@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './chatArea.css';
 import { store } from 'core/store';
 import { deleteChatAction, getChatsAction } from 'services/chat';
 
@@ -22,6 +21,18 @@ class ChatArea extends Block<ChatAreaProps> {
       ...this.props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
+      messages: [],
+    });
+  }
+
+  componentDidMount() {
+    store.on('changed', () => this.onChangeStoreCallback());
+  }
+
+  onChangeStoreCallback() {
+    this.setProps({
+      ...this.props,
+      messages: store.getState().messages,
     });
   }
 
@@ -40,6 +51,7 @@ class ChatArea extends Block<ChatAreaProps> {
   }
 
   protected render(): string {
+    console.log(this.props.messages);
     return `
     <div>
       {{#if ${this.props.isShow}}}
@@ -65,7 +77,19 @@ class ChatArea extends Block<ChatAreaProps> {
             }}}
           </div>
         </div>
-        <div class="chat_page_right_chatArea_messages">messages</div>
+        <div class="chat_page_right_chatArea_messages">
+        {{#each messages}}
+        {{#with this}}
+          {{{ ChatMessage
+              content=content
+              type=type
+              id=id
+              user_id=user_id
+              time=time
+          }}}
+        {{/with}}
+        {{/each}}
+        </div>
         {{{
           ControlledTextArea
           currentChatId=currentChatId

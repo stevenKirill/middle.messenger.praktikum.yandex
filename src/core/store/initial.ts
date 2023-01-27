@@ -44,6 +44,7 @@ const initialState: AppState = {
     errorReason: '',
   },
   sockets: {},
+  messages: [],
 };
 
 export default initialState;
