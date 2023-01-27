@@ -11,6 +11,7 @@ class CloseButton extends Block<CloseButtonProps> {
 
   constructor({ className, onClick, text }: CloseButtonProps) {
     super({ className, onClick, text });
+    // @ts-ignore
     this.setProps({ events: { click: onClick }, className, text });
   }
 

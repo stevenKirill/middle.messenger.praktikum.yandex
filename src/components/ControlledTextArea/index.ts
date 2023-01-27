@@ -28,6 +28,7 @@ class ControlledTextArea extends Block {
     const { textArea } = this.refs;
     const myTextArea = textArea as HTMLTextAreaElement;
     const message = myTextArea.value.trim();
+    // @ts-ignore
     const currentChatSocket: WebSocket = store.getState().sockets[this.props.currentChatId];
     currentChatSocket.send(JSON.stringify({
       content: message,

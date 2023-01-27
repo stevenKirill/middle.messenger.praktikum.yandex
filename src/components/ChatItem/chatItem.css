@@ -6,10 +6,10 @@
   cursor: pointer;
   padding: 5px;
   &:hover {
-    background-color: #E4EDFD;
+    background-color: #e4edfd;
   }
 }
 
 .chat_is_active {
-  background-color: #E4EDFD;;
+  background-color: #e4edfd;
 }
