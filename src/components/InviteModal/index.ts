@@ -7,27 +7,29 @@ interface InviteModalProps {
   onSearch?: () => void;
   onCloseModal?: () => void;
   error: boolean;
+  currentChatId: string;
 }
 
 class InviteModal extends Block<InviteModalProps> {
   static componentName = 'InviteModal';
 
-  constructor({ isShow }: InviteModalProps) {
-    super({ isShow });
+  constructor({ isShow, error, currentChatId }: InviteModalProps) {
+    super({ isShow, error, currentChatId });
     this.setProps({
       onSearch: () => this.handleSearch(),
       onCloseModal: () => this.handleCloseModal(),
       isShow: true,
       error: false,
+      currentChatId,
     });
   }
 
   handleSearch() {
     const input = this.refs.user_login.querySelector('input') as HTMLInputElement;
-    console.log(input.value, '=> val');
     if (input.value !== '') {
       store.dispatch(searchUserByLoginAction, {
         login: input.value,
+        chatId: this.props.currentChatId,
       });
     } else {
       this.setProps({
@@ -45,7 +47,6 @@ class InviteModal extends Block<InviteModalProps> {
   }
 
   protected render(): string {
-    console.log(this.props.error)
     return `
     <div>
     {{#if ${this.props.isShow}}}

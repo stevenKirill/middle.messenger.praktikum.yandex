@@ -21,6 +21,7 @@ export interface ChatUserProps {
   activeClassName: string;
 }
 
+// TODO active class name for chat
 class ChatItem extends Block<ChatUserProps> {
   static componentName = 'ChatItem';
 
@@ -44,7 +45,10 @@ class ChatItem extends Block<ChatUserProps> {
 
   protected render(): string {
     return `
-      <div class="chat_page_left_chats_item {{activeClassName}}" data-chat-id={{ id }}>
+      <div
+        class="chat_page_left_chats_item"
+        data-chat-id={{ id }}
+      >
         <div class="chat_page_list_item_right">
           {{#if ${Boolean(this.props.avatar)}}}
             {{{ Avatar source="${this.props.avatar}" }}}

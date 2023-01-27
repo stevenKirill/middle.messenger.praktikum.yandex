@@ -1,3 +1,4 @@
+import chatApi from 'api/chat';
 import { APIError } from 'api/types';
 import userApi from 'api/user';
 import {
@@ -6,6 +7,7 @@ import {
   TChangeProfileRequest,
   TChangeProfileResponse,
   TSearchUserRequest,
+  TSearchUserResponse,
 } from 'api/user/types';
 import appRouter from 'core/router';
 import { AppState, Dispatch } from 'core/store/types';
@@ -29,7 +31,6 @@ export const changeUserDataAction = async (
         data: changeUserDataResposne,
       },
     });
-    // appRouter.go('/profile');
   } catch (error) {
     const responseError = error as APIError;
     dispatch({
@@ -102,22 +103,39 @@ export const changeUserPasswordAction = async (
 export const searchUserByLoginAction = async (
   dispatch: Dispatch<AppState>,
   state: AppState,
-  data: TSearchUserRequest,
+  data: TSearchUserRequest & { chatId: string },
 ) => {
   dispatch({
-    user: {
-      ...state.user,
+    searchUser: {
+      ...state.searchUser,
       loading: true,
     },
   });
   try {
-    const userResposne = await userApi.searchUser(data);
-    console.log(userResposne, '[> userResposne');
+    const { login, chatId } = data;
+    console.log(login, chatId);
+    const userResposne = await userApi.searchUser({
+      login,
+    }) as TSearchUserResponse;
+    console.log(userResposne[0].id, '=> найденный пользователь');
+    const firstUserId = userResposne[0].id;
+    const inviteToChatResponse = await chatApi.inviteUser({
+      users: [firstUserId],
+      chatId: Number(chatId),
+    });
+    console.log(inviteToChatResponse, '=> приглашалка в чат');
+    // dispatch({
+    //   searchUser: {
+    //     ...state.searchUser,
+    //     loading: false,
+    //     data: userResposne as TSearchUserResponse,
+    //   },
+    // });
   } catch (error) {
     const responseError = error as APIError;
     dispatch({
-      user: {
-        ...state.user,
+      searchUser: {
+        ...state.searchUser,
         error: true,
         errorReason: responseError.reason,
       },

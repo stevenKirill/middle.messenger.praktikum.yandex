@@ -48,7 +48,7 @@ export type TSearchUserState = {
   error: boolean;
   loading: boolean;
   errorReason?: string;
-  data: UserInfoResponse | null;
+  data: UserInfoResponse[] | null;
 }
 
 export type TRegistartionState = {

@@ -6,6 +6,7 @@ import {
   TDeleteChatResponse,
   TGetChatRequest,
   TGetChatResponse,
+  TInviteUserRequest,
 } from './types';
 
 const chatApi = {
@@ -28,6 +29,19 @@ const chatApi = {
       headers: {
         'Content-Type': 'application/json',
       },
+    });
+  },
+  inviteUser(data: TInviteUserRequest): Promise<APIError> {
+    return appHTTP.put('/chats/users', {
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  },
+  changeChatAvatar(data: FormData): Promise<TGetChatResponse | APIError> {
+    return appHTTP.put('/chats/avatar', {
+      data,
     });
   },
 };

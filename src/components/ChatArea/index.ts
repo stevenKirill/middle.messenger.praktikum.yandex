@@ -43,7 +43,10 @@ class ChatArea extends Block<ChatAreaProps> {
     return `
     <div>
       {{#if ${this.props.isShow}}}
-        {{{ InviteModal isShow=isShow }}}
+        {{{ InviteModal
+            isShow=isShow
+            currentChatId=currentChatId
+        }}}
       {{else}}
         <div></div>
       {{/if}}

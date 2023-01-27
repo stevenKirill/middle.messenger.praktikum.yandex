@@ -32,9 +32,15 @@ const userApi = {
     },
   ),
   getUser: (id: number): Promise<TUserByIdResponse | APIError> => appHTTP.get(`/user/${id}`),
-  searchUser: (data: TSearchUserRequest): Promise<TSearchUserResponse | APIError> => appHTTP.post('/user/search', {
-    data: JSON.stringify(data),
-  }),
+  searchUser: (data: TSearchUserRequest): Promise<TSearchUserResponse | APIError> => appHTTP.post(
+    '/user/search',
+    {
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  ),
   changeAvatar: (
     data: TChangeAvatarRequest,
   ): Promise<TChangeProfileResponse | APIError> => appHTTP.put(

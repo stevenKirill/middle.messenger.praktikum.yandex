@@ -39,3 +39,8 @@ export type TDeleteChatResponse = {
     avatar: string;
   }
 };
+
+export type TInviteUserRequest = {
+  users: number[];
+  chatId: number;
+};

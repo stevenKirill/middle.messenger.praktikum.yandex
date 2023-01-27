@@ -119,6 +119,7 @@ class ChatPage extends Block<ChatPageProps> {
                 last_message=last_message
                 unread_count=unread_count
                 currentChatName=currentChatName
+                activeClassName=${this.props.currentChat}
             }}}
           {{/with}}
           {{/each}}
