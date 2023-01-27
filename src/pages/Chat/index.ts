@@ -3,8 +3,10 @@ import withRouter from 'utils/HOCS/withRouter';
 import { CoreRouter } from 'core/router/types';
 import './chat.css';
 import { store } from 'core/store';
-import { getChatsAction } from 'services/chat';
+import { createSocket, getChatsAction } from 'services/chat';
 import { TGetChatResponse } from 'api/chat/types';
+import { APIError } from 'api/types';
+import chatApi from 'api/chat';
 
 type ChatPageProps = {
   router: CoreRouter;
@@ -71,14 +73,30 @@ class ChatPage extends Block<ChatPageProps> {
     });
   }
 
+  async startChatAction(chatId: string) {
+    try {
+      const startChatResponse = await chatApi.startChat(chatId);
+      console.log(startChatResponse, '=> startChatResponse');
+      store.dispatch(createSocket, {
+        token: startChatResponse.token,
+        chatId,
+      });
+    } catch (error) {
+      const errorResponse = error as APIError;
+      console.error(errorResponse);
+    }
+  }
+
   handleClickChat(e: Event) {
     const target = e.target as HTMLDivElement;
     const closest = target.closest('[data-chat-id]') as HTMLDivElement;
     const chatName = closest.querySelector('span') as HTMLSpanElement;
     if (closest) {
+      const currId = closest.dataset.chatId;
+      this.startChatAction(currId as string);
       this.setProps({
         ...this.props,
-        currentChat: closest.dataset.chatId,
+        currentChat: currId,
         currentChatName: chatName.innerText as string,
       });
       this.removeChatItemListener();

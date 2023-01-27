@@ -66,7 +66,10 @@ class ChatArea extends Block<ChatAreaProps> {
           </div>
         </div>
         <div class="chat_page_right_chatArea_messages">messages</div>
-        {{{ ControlledTextArea }}}
+        {{{
+          ControlledTextArea
+          currentChatId=currentChatId
+        }}}
       </div>
     </div>
   `;

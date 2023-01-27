@@ -113,24 +113,14 @@ export const searchUserByLoginAction = async (
   });
   try {
     const { login, chatId } = data;
-    console.log(login, chatId);
     const userResposne = await userApi.searchUser({
       login,
     }) as TSearchUserResponse;
-    console.log(userResposne[0].id, '=> найденный пользователь');
     const firstUserId = userResposne[0].id;
-    const inviteToChatResponse = await chatApi.inviteUser({
+    await chatApi.inviteUser({
       users: [firstUserId],
       chatId: Number(chatId),
     });
-    console.log(inviteToChatResponse, '=> приглашалка в чат');
-    // dispatch({
-    //   searchUser: {
-    //     ...state.searchUser,
-    //     loading: false,
-    //     data: userResposne as TSearchUserResponse,
-    //   },
-    // });
   } catch (error) {
     const responseError = error as APIError;
     dispatch({

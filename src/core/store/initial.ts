@@ -42,7 +42,8 @@ const initialState: AppState = {
     error: false,
     loading: false,
     errorReason: '',
-  }
+  },
+  sockets: {},
 };
 
 export default initialState;

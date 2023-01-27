@@ -7,6 +7,7 @@ import {
   TGetChatRequest,
   TGetChatResponse,
   TInviteUserRequest,
+  TStartChatsResponse,
 } from './types';
 
 const chatApi = {
@@ -43,6 +44,9 @@ const chatApi = {
     return appHTTP.put('/chats/avatar', {
       data,
     });
+  },
+  startChat(id: string): Promise<TStartChatsResponse> {
+    return appHTTP.post(`/chats/token/${id}`);
   },
 };
 

@@ -1,33 +1,22 @@
 import Block from 'core/block/Block';
-import { validateMessage } from 'utils/validation';
+import { store } from 'core/store';
 
-export interface ControlledTextAreaProps {
-  onClick: () => void;
-  onFocus: () => void;
-  text: string;
+interface ControlledTextAreaProps {
+  currentChatId: string;
 }
 
 class ControlledTextArea extends Block {
   static componentName = 'ControlledTextArea';
 
-  constructor() {
-    super();
+  constructor({ currentChatId }: ControlledTextAreaProps) {
+    super({ currentChatId });
     this.setProps({
       events: {
         click: (e: Event) => this.handleSendMessage(e),
       },
+      currentChatId,
     });
   }
-
-  // handleFocus(e: Event) {
-  //   const target = e.target as HTMLTextAreaElement;
-  //   console.log(target.value);
-  // }
-
-  // handleBlur(e: Event) {
-  //   const target = e.target as HTMLTextAreaElement;
-  //   console.log(target.value);
-  // }
 
   handleSendMessage(e: Event) {
     e.preventDefault();
@@ -37,13 +26,15 @@ class ControlledTextArea extends Block {
     }
     const { textArea } = this.refs;
     const myTextArea = textArea as HTMLTextAreaElement;
-    const validate = validateMessage(myTextArea.value);
-    if (validate) {
-      this.setProps({
-        text: validate,
-      });
-    }
-    console.log(validate);
+    const message = myTextArea.value.trim();
+    const currentChatSocket: WebSocket = store.getState().sockets[this.props.currentChatId];
+    console.log(currentChatSocket, '=> currentChatSocket');
+    currentChatSocket.addEventListener('open', () => {
+      currentChatSocket.send(JSON.stringify({
+        content: message,
+        type: 'message',
+      }));
+    });
   }
 
   protected render(): string {

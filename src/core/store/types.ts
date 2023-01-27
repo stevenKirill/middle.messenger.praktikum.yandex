@@ -75,4 +75,5 @@ export type AppState = {
   createChat: TCreateChat;
   deleteChat: TDeleteChat;
   searchUser: TSearchUserState;
+  sockets: object;
 };
