@@ -5,6 +5,7 @@
   align-items: center;
   cursor: pointer;
   padding: 5px;
+
   &:hover {
     background-color: #e4edfd;
   }
