@@ -1,7 +1,6 @@
 import Block from 'core/block/Block';
 import withRouter from 'utils/HOCS/withRouter';
 import { CoreRouter } from 'core/router/types';
-// import Handlebars from 'handlebars';
 import './chat.css';
 import { store } from 'core/store';
 import { getChatsAction } from 'services/chat';
@@ -127,7 +126,10 @@ class ChatPage extends Block<ChatPageProps> {
         </section>
         <section class="chat_page_right">
         {{#if ${this.props.currentChat}}}
-          {{{ ChatArea currentChatName=currentChatName }}}
+          {{{ ChatArea
+              currentChatName=currentChatName
+              currentChatId=currentChat
+          }}}
           {{else}}
           {{{ EmptyChat }}}
           {{/if}}

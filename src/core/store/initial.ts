@@ -22,6 +22,11 @@ const initialState: AppState = {
     loading: false,
     errorReason: '',
   },
+  deleteChat: {
+    error: false,
+    loading: false,
+    errorReason: '',
+  },
   registration: {
     loading: false,
     error: false,
@@ -31,6 +36,12 @@ const initialState: AppState = {
     loading: false,
     error: true,
     errorReason: 'User is not authorized',
+  },
+  searchUser: {
+    data: null,
+    error: false,
+    loading: false,
+    errorReason: '',
   }
 };
 

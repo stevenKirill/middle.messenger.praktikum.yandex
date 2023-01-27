@@ -5,6 +5,7 @@ import {
   TChangePasswordRequest,
   TChangeProfileRequest,
   TChangeProfileResponse,
+  TSearchUserRequest,
 } from 'api/user/types';
 import appRouter from 'core/router';
 import { AppState, Dispatch } from 'core/store/types';
@@ -86,6 +87,32 @@ export const changeUserPasswordAction = async (
   try {
     await userApi.changePassword(data);
     appRouter.go('/profile');
+  } catch (error) {
+    const responseError = error as APIError;
+    dispatch({
+      user: {
+        ...state.user,
+        error: true,
+        errorReason: responseError.reason,
+      },
+    });
+  }
+};
+
+export const searchUserByLoginAction = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  data: TSearchUserRequest,
+) => {
+  dispatch({
+    user: {
+      ...state.user,
+      loading: true,
+    },
+  });
+  try {
+    const userResposne = await userApi.searchUser(data);
+    console.log(userResposne, '[> userResposne');
   } catch (error) {
     const responseError = error as APIError;
     dispatch({

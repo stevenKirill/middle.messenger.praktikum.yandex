@@ -1,5 +1,5 @@
 import chatApi from 'api/chat';
-import { TCreateChatRequest, TGetChatRequest } from 'api/chat/types';
+import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/chat/types';
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
 
@@ -47,12 +47,38 @@ export const createChatAction = async (
     },
   });
   try {
-    const chatsResponse = await chatApi.create(requestData);
-    console.log(chatsResponse, '=> create chat response');
+    const createChatResponse = await chatApi.create(requestData);
+    console.log(createChatResponse, '=> create chat response');
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
       createChat: {
+        ...state.createChat,
+        error: true,
+        errorReason: errorResponse.reason,
+      },
+    });
+  }
+};
+
+export const deleteChatAction = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  requestData: TDeleteChatRequest,
+) => {
+  dispatch({
+    deleteChat: {
+      ...state.createChat,
+      loading: true,
+    },
+  });
+  try {
+    const deleteChatResponse = await chatApi.deleteChat(requestData);
+    console.log(deleteChatResponse, '=> delete chat response');
+  } catch (error) {
+    const errorResponse = error as APIError;
+    dispatch({
+      deleteChat: {
         ...state.createChat,
         error: true,
         errorReason: errorResponse.reason,

@@ -32,6 +32,7 @@ import ErrorComponent from 'components/ErrorComponent';
 import FileInput from 'components/FileInput';
 import EmptyAvatar from 'components/EmptyAvatar';
 import CloseButton from 'components/CloseButton';
+import InviteModal from 'components/InviteModal';
 
 // components
 registerComponent(Button);
@@ -57,6 +58,7 @@ registerComponent(ErrorComponent);
 registerComponent(FileInput);
 registerComponent(EmptyAvatar);
 registerComponent(CloseButton);
+registerComponent(InviteModal);
 
 document.addEventListener('DOMContentLoaded', () => {
   initRouter(appRouter, store);

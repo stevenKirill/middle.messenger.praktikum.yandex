@@ -38,6 +38,19 @@ export type TCreateChat = {
   errorReason?: string;
 }
 
+export type TDeleteChat = {
+  error: boolean;
+  loading: boolean;
+  errorReason?: string;
+}
+
+export type TSearchUserState = {
+  error: boolean;
+  loading: boolean;
+  errorReason?: string;
+  data: UserInfoResponse | null;
+}
+
 export type TRegistartionState = {
   loading: boolean;
   error: boolean;
@@ -60,4 +73,6 @@ export type AppState = {
   registration: TRegistartionState;
   login: TLoginState;
   createChat: TCreateChat;
+  deleteChat: TDeleteChat;
+  searchUser: TSearchUserState;
 };
