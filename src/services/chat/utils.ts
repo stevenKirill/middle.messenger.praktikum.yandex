@@ -22,6 +22,7 @@ const initSocketListeners = (socket: WebSocket) => {
       state: AppState,
     ) => {
       dispatch({
+        // @ts-ignore
         messages: [...state.messages, data],
       });
     });
