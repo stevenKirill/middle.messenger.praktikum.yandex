@@ -1,13 +1,9 @@
 import { store } from 'core/store';
 import { AppState, Dispatch } from 'core/store/types';
 
-export const initSocketListeners = (socket: WebSocket) => {
+const initSocketListeners = (socket: WebSocket) => {
   socket.addEventListener('open', () => {
     console.log('Соединение установлено');
-    socket.send(JSON.stringify({
-      content: 'Моё первое сообщение миру!',
-      type: 'message',
-    }));
   });
 
   socket.addEventListener('close', (event) => {
@@ -20,7 +16,6 @@ export const initSocketListeners = (socket: WebSocket) => {
   });
 
   socket.addEventListener('message', (event) => {
-    console.log('Получены данные', event.data);
     const data = JSON.parse(event.data);
     store.dispatch((
       dispatch: Dispatch<AppState>,
@@ -36,4 +31,5 @@ export const initSocketListeners = (socket: WebSocket) => {
     console.log('Ошибка', event.message);
   });
 };
+
 export default initSocketListeners;

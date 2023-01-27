@@ -36,18 +36,17 @@ class ChatPage extends Block<ChatPageProps> {
   }
 
   componentDidMount(): void {
+    // запрос списка чатов
     const init = async () => {
       await store.dispatch(getChatsAction);
     };
     init();
+    // подписка на обновление чатов
     store.on('changed', () => this.onChangeStoreCallback());
   }
 
   onChangeStoreCallback() {
-    this.setProps({
-      ...this.props,
-      chats: store.getState().chats.data,
-    });
+    this.setProps({ ...this.props, chats: store.getState().chats.data });
     this.initChatItemListener();
   }
 
@@ -67,10 +66,7 @@ class ChatPage extends Block<ChatPageProps> {
   }
 
   handleCreateChat() {
-    this.setProps({
-      ...this.props,
-      isShow: true,
-    });
+    this.setProps({ ...this.props, isShow: true });
   }
 
   async startChatAction(chatId: string) {
@@ -86,13 +82,26 @@ class ChatPage extends Block<ChatPageProps> {
     }
   }
 
+  removeAllConnections() {
+    Object.values(store.getState().sockets).forEach((socket: WebSocket) => {
+      socket.close();
+    });
+  }
+
   handleClickChat(e: Event) {
     const target = e.target as HTMLDivElement;
     const closest = target.closest('[data-chat-id]') as HTMLDivElement;
     const chatName = closest.querySelector('span') as HTMLSpanElement;
     if (closest) {
-      const currId = closest.dataset.chatId;
-      this.startChatAction(currId as string);
+      const currId: string = closest.dataset.chatId!;
+      if (currId !== this.props.currentChat) {
+        this.removeAllConnections();
+      }
+      const wasBefore = store.getState().sockets[currId];
+      console.log(wasBefore, '=> wasBefore');
+      if (!wasBefore) {
+        this.startChatAction(currId as string);
+      }
       this.setProps({
         ...this.props,
         currentChat: currId,

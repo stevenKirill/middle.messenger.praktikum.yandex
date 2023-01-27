@@ -19,6 +19,7 @@ class ControlledTextArea extends Block {
   }
 
   handleSendMessage(e: Event) {
+    // получить текущий сокет и отправить сообщение
     e.preventDefault();
     const target = e.target as HTMLElement;
     if (target.nodeName !== 'BUTTON') {
@@ -28,7 +29,6 @@ class ControlledTextArea extends Block {
     const myTextArea = textArea as HTMLTextAreaElement;
     const message = myTextArea.value.trim();
     const currentChatSocket: WebSocket = store.getState().sockets[this.props.currentChatId];
-    console.log(currentChatSocket, '=> currentChatSocket');
     currentChatSocket.send(JSON.stringify({
       content: message,
       type: 'message',
@@ -39,10 +39,7 @@ class ControlledTextArea extends Block {
     return `
     <div class="chat_page_right_chatArea_send">
       {{{ ClipButton }}}
-      {{{
-        TextArea
-          ref="textArea"
-      }}}
+      {{{ TextArea ref="textArea" }}}
       {{{ SendButton onClick=handleSendMessage }}}
     </div>
     {{{ ErrorComponent error=text }}}

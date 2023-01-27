@@ -17,7 +17,6 @@ export const getChatsAction = async (
   });
   try {
     const chatsResponse = await chatApi.getChats(requestData);
-    console.log(chatsResponse, '=> chatsResponse');
     dispatch({
       chats: {
         ...state.chats,
@@ -48,8 +47,7 @@ export const createChatAction = async (
     },
   });
   try {
-    const createChatResponse = await chatApi.create(requestData);
-    console.log(createChatResponse, '=> create chat response');
+    await chatApi.create(requestData);
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -103,7 +101,6 @@ export const createSocket = async (
     const userId = state.user.data?.id;
     const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
     initSocketListeners(socket);
-    console.log(socket, '=> socket');
     dispatch({
       sockets: {
         ...state.sockets,

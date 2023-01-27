@@ -1,7 +1,7 @@
 import Block from 'core/block/Block';
 import './chatItem.css';
 
-export interface ChatUserProps {
+export interface ChatItemProps {
   id: number;
   title: string;
   last_message: {
@@ -22,7 +22,7 @@ export interface ChatUserProps {
 }
 
 // TODO active class name for chat
-class ChatItem extends Block<ChatUserProps> {
+class ChatItem extends Block<ChatItemProps> {
   static componentName = 'ChatItem';
 
   constructor({
@@ -32,7 +32,7 @@ class ChatItem extends Block<ChatUserProps> {
     last_message,
     unread_count,
     activeClassName,
-  }: ChatUserProps) {
+  }: ChatItemProps) {
     super({
       id,
       title,
@@ -58,7 +58,7 @@ class ChatItem extends Block<ChatUserProps> {
           <span>{{ title }}<span>
         </div>
         <div class="chat_page_list_item_left">
-           время
+           {{ unread_count }}
         </div>
       </div>
     `;

@@ -14,8 +14,8 @@ export interface ChatAreaProps {
 class ChatArea extends Block<ChatAreaProps> {
   static componentName = 'ChatArea';
 
-  constructor({ currentChatName, currentChatId }: ChatAreaProps) {
-    super({ currentChatName, currentChatId });
+  constructor({ currentChatName, currentChatId, messages }: ChatAreaProps) {
+    super({ currentChatName, currentChatId, messages });
 
     this.setProps({
       ...this.props,
@@ -51,7 +51,7 @@ class ChatArea extends Block<ChatAreaProps> {
   }
 
   protected render(): string {
-    console.log(this.props.messages);
+    console.log(this.props.messages, '=> сообщения');
     return `
     <div>
       {{#if ${this.props.isShow}}}
