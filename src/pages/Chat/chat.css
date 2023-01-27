@@ -83,7 +83,7 @@
         &_buttons {
           display: flex;
           flex-direction: row;
-          &:firsr-child {
+          &:first-child {
             margin-left: 10px !important;
             border: 1px darksalmon;
           }
