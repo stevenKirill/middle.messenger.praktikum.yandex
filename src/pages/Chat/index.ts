@@ -94,14 +94,13 @@ class ChatPage extends Block<ChatPageProps> {
     const chatName = closest.querySelector('span') as HTMLSpanElement;
     if (closest) {
       const currId: string = closest.dataset.chatId!;
+      if (currId === this.props.currentChat) {
+        return;
+      }
       if (currId !== this.props.currentChat) {
         this.removeAllConnections();
       }
-      const wasBefore = store.getState().sockets[currId];
-      console.log(wasBefore, '=> wasBefore');
-      if (!wasBefore) {
-        this.startChatAction(currId as string);
-      }
+      this.startChatAction(currId as string);
       this.setProps({
         ...this.props,
         currentChat: currId,
