@@ -16,12 +16,8 @@ class LoginPage extends Block<LoginPageProps> {
   }
 
   handleGoToRegistration(e: Event) {
-    // e.preventDefault();
-    // appRouter.go('/registration');
-    this.setProps({
-      ...this.props,
-      loading: true,
-    });
+    e.preventDefault();
+    appRouter.go('/registration');
   }
 
   protected render(): string {
@@ -62,6 +58,5 @@ const mapStateToProps = (state: AppState) => ({
 
 const withStore = connectStore(mapStateToProps);
 
-// @ts-ignore
 const EnhancedLoginPage = withStore(LoginPage);
 export default EnhancedLoginPage;

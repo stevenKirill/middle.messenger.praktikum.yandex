@@ -10,18 +10,30 @@ export class LoginForm extends Block<LoginFormProps> {
   constructor() {
     super({
       onClick: (e: Event) => this.handleAuth(e),
-      onBlur: () => this.handleBlur(),
+      onBlur: (e: Event) => this.handleBlur(e),
       error: '',
     });
   }
 
-  handleBlur() {
-    const { loginInput, error } = this.refs;
-    const input = loginInput.node?.querySelector('input') as HTMLInputElement;
-    const validated = validateLogin(input.value);
-    error.setProps({
-      error: validated,
-    });
+  handleBlur(e: Event) {
+    const target = e.target as HTMLInputElement;
+    const { error, error2 } = this.refs;
+    if (target.name === 'login') {
+      const validated = validateLogin(target.value);
+      error.setProps({
+        error: validated,
+      });
+    }
+    if (target.name === 'password' && target.value === '') {
+      error2.setProps({
+        error: 'Пароль не может быть пустым',
+      });
+    }
+    if (target.name === 'password' && target.value !== '') {
+      error2.setProps({
+        error: '',
+      });
+    }
   }
 
   handleAuth(e: Event) {
@@ -64,6 +76,11 @@ export class LoginForm extends Block<LoginFormProps> {
             ref="passwordInput"
             onFocus=onFocus
             onBlur=onBlur
+        }}}
+        {{{ ErrorComponent
+            error=error
+            ref="error2"
+            className="error_center"
         }}}
       </div>
       {{{ Button type="submit" textBtn="Войти" onClick=onClick }}}
