@@ -16,8 +16,12 @@ class LoginPage extends Block<LoginPageProps> {
   }
 
   handleGoToRegistration(e: Event) {
-    e.preventDefault();
-    appRouter.go('/registration');
+    // e.preventDefault();
+    // appRouter.go('/registration');
+    this.setProps({
+      ...this.props,
+      loading: true,
+    });
   }
 
   protected render(): string {
@@ -28,7 +32,9 @@ class LoginPage extends Block<LoginPageProps> {
       <main class="login">
         <h1 class="login_header">Вход</h1>
         {{#if ${loading}}}
+        <div class="center_loader">
         {{{ Loader }}}
+        </div>
         {{else}}
         {{{ LoginForm }}}
         {{/if}}

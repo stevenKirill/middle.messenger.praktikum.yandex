@@ -72,3 +72,8 @@ html {
 .align_center {
   text-align: center;
 }
+
+.center_loader {
+  display: flex;
+  justify-content: center;
+}

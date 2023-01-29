@@ -1,47 +1,15 @@
-/* eslint-disable guard-for-in */
-export function myCloneDeep<T extends object = object>(inObject: T) {
-  let outObject;
-  let value;
-
-  if (typeof inObject !== 'object' || inObject === null) {
-    return inObject;
-  }
-
-  // Create an array or object to hold the values
-  outObject = Array.isArray(inObject) ? [] : {};
-
-  for (const key in inObject) {
-    value = inObject[key];
-    // Recursively (deep) copy for nested objects, including arrays
-    outObject[key] = myCloneDeep(value);
-  }
-  return outObject;
-}
-
-const example = {
-  a: 1,
-  b: {
-    c: 1,
-  },
-  d: 'hello',
-  e: [1, 2, 3],
-};
-
-const copied = myCloneDeep(example);
-console.log(copied);
-
-export function cloneDeep<T extends object = object>(obj: T) {
+// Handle:
+// * null
+// * undefined
+// * boolean
+// * number
+// * string
+// * symbol
+// * function
+function cloneDeep<T extends object = object>(obj: T) {
   return (function _cloneDeep(
     item: T,
   ): T | Date | Set<unknown> | Map<unknown, unknown> | object | T[] {
-    // Handle:
-    // * null
-    // * undefined
-    // * boolean
-    // * number
-    // * string
-    // * symbol
-    // * function
     if (item === null || typeof item !== 'object') {
       return item;
     }
@@ -101,3 +69,5 @@ export function cloneDeep<T extends object = object>(obj: T) {
     throw new Error(`Unable to copy object: ${item}`);
   }(obj));
 }
+
+export default cloneDeep;

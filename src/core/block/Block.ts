@@ -3,6 +3,7 @@ import Handlebars from 'handlebars';
 import EventBus from '../EventBus';
 import { Nullable, Values } from '../types';
 import isEqual from 'utils/mydash/isEqual';
+import cloneDeep from 'utils/mydash/cloneDeep';
 
 type Events = Values<typeof Block.EVENTS>;
 
@@ -63,7 +64,6 @@ class Block<P extends object = {}> {
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
-    console.log(oldProps, newProps, '=> oldProps, newProps')
     if (!response) {
       return;
     }
@@ -71,9 +71,9 @@ class Block<P extends object = {}> {
   }
 
   componentDidUpdate(_oldProps: P, _newProps: P) {
-    // if (!isEqual(_oldProps, _newProps)) {
-    //   return true
-    // }
+    if (!isEqual(_oldProps, _newProps)) {
+      return true
+    }
     return true;
   }
 
@@ -81,7 +81,6 @@ class Block<P extends object = {}> {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
   };
 
@@ -128,13 +127,10 @@ class Block<P extends object = {}> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set: (target: Record<string, unknown>, prop: string, value: unknown) => {
+        const prevProps = cloneDeep(target);
         target[prop] = value;
-
-        console.log(target)
-
-        // Запускаем обновление компоненты
-        // Плохой cloneDeep, в след итерации нужно заставлять добавлять cloneDeep им самим
-        this.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+        const nextProps = cloneDeep(target);
+        this.eventBus().emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
         return true;
       },
       deleteProperty() {
@@ -161,6 +157,8 @@ class Block<P extends object = {}> {
 
   _addEvents() {
     const events: Record<string, () => void> = (this.props as any).events;
+
+    console.log(events, '=> event')
 
     if (!events) {
       return;
