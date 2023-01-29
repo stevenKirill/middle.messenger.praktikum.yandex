@@ -62,7 +62,6 @@ class HTTPTransport {
       );
 
       xhr.withCredentials = true;
-      // xhr.setRequestHeader('Content-Type', 'application/json');
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);

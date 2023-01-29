@@ -1,6 +1,6 @@
-import LoginPage from '../../pages/LoginPage';
-import RegistrationPage from '../../pages/RegistrationPage';
-import UserPage from '../../pages/UserPage';
+import EnhancedLoginPage from '../../pages/LoginPage';
+import EnhancedRegistartion from '../../pages/RegistrationPage';
+import EnhancedUserPage from '../../pages/UserPage';
 import EditUserPage from '../../pages/EditUserPage';
 import EditPassword from '../../pages/EditPassword';
 import Chat from '../../pages/Chat';
@@ -54,9 +54,9 @@ export const APP_ROUTES = [
 ];
 
 export const routesMap: Record<Screens, BlockClass<any>> = {
-  [Screens.Login]: LoginPage,
-  [Screens.Registartion]: RegistrationPage,
-  [Screens.Profile]: UserPage,
+  [Screens.Login]: EnhancedLoginPage,
+  [Screens.Registartion]: EnhancedRegistartion,
+  [Screens.Profile]: EnhancedUserPage,
   [Screens.EditInfo]: EditUserPage,
   [Screens.EditPassword]: EditPassword,
   [Screens.Chats]: Chat,

@@ -1,11 +1,7 @@
 import Block from 'core/block/Block';
 import logo from '../../assets/tg.png';
+import { EmptyAvatarProps } from './types';
 import './avatar.css';
-
-interface EmptyAvatarProps {
-  width: string;
-  height: string;
-}
 
 class EmptyAvatar extends Block {
   static componentName = 'EmptyAvatar';

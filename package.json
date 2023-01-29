@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "yandex practicum web messenger",
   "scripts": {
-    "dev": "parcel src/index.html --no-cache --open --port=3000",
+    "dev": "parcel src/index.html --no-cache --open --port=3001",
     "start": "parcel build ./src/index.html && node server.js",
     "build": "parcel build ./src/index.html",
     "lint": "eslint",

@@ -1,63 +1,43 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
 import { singIn } from 'services/login';
+import { validateLogin } from 'utils/validation';
 import { LoginFormProps } from './types';
 
 class LoginForm extends Block<LoginFormProps> {
   static componentName = 'LoginForm';
 
   constructor() {
-    super();
-
-    this.setProps({
+    super({
       onClick: (e: Event) => this.handleAuth(e),
-      onBlur: this.handleBlur.bind(this),
+      onBlur: () => this.handleBlur(),
       error: '',
     });
   }
 
   handleBlur() {
-    const error = this.props.error as string;
-    const { loginInput, passwordInput } = this.refs;
-    const inputLoginElement = loginInput.children[0] as HTMLInputElement;
-    const inputPasswordElement = passwordInput.children[0] as HTMLInputElement;
-    if (error === ''
-      && inputLoginElement.value === ''
-      && inputPasswordElement.value === ''
-    ) {
-      this.setProps({
-        ...this.props,
-        error: 'Введите логин и пароль',
-      });
-    }
+    const { loginInput, error } = this.refs;
+    const input = loginInput.node?.querySelector('input') as HTMLInputElement;
+    const validated = validateLogin(input.value);
+    error.setProps({
+      error: validated,
+    });
   }
 
   handleAuth(e: Event) {
     e.preventDefault();
     const { loginInput, passwordInput } = this.refs;
-    const inputLoginElement = loginInput.children[0] as HTMLInputElement;
-    const inputPasswordElement = passwordInput.children[0] as HTMLInputElement;
-    if (this.props.error !== '') {
-      this.setProps({
-        ...this.props,
-        error: '',
-      });
+    const input1 = loginInput.node?.querySelector('input') as HTMLInputElement;
+    const input2 = passwordInput.node?.querySelector('input') as HTMLInputElement;
+    const login = input1.value;
+    const password = input2.value;
+    if (login === '' || password === '') {
+      return;
     }
-    if (this.props.error === ''
-    && (inputLoginElement.value === ''
-    || inputPasswordElement.value === '')
-    ) {
-      this.setProps({
-        ...this.props,
-        error: 'Введите логин и пароль',
-      });
-    }
-    if (inputLoginElement.value && inputPasswordElement.value) {
-      store.dispatch(singIn, {
-        login: inputLoginElement.value,
-        password: inputPasswordElement.value,
-      });
-    }
+    store.dispatch(singIn, {
+      login,
+      password,
+    });
   }
 
   protected render(): string {
@@ -72,6 +52,11 @@ class LoginForm extends Block<LoginFormProps> {
             onFocus=onFocus
             onBlur=onBlur
         }}}
+        {{{ ErrorComponent
+            error=error
+            ref="error"
+            className="error_center"
+        }}}
         {{{ Input
             name="password"
             placeholder="Пароль"
@@ -82,11 +67,6 @@ class LoginForm extends Block<LoginFormProps> {
         }}}
       </div>
       {{{ Button type="submit" textBtn="Войти" onClick=onClick }}}
-      {{{ ErrorComponent
-          error=error
-          ref="error"
-          className="error_center"
-      }}}
     </form>
     `;
   }

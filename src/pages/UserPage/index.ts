@@ -1,26 +1,18 @@
 import Block from 'core/block/Block';
-import { CoreRouter } from 'core/router/types';
-import withRouter from 'utils/HOCS/withRouter';
 import { store } from 'core/store';
-import './user.css';
+import appRouter from 'core/router';
 import { logOutAction } from 'services/login';
-
-export interface UserPageProps {
-  editableAvatar: boolean;
-  router: CoreRouter;
-  onEditDataPage?: (e: Event) => void;
-  onEditPasswordPage?: (e: Event) => void;
-  onChat?: (e: Event) => void;
-  onLogout?: () => void;
-}
+import connectStore from 'utils/HOCS/connectStore';
+import { AppState } from 'core/store/types';
+import { UserPageProps } from './types';
+import './user.css';
 
 class UserPage extends Block<UserPageProps> {
   static componentName: 'UserPage';
 
   constructor(props: UserPageProps) {
-    super(props);
-    this.setProps({
-      ...this.props,
+    super({
+      ...props,
       editableAvatar: true,
       onEditDataPage: (e: Event) => this.handleGoToEditDataPage(e),
       onEditPasswordPage: (e: Event) => this.handleGoToEditPasswordPage(e),
@@ -31,17 +23,17 @@ class UserPage extends Block<UserPageProps> {
 
   handleGoToEditDataPage(e: Event) {
     e.preventDefault();
-    this.props.router.go('/edit/info');
+    appRouter.go('/edit/info');
   }
 
   handleGoToEditPasswordPage(e: Event) {
     e.preventDefault();
-    this.props.router.go('/edit/password');
+    appRouter.go('/edit/password');
   }
 
   handleGoToChat(e: Event) {
     e.preventDefault();
-    this.props.router.go('/chats');
+    appRouter.go('/chats');
   }
 
   handleLogout() {
@@ -49,34 +41,36 @@ class UserPage extends Block<UserPageProps> {
   }
 
   protected render(): string {
-    const userData = store.getState().user.data;
+    const {
+      firstName, avatar, secondName, email, phone, displayName, login,
+    } = this.props;
     return `
     <div class="user">
       {{{ BackLink }}}
       <div class="user_right">
         <div class="user_right_data">
           <div class="user_right_data_head">
-            {{#if ${Boolean(userData?.avatar)}}}
-              {{{ Avatar source="${userData?.avatar}" }}}
+            {{#if ${Boolean(avatar)}}}
+              {{{ Avatar source="${avatar}" }}}
             {{else}}
               {{{ EmptyAvatar width="150" height="150" }}}
             {{/if}}
-            <p>${userData?.first_name}</p>
+            <p>${firstName}</p>
           </div>
           <div class="user_right_data_body">
-            {{{ Row title="Имя" value="${userData?.first_name || 'Нет данных'}" }}}
-            {{{ Row title="Фамилия" value="${userData?.second_name || 'Нет данных'}" }}}
-            {{{ Row title="email" value="${userData?.email || 'Нет данных'}" }}}
-            {{{ Row title="Логин" value="${userData?.login || 'Нет данных'}" }}}
-            {{{ Row title="Телефон" value="${userData?.phone || 'Нет данных'}" }}}
-            {{{ Row title="Имя в чате" value="${userData?.display_name || 'Нет данных'}" }}}
+            {{{ Row title="Имя" value="${firstName || 'Нет данных'}" }}}
+            {{{ Row title="Фамилия" value="${secondName || 'Нет данных'}" }}}
+            {{{ Row title="email" value="${email || 'Нет данных'}" }}}
+            {{{ Row title="Логин" value="${login || 'Нет данных'}" }}}
+            {{{ Row title="Телефон" value="${phone || 'Нет данных'}" }}}
+            {{{ Row title="Имя в чате" value="${displayName || 'Нет данных'}" }}}
           </div>
           <div class="user_right_data_footer">
             <div class="user_right_data_footer_link">
-              {{{ Link url="#" text="Изменить данные" onClick=onEditDataPage }}}
-              {{{ Link url="#" text="Изменить пароль" onClick=onEditPasswordPage  }}}
-              {{{ Link url="#" text="Чаты" onClick=onChat  }}}
-              {{{ Link url="#" text="Выйти" onClick=onLogout  }}}
+              {{{ Link text="Изменить данные" onClick=onEditDataPage }}}
+              {{{ Link text="Изменить пароль" onClick=onEditPasswordPage  }}}
+              {{{ Link text="Чаты" onClick=onChat  }}}
+              {{{ Link text="Выйти" onClick=onLogout  }}}
             </div>
           </div>
         </div>
@@ -86,5 +80,17 @@ class UserPage extends Block<UserPageProps> {
   }
 }
 
-// @ts-ignore FIX
-export default withRouter(UserPage);
+const mapStateToProps = (state: AppState) => ({
+  firstName: state.user.data?.first_name,
+  secondName: state.user.data?.second_name,
+  email: state.user.data?.email,
+  login: state.user.data?.login,
+  phone: state.user.data?.phone,
+  displayName: state.user.data?.display_name,
+  avatar: state.user.data?.avatar,
+});
+
+// @ts-ignore
+const EnhancedUserPage = connectStore(mapStateToProps)(UserPage);
+
+export default EnhancedUserPage;

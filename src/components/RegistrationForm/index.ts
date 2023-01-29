@@ -1,114 +1,51 @@
 import Block from 'core/block/Block';
-import {
-  validateEmail,
-  validateLogin,
-  validatePassword,
-  validatePhone,
-  validateFirstName,
-  validatePassword2,
-} from 'utils/validation';
+import { validateFactory } from 'utils/validation';
 import { store } from 'core/store';
 import { signUp } from 'services/login';
-import { RegistrationProps, TState } from './types';
+import { Nullable } from 'core/types';
+import { RegistrationProps } from './types';
 
 class RegistrationForm extends Block<RegistrationProps> {
   static componentName = 'RegistrationForm';
 
-  state: TState = {
-    values: {
-      email: '',
-      login: '',
-      name: '',
-      surName: '',
-      phone: '',
-      password: '',
-      passwordAgain: '',
-    },
-  };
-
   constructor() {
-    super();
-    this.setProps({
-      onClick: this.handleRegister.bind(this),
-      onBlur: this.handleBlur.bind(this),
-      error: null,
-      onChange: (e) => this.handleChange(e),
-    });
-  }
-
-  handleBlur() {
-    if (this.props.error === null) {
-      this.setProps({
-        ...this.props,
-        error: {
-          email: validateEmail(''),
-          login: validateLogin(''),
-          name: validateFirstName(''),
-          surName: validateFirstName(''),
-          phone: validatePhone(''),
-          password: validatePassword(''),
-          passwordAgain: validatePassword2('', ''),
-        },
-      });
-    }
-  }
-
-  handleChange(e: Event) {
-    const target = e.target as HTMLInputElement;
-    this.state = {
-      ...this.state,
-      values: {
-        ...this.state.values,
-        [target.name]: target.value,
+    super({
+      onClick: (e: Event) => this.handleRegister(e),
+      onChange: (e) => {
+        const target = e.target as HTMLInputElement;
+        const validated = validateFactory(target.name, target.value) as string;
+        const current = this.refs[target.name];
+        current.setProps({
+          error: validated,
+        });
       },
-    };
+    });
   }
 
   handleRegister(e: Event) {
     e.preventDefault();
-    const inputValues = Object.values(this.refs).reduce((
-      acc: { [key: string]: string },
-      curr: HTMLElement,
-    ) => {
-      const input = curr.querySelector('input') as HTMLInputElement;
-      if (!input) {
-        return { ...acc };
+    const valuesAndNames = Object.entries(this.refs).reduce((acc, [_key, component]) => {
+      const input: Nullable<HTMLInputElement> = component.node!.querySelector('input');
+      if (input) {
+        return {
+          ...acc,
+          [input.name]: input.value,
+        };
       }
-      return {
-        ...acc,
-        [input.name]: input.value,
-      };
-    }, {});
-    const validatedEmail = validateEmail(inputValues.email);
-    const validatedLogin = validateLogin(inputValues.login);
-    const validatedName = validateFirstName(inputValues.first_name);
-    const validatedSurName = validateFirstName(inputValues.second_name);
-    const validatedPhone = validatePhone(inputValues.phone);
-    const validatedPassword = validatePassword(inputValues.password);
-    const validatedPassword2 = validatePassword2(inputValues.password2, inputValues.password);
-    this.setProps({
-      ...this.props,
-      error: {
-        email: validatedEmail,
-        login: validatedLogin,
-        name: validatedName,
-        surName: validatedSurName,
-        phone: validatedPhone,
-        password: validatedPassword,
-        passwordAgain: validatedPassword2,
-      },
-    });
-    const allValid: boolean = [
-      validatedEmail,
-      validatedLogin,
-      validatedName,
-      validatedSurName,
-      validatedPhone,
-      validatedPassword,
-      validatedPassword2,
-    ].every((val: string) => val === '');
+      return { ...acc };
+    }, {} as Record<string, string>);
+    let prevPass: string;
+    const allValid = Object.entries(valuesAndNames).map(([name, value]) => {
+      if (name === 'password') {
+        prevPass = value;
+      }
+      const extra = name === 'password2' ? { prevPass } : undefined;
+      const isValid = validateFactory(name, value, extra);
+      return isValid;
+    }).every((val) => val === '');
+
     if (allValid) {
-      store.dispatch(signUp, inputValues);
+      store.dispatch(signUp, valuesAndNames);
     }
   }
 
@@ -124,11 +61,10 @@ class RegistrationForm extends Block<RegistrationProps> {
             onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
-            value=this.state.values.email
         }}}
         {{{ ErrorComponent
             error=error.email
-            ref="incorrectEmail"
+            ref="email"
         }}}
         {{{ Input
             name="login"
@@ -141,7 +77,7 @@ class RegistrationForm extends Block<RegistrationProps> {
         }}}
         {{{ ErrorComponent
             error=error.login
-            ref="incorrectLogin"
+            ref="login"
         }}}
         {{{ Input
             name="first_name"
@@ -154,7 +90,7 @@ class RegistrationForm extends Block<RegistrationProps> {
         }}}
         {{{ ErrorComponent
             error=error.name
-            ref="incorrectName"
+            ref="first_name"
         }}}
         {{{ Input
             name="second_name"
@@ -168,7 +104,7 @@ class RegistrationForm extends Block<RegistrationProps> {
         {{{ ErrorComponent
             error=error.surName
             error=text
-            ref="incorrectsurName"
+            ref="second_name"
         }}}
         {{{ Input
             name="phone"
@@ -182,7 +118,7 @@ class RegistrationForm extends Block<RegistrationProps> {
         {{{ ErrorComponent
             error=error.phone
             error=text
-            ref="incorrectPhone"
+            ref="phone"
         }}}
         {{{ Input
             name="password"
@@ -196,7 +132,7 @@ class RegistrationForm extends Block<RegistrationProps> {
         {{{ ErrorComponent
             error=error.password
             error=text
-            ref="incorrectPassword"
+            ref="password"
         }}}
         {{{ Input
             name="password2"
@@ -210,11 +146,12 @@ class RegistrationForm extends Block<RegistrationProps> {
         {{{ ErrorComponent
             error=error.passwordAgain
             error=text
-            ref="incorrectPasswordAgain"
+            ref="password2"
         }}}
       </div>
       <div class="registration_btn">
         {{{ Button
+            type="submit"
             textBtn="Зарегестрироваться"
             onClick=onClick
         }}}

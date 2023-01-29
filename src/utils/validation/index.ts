@@ -29,7 +29,7 @@ export const validatePassword2 = (text: string, prevPass: string): string => {
     || !/(.*[A-Z].*)/g.test(text)
     || !/(.*\W.*)/g.test(text)
   ) {
-    return 'Пароль должен содержать хотя бы 1 заглавную букву и 1 цифру. От 8 до 40 символов';
+    return 'Пароль должен содержать хотя бы 1 заглавную букву,1 цифру и символ. От 8 до 40 символов';
   }
   if (text !== prevPass) {
     return 'Пароли должны совпадать';
@@ -73,6 +73,7 @@ export const validateFactory = (name: string, value: string, extra?: Record<stri
   if (name === 'phone') return validatePhone(value);
   if (name === 'password') return validatePassword(value);
   if (name === 'password2') {
+    console.log(extra);
     if (extra) {
       const prev = extra.prevPass as string;
       return validatePassword2(value, prev);

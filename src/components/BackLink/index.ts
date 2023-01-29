@@ -1,34 +1,26 @@
 import Block from 'core/block/Block';
-import { CoreRouter } from 'core/router/types';
-import withRouter from 'utils/HOCS/withRouter';
+import appRouter from 'core/router';
+import { BackLinkProps } from './types';
 
-interface BackLinkProps {
-  onClick: (e: Event) => void;
-  router: CoreRouter;
-}
-
-class BackLink extends Block {
+class BackLink extends Block<BackLinkProps> {
   static componentName = 'BackLink';
 
-  constructor({ onClick }: BackLinkProps) {
-    super({ events: { click: onClick } });
-    this.setProps({
-      ...this.props,
-      onClick: (e: Event) => this.handleGoBack(e),
+  constructor(props: BackLinkProps) {
+    super({
+      ...props,
+      events: { click: (e: Event) => this.handleGoBack(e) },
     });
   }
 
   handleGoBack(e: Event) {
     e.preventDefault();
-    // TODO back link
-    console.log('helo');
-    this.props.router.back();
+    appRouter.back();
   }
 
   protected render(): string {
     return `
     <div class="user_left">
-      <a class="user_left_link" href="#">
+      <a class="user_left_link">
         <i class="user_left_link_arrow"></i>
       </a>
     </div>
@@ -36,5 +28,4 @@ class BackLink extends Block {
   }
 }
 
-// @ts-ignore FIX
-export default withRouter(BackLink);
+export default BackLink;
