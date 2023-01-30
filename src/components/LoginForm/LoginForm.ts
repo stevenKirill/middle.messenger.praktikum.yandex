@@ -17,39 +17,46 @@ export class LoginForm extends Block<LoginFormProps> {
 
   handleBlur(e: Event) {
     const target = e.target as HTMLInputElement;
-    const { error, error2 } = this.refs;
     if (target.name === 'login') {
-      const validated = validateLogin(target.value);
-      error.setProps({
-        error: validated,
-      });
+      this.validateLogin(target);
     }
-    if (target.name === 'password' && target.value === '') {
-      error2.setProps({
-        error: 'Пароль не может быть пустым',
-      });
+    if (target.name === 'password') {
+      this.validatePassword(target);
     }
-    if (target.name === 'password' && target.value !== '') {
-      error2.setProps({
-        error: '',
-      });
+  }
+
+  validateLogin(target: HTMLInputElement) {
+    const { error } = this.refs;
+    const validated = validateLogin(target.value);
+    error.setProps({ error: validated });
+  }
+
+  validatePassword(target: HTMLInputElement) {
+    const { error2 } = this.refs;
+    if (target.value === '') {
+      error2.setProps({ error: 'Пароль не может быть пустым' });
+    } else {
+      error2.setProps({ error: '' });
     }
+  }
+
+  private getInputsValues() {
+    const { loginInput, passwordInput } = this.refs;
+    const input1 = loginInput.node?.querySelector('input') as HTMLInputElement;
+    const input2 = passwordInput.node?.querySelector('input') as HTMLInputElement;
+    return {
+      login: input1.value,
+      password: input2.value,
+    };
   }
 
   handleAuth(e: Event) {
     e.preventDefault();
-    const { loginInput, passwordInput } = this.refs;
-    const input1 = loginInput.node?.querySelector('input') as HTMLInputElement;
-    const input2 = passwordInput.node?.querySelector('input') as HTMLInputElement;
-    const login = input1.value;
-    const password = input2.value;
+    const { login, password } = this.getInputsValues();
     if (login === '' || password === '') {
       return;
     }
-    store.dispatch(singIn, {
-      login,
-      password,
-    });
+    store.dispatch(singIn, { login, password });
   }
 
   protected render(): string {

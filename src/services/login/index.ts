@@ -58,7 +58,7 @@ export const signUp = async (
   });
   try {
     await loginApi.signUp(requestData);
-    appRouter.go('/login');
+    appRouter.go('/profile');
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({

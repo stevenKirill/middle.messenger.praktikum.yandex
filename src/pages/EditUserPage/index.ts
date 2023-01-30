@@ -25,10 +25,8 @@ class EditUserPage extends Block<EditUserPageProps> {
     });
   }
 
-  handleEdit(e: Event) {
-    e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const valuesAndNames = Object.entries(this.refs).reduce((acc, [_key, component]) => {
+  private getValuesAndNames() {
+    return Object.values(this.refs).reduce((acc, component) => {
       const input: Nullable<HTMLInputElement> = component.node!.querySelector('input');
       if (input) {
         return {
@@ -38,11 +36,20 @@ class EditUserPage extends Block<EditUserPageProps> {
       }
       return { ...acc };
     }, {} as Record<string, string>);
-    const allValid = Object.entries(valuesAndNames).map(([name, value]) => {
+  }
+
+  checkValues(valuesAndNames: Record<string, string>) {
+    return Object.entries(valuesAndNames).map(([name, value]) => {
       if (name === 'display_name') return '';
       const isValid = validateFactory(name, value);
       return isValid;
     }).every((val) => val === '');
+  }
+
+  handleEdit(e: Event) {
+    e.preventDefault();
+    const valuesAndNames = this.getValuesAndNames();
+    const allValid = this.checkValues(valuesAndNames);
     if (allValid) {
       store.dispatch(changeUserDataAction, valuesAndNames);
     }
@@ -77,7 +84,7 @@ class EditUserPage extends Block<EditUserPageProps> {
 
   protected render(): string {
     const {
-      userData, changeDataError, changeDataErrorReason, avatar, loading
+      userData, changeDataError, changeDataErrorReason, avatar, loading,
     } = this.props;
     return `
     <div class="user">

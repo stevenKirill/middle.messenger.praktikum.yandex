@@ -16,10 +16,8 @@ export class RegistrationForm extends Block<RegistrationProps> {
     });
   }
 
-  handleRegister(e: Event) {
-    e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const valuesAndNames = Object.entries(this.refs).reduce((acc, [_key, component]) => {
+  getValuesAndNames() {
+    return Object.values(this.refs).reduce((acc, component) => {
       const input: Nullable<HTMLInputElement> = component.node!.querySelector('input');
       if (input) {
         return {
@@ -29,8 +27,11 @@ export class RegistrationForm extends Block<RegistrationProps> {
       }
       return { ...acc };
     }, {} as Record<string, string>);
+  }
+
+  checkValues(valuesAndNames: Record<string, string>) {
     let prevPass: string;
-    const allValid = Object.entries(valuesAndNames).map(([name, value]) => {
+    return Object.entries(valuesAndNames).map(([name, value]) => {
       if (name === 'password') {
         prevPass = value;
       }
@@ -38,7 +39,12 @@ export class RegistrationForm extends Block<RegistrationProps> {
       const isValid = validateFactory(name, value, extra);
       return isValid;
     }).every((val) => val === '');
+  }
 
+  handleRegister(e: Event) {
+    e.preventDefault();
+    const valuesAndNames = this.getValuesAndNames();
+    const allValid = this.checkValues(valuesAndNames);
     if (allValid) {
       store.dispatch(signUp, valuesAndNames);
     }

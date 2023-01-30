@@ -2,7 +2,7 @@ import EnhancedLoginPage from 'pages/LoginPage';
 import EnhancedRegistartion from 'pages/RegistrationPage';
 import EnhancedUserPage from 'pages/UserPage';
 import EnhancedEditUserPage from 'pages/EditUserPage';
-import EditPassword from 'pages/EditPassword';
+import EnhancedEditPasswordPage from 'pages/EditPassword';
 import Chat from 'pages/Chat';
 import { BlockClass } from '../types';
 
@@ -58,7 +58,7 @@ export const routesMap: Record<Screens, BlockClass<any>> = {
   [Screens.Registartion]: EnhancedRegistartion,
   [Screens.Profile]: EnhancedUserPage,
   [Screens.EditInfo]: EnhancedEditUserPage,
-  [Screens.EditPassword]: EditPassword,
+  [Screens.EditPassword]: EnhancedEditPasswordPage,
   [Screens.Chats]: Chat,
 };
 

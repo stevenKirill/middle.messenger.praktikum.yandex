@@ -73,7 +73,6 @@ export const validateFactory = (name: string, value: string, extra?: Record<stri
   if (name === 'phone') return validatePhone(value);
   if (name === 'password') return validatePassword(value);
   if (name === 'password2') {
-    console.log(extra);
     if (extra) {
       const prev = extra.prevPass as string;
       return validatePassword2(value, prev);
