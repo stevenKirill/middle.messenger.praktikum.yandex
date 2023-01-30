@@ -1,41 +1,33 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
 import { createChatAction, getChatsAction } from 'services/chat';
-import { ModalProps } from './types';
+import { CreateChatModalProps } from './types';
 import './modal.css';
 
-export class Modal extends Block<ModalProps> {
+export class Modal extends Block<CreateChatModalProps> {
   static componentName = 'Modal';
 
-  constructor({ isShow }: ModalProps) {
-    super({ isShow });
-    this.setProps({
+  constructor(props: CreateChatModalProps) {
+    super({
+      ...props,
       onPickName: () => this.handlePickChatName(),
       onCloseModal: () => this.handleCloseModal(),
-      isShow: true,
+      isShow: false,
     });
   }
 
   handlePickChatName() {
-    const input = this.refs.chat_name.querySelector('input') as HTMLInputElement;
-    store.dispatch(createChatAction, {
-      title: input.value,
-    });
-    store.dispatch(getChatsAction);
-    this.setProps({
-      isShow: false,
-    });
+    console.log('handlePickChatName');
   }
 
   handleCloseModal() {
-    this.setProps({
-      isShow: false,
-    });
+    this.setProps({ ...this.props, isShow: false });
   }
 
   protected render(): string {
+    const { isShow } = this.props;
     return `
-    {{#if ${this.props.isShow}}}
+    {{#if ${isShow}}}
       <div class="overlay">
       <div class="modal_container">
         <div class="modal_container_header">

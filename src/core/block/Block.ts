@@ -74,6 +74,7 @@ class Block<P extends object = {}> {
     if (!isEqual(_oldProps, _newProps)) {
       return true
     }
+    return false;
   }
 
   setProps = (nextProps: P) => {

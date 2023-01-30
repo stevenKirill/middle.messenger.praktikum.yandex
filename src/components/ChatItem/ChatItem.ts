@@ -2,7 +2,6 @@ import Block from 'core/block/Block';
 import { ChatItemProps } from './types';
 import './chatItem.css';
 
-// TODO active class name for chat
 export class ChatItem extends Block<ChatItemProps> {
   static componentName = 'ChatItem';
 

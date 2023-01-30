@@ -7,6 +7,8 @@ export default function renderDOM(block: Block) {
     throw new Error(`Root element does not exist`);
   }
 
+  console.log(block.getContent())
+
   root.innerHTML = '';
   root.appendChild(block.getContent());
 }

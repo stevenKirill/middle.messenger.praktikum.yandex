@@ -4,48 +4,62 @@ import { createSocket, getChatsAction } from 'services/chat';
 import { APIError } from 'api/types';
 import chatApi from 'api/chat';
 import appRouter from 'core/router';
+import { AppState } from 'core/store/types';
+import connectStore from 'utils/HOCS/connectStore';
 import { ChatPageProps } from './types';
 import './chat.css';
+
+// users: () => {
+//   const { chats } = chatsModel.selectChats();
+//   const { chatId } = router.getParams();
+
+//   return (
+//     chats &&
+//     chats.map((chat) => {
+//       return {
+//         avatar: new Avatar({ className: "avatar_sm", img: getFile(chat.avatar) }),
+//         name: chat.title,
+//         message: chat.lastMessage && chat.lastMessage.content,
+//         date: chat.lastMessage && formattedDate(new Date(chat.lastMessage.time)),
+//         counter: chat.unreadCount,
+//         className: () => (Number(chat.id) === Number(chatId) ? "active" : ""),
+//         onClick: () => {
+//           if (Number(chat.id) !== Number(chatId)) {
+//             store.dispatch(chatsServices.selectChat, chat.id);
+//           }
+//         },
+//       };
+//     })
+//   );
+// },
 
 class ChatPage extends Block<ChatPageProps> {
   static componentName: 'ChatPage';
 
   constructor(props: ChatPageProps) {
-    super(props);
-
-    this.setProps({
-      ...this.props,
+    super({
+      ...props,
       onProfileGo: (e: Event) => this.handleGoToProfilePage(e),
       onChatCreate: () => this.handleCreateChat(),
-      chats: store.getState().chats.data,
-      currentChat: null,
+      currentChat: '',
       currentChatName: '',
     });
   }
 
   componentDidMount(): void {
-    // запрос списка чатов
-    const init = async () => {
-      await store.dispatch(getChatsAction);
-    };
-    init();
-    // подписка на обновление чатов
-    store.on('changed', () => this.onChangeStoreCallback());
-  }
-
-  onChangeStoreCallback() {
-    this.setProps({ ...this.props, chats: store.getState().chats.data });
+    store.dispatch(getChatsAction);
     this.initChatItemListener();
   }
 
   initChatItemListener() {
     const chatItems = document.querySelector('.chat_page_left_chats');
-    chatItems?.addEventListener('click', this.handleClickChat.bind(this));
+    console.log(chatItems);
+    chatItems?.addEventListener('click', this.handleChatClick.bind(this));
   }
 
   removeChatItemListener() {
     const chatItems = document.querySelector('.chat_page_left_chats');
-    chatItems?.removeEventListener('click', this.handleClickChat.bind(this));
+    chatItems?.removeEventListener('click', this.handleChatClick.bind(this));
   }
 
   handleGoToProfilePage(e: Event) {
@@ -54,7 +68,8 @@ class ChatPage extends Block<ChatPageProps> {
   }
 
   handleCreateChat() {
-    this.setProps({ ...this.props, isShow: true });
+    const { createChatRef } = this.refs;
+    createChatRef.setProps({ isShow: true });
   }
 
   async startChatAction(chatId: string) {
@@ -76,38 +91,19 @@ class ChatPage extends Block<ChatPageProps> {
     });
   }
 
-  handleClickChat(e: Event) {
-    const target = e.target as HTMLDivElement;
-    const closest = target.closest('[data-chat-id]') as HTMLDivElement;
-    const chatName = closest.querySelector('span') as HTMLSpanElement;
-    if (closest) {
-      const currId: string = closest.dataset.chatId!;
-      if (currId === this.props.currentChat) {
-        return;
-      }
-      if (currId !== this.props.currentChat) {
-        this.removeAllConnections();
-      }
-      this.startChatAction(currId as string);
-      this.setProps({
-        ...this.props,
-        currentChat: currId,
-        currentChatName: chatName.innerText as string,
-      });
-      this.removeChatItemListener();
-    }
-    this.initChatItemListener();
+  handleChatClick(e: Event) {
+    console.log('e');
   }
 
   protected render(): string {
+    const { currentChat, currentChatName } = this.props;
     return `
     <div>
     <h2 class="chat_main_title">Чаты</h2>
-      {{#if ${this.props.isShow}}}
-        {{{ Modal isShow=isShow }}}
-      {{else}}
-      <div></div>
-      {{/if}}
+      {{{ Modal
+          isShow=isShow
+          ref="createChatRef"
+      }}}
       <main class="chat_page">
         <section class="chat_page_left">
           <div class="chat_page_left_create">
@@ -115,7 +111,6 @@ class ChatPage extends Block<ChatPageProps> {
           </div>
           <div class="chat_page_left_profile">
             {{{ Link
-                url="#"
                 text="Профиль >"
                 className="chat_page_left_profile_link"
                 onClick=onProfileGo
@@ -123,7 +118,7 @@ class ChatPage extends Block<ChatPageProps> {
           </div>
           {{{ SearchInput }}}
           <div class="chat_page_left_chats">
-          {{#each chats}}
+          {{#each chats }}
           {{#with this}}
             {{{ ChatItem
                 id=id
@@ -131,18 +126,18 @@ class ChatPage extends Block<ChatPageProps> {
                 avatar=avatar
                 last_message=last_message
                 unread_count=unread_count
-                currentChatName=currentChatName
-                activeClassName=${this.props.currentChat}
+                currentChatName="${currentChatName}"
+                activeClassName="${currentChat}"
             }}}
           {{/with}}
           {{/each}}
           </div>
         </section>
         <section class="chat_page_right">
-        {{#if ${this.props.currentChat}}}
+        {{#if ${Boolean(currentChat)} }}
           {{{ ChatArea
-              currentChatName=currentChatName
-              currentChatId=currentChat
+              currentChatName="${currentChatName}"
+              currentChatId="${currentChat}"
           }}}
           {{else}}
           {{{ EmptyChat }}}
@@ -154,4 +149,13 @@ class ChatPage extends Block<ChatPageProps> {
   }
 }
 
-export default ChatPage;
+const mapStateToProps = (state: AppState) => ({
+  chats: state.chats.data,
+  loading: state.chats.loading,
+  error: state.chats.error,
+  errorReason: state.chats.errorReason,
+});
+
+const EnhancedChatPage = connectStore(mapStateToProps)(ChatPage);
+
+export default EnhancedChatPage;

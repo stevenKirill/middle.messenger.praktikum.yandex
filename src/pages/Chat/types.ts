@@ -4,8 +4,7 @@ export type ChatPageProps = {
   onProfileGo: (e: Event) => void;
   onChatCreate: () => void;
   onChatClick: () => void
-  isShow?: boolean;
   chats: TGetChatResponse[];
-  currentChat?: string | null;
+  currentChat: string | null;
   currentChatName: string;
 };

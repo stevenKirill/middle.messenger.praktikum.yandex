@@ -16,7 +16,7 @@ export * from './InviteModal';
 export * from './Link';
 export * from './Loader';
 export * from './LoginForm';
-export * from './Modal';
+export * from './CreateChatModal';
 export * from './RegistrationForm';
 export * from './Row';
 export * from './SearchInput';
