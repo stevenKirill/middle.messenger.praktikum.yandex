@@ -1,9 +1,9 @@
-import EnhancedLoginPage from '../../pages/LoginPage';
-import EnhancedRegistartion from '../../pages/RegistrationPage';
-import EnhancedUserPage from '../../pages/UserPage';
-import EditUserPage from '../../pages/EditUserPage';
-import EditPassword from '../../pages/EditPassword';
-import Chat from '../../pages/Chat';
+import EnhancedLoginPage from 'pages/LoginPage';
+import EnhancedRegistartion from 'pages/RegistrationPage';
+import EnhancedUserPage from 'pages/UserPage';
+import EnhancedEditUserPage from 'pages/EditUserPage';
+import EditPassword from 'pages/EditPassword';
+import Chat from 'pages/Chat';
 import { BlockClass } from '../types';
 
 export enum Screens  {
@@ -57,7 +57,7 @@ export const routesMap: Record<Screens, BlockClass<any>> = {
   [Screens.Login]: EnhancedLoginPage,
   [Screens.Registartion]: EnhancedRegistartion,
   [Screens.Profile]: EnhancedUserPage,
-  [Screens.EditInfo]: EditUserPage,
+  [Screens.EditInfo]: EnhancedEditUserPage,
   [Screens.EditPassword]: EditPassword,
   [Screens.Chats]: Chat,
 };

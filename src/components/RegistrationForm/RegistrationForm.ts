@@ -11,19 +11,14 @@ export class RegistrationForm extends Block<RegistrationProps> {
   constructor() {
     super({
       onClick: (e: Event) => this.handleRegister(e),
-      onChange: (e) => {
-        const target = e.target as HTMLInputElement;
-        const validated = validateFactory(target.name, target.value) as string;
-        const current = this.refs[target.name];
-        current.setProps({
-          error: validated,
-        });
-      },
+      onChange: (e: Event) => this.handleCheck(e),
+      onBlur: (e: Event) => this.handleCheck(e),
     });
   }
 
   handleRegister(e: Event) {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const valuesAndNames = Object.entries(this.refs).reduce((acc, [_key, component]) => {
       const input: Nullable<HTMLInputElement> = component.node!.querySelector('input');
       if (input) {
@@ -49,6 +44,15 @@ export class RegistrationForm extends Block<RegistrationProps> {
     }
   }
 
+  handleCheck(e: Event) {
+    const target = e.target as HTMLInputElement;
+    const validated = validateFactory(target.name, target.value) as string;
+    const current = this.refs[target.name];
+    current.setProps({
+      error: validated,
+    });
+  }
+
   protected render(): string {
     return `
     <form>
@@ -58,7 +62,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Почта"
             type="email"
             ref="emailInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}
@@ -71,7 +74,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Логин"
             type="text"
             ref="loginInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}
@@ -84,7 +86,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Имя"
             type="text"
             ref="nameInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}
@@ -97,7 +98,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Фамилия"
             type="text"
             ref="surnameInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}
@@ -111,7 +111,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Телефон"
             type="text"
             ref="phoneInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}
@@ -125,7 +124,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Пароль"
             type="password"
             ref="passwordInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}
@@ -139,7 +137,6 @@ export class RegistrationForm extends Block<RegistrationProps> {
             placeholder="Пароль (еще раз)"
             type="password"
             ref="passwordAgainInput"
-            onFocus=onFocus
             onBlur=onBlur
             onInput=onChange
         }}}

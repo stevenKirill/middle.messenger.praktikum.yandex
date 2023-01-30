@@ -32,7 +32,7 @@ export class FileInput extends Block<FileInputProps> {
         type="file"
       />
       <label htmlFor="logo" class="file_input_wrapper_label">
-        Загрузить файл
+        Загрузить файл (кликните на картинку)
       </label>
     </div>
     `;

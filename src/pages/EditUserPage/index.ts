@@ -1,114 +1,50 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import './editUser.css';
-import {
-  validateEmail,
-  validateFirstName,
-  validateLogin,
-  validatePhone,
-} from 'utils/validation';
+import { validateFactory } from 'utils/validation';
 import { UserInfoResponse } from 'api/login/types';
+import { Nullable } from 'core/types';
 import { changeUserAvatarAction, changeUserDataAction } from 'services/user';
-import { UserDataKeys } from './types';
-
-export interface EditUserPageProps {
-  onDataChange?: () => void,
-  onAvatarChange?: () => void,
-  onOpen: () => void,
-  onInput: (e: Event) => void,
-  error: {
-    [key: string]: string,
-  },
-  avatar: string,
-  file: File | null,
-  userData: UserInfoResponse,
-  changeDataError: boolean,
-  changeDataErrorReason: string,
-}
+import { AppState } from 'core/store/types';
+import connectStore from 'utils/HOCS/connectStore';
+import { EditUserPageProps } from './types';
+import './editUser.css';
 
 class EditUserPage extends Block<EditUserPageProps> {
   static componentName: 'EditUserPage';
 
-  constructor() {
-    super();
-    this.setProps({
-      onDataChange: () => this.handleEdit(),
+  constructor(props: EditUserPageProps) {
+    super({
+      ...props,
+      onDataChange: (e: Event) => this.handleEdit(e),
       onAvatarChange: () => this.handleChangeAvatar(),
       onOpen: () => this.handleOpenWindow(),
-      onInput: (e: Event) => this.handleInputChange(e),
-      error: {},
-      avatar: store.getState().user.data?.avatar as string,
+      onInput: (e: Event) => this.handleFileInputChange(e),
+      onChange: (e: Event) => this.handleTextInputChange(e),
       file: null,
-      userData: store.getState().user.data as UserInfoResponse,
-      changeDataError: store.getState().user.error,
-      changeDataErrorReason: store.getState().user.errorReason as string,
+      error: {},
     });
   }
 
-  componentDidMount(): void {
-    store.on('changed', () => this.onChangeStoreCallback());
-  }
-
-  onChangeStoreCallback() {
-    this.setProps({
-      ...this.props,
-      avatar: store.getState().user.data?.avatar as string,
-      userData: store.getState().user.data as UserInfoResponse,
-      changeDataError: store.getState().user.error,
-      changeDataErrorReason: store.getState().user.errorReason as string,
-    });
-  }
-
-  handleEdit() {
-    const inputUserData = Object.values(this.refs).reduce((
-      acc,
-      val: HTMLElement,
-    ) => {
-      const input = val.querySelector('input') as HTMLInputElement;
-      if (input.value) {
+  handleEdit(e: Event) {
+    e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const valuesAndNames = Object.entries(this.refs).reduce((acc, [_key, component]) => {
+      const input: Nullable<HTMLInputElement> = component.node!.querySelector('input');
+      if (input) {
         return {
           ...acc,
           [input.name]: input.value,
         };
       }
-      return {
-        ...acc,
-        [input.name]: '',
-      };
-    }, {} as { [key in UserDataKeys]: string });
-    const validatedEmail = validateEmail(inputUserData.email);
-    const validatedLogin = validateLogin(inputUserData.login);
-    const validatedName = validateFirstName(inputUserData.first_name);
-    const validatedSurName = validateFirstName(inputUserData.second_name);
-    const validatedPhone = validatePhone(inputUserData.phone);
-    store.dispatch({
-      user: {
-        ...store.getState().user,
-        data: {
-          ...store.getState().user.data as UserInfoResponse,
-          ...inputUserData,
-        },
-      },
-    });
-    this.setProps({
-      ...this.props,
-      error: {
-        email: validatedEmail,
-        login: validatedLogin,
-        name: validatedName,
-        surName: validatedSurName,
-        phone: validatedPhone,
-      },
-    });
-    const allValid: boolean = [
-      validatedEmail,
-      validatedLogin,
-      validatedName,
-      validatedSurName,
-      validatedPhone,
-    ].every((val: string) => val === '');
+      return { ...acc };
+    }, {} as Record<string, string>);
+    const allValid = Object.entries(valuesAndNames).map(([name, value]) => {
+      if (name === 'display_name') return '';
+      const isValid = validateFactory(name, value);
+      return isValid;
+    }).every((val) => val === '');
     if (allValid) {
-      store.dispatch(changeUserDataAction, inputUserData);
+      store.dispatch(changeUserDataAction, valuesAndNames);
     }
   }
 
@@ -123,28 +59,37 @@ class EditUserPage extends Block<EditUserPageProps> {
     input.click();
   }
 
-  handleInputChange(e: Event) {
+  handleFileInputChange(e: Event) {
     const target = e.target as HTMLInputElement;
     let file;
     if (target.files) {
       file = target.files[0];
-      this.setProps({
-        ...this.props,
-        file,
-      });
+      this.setProps({ ...this.props, file });
     }
   }
 
+  handleTextInputChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    const validated = validateFactory(target.name, target.value) as string;
+    const current = this.refs[target.name];
+    current.setProps({ error: validated });
+  }
+
   protected render(): string {
-    const { userData, changeDataError, changeDataErrorReason } = this.props;
+    const {
+      userData, changeDataError, changeDataErrorReason, avatar, loading
+    } = this.props;
     return `
     <div class="user">
       {{{ BackLink }}}
+      {{#if ${loading}}}
+      {{{ Loader }}}
+    {{else}}
       <div class="user_right">
         <div class="user_right_data">
           <div class="user_right_data_head">
             {{{ FileInput
-                source="${this.props.avatar}"
+                source="${avatar}"
                 onOpen=onOpen
                 onInput=onInput
             }}}
@@ -167,78 +112,120 @@ class EditUserPage extends Block<EditUserPageProps> {
             {{{ EditRow
                 title="Почта"
                 type="email"
-                value="${userData?.email || ''}"
+                value="${userData.email || ''}"
                 name="email"
-                ref="email"
+                ref="emailInput"
+                onChange=onChange
             }}}
-            {{{ ErrorComponent
-                className="edit_uder_data_error"
-                error=error.email
-            }}}
+            <div class="error_row">
+              <div></div>
+              {{{ ErrorComponent
+                  className="max_error_length"
+                  error=error.email
+                  ref="email"
+              }}}
+            </div>
             {{{ EditRow
                 title="Логин"
                 type="text"
-                value="${userData?.login || ''}"
+                value="${userData.login || ''}"
                 name="login"
-                ref="login"
+                ref="loginInput"
+                onChange=onChange
             }}}
-            {{{ ErrorComponent
-                className="edit_uder_data_error"
-                error=error.login
-            }}}
+            <div class="error_row">
+              <div></div>
+              {{{ ErrorComponent
+                  className="max_error_length"
+                  error=error.login
+                  ref="login"
+              }}}
+            </div>
             {{{ EditRow
                 title="Имя"
                 type="text"
-                value="${userData?.first_name || ''}"
+                value="${userData.first_name || ''}"
                 name="first_name"
-                ref="first_name"
+                ref="firstNameInput"
+                onChange=onChange
             }}}
-            {{{ ErrorComponent
-                className="edit_uder_data_error"
-                error=error.name
-            }}}
+            <div class="error_row">
+              <div></div>
+              {{{ ErrorComponent
+                  className="max_error_length"
+                  error=error.name
+                  ref="first_name"
+              }}}
+            </div>
+            <div>
             {{{ EditRow
                 title="Фамилия"
                 type="text"
-                value="${userData?.second_name || ''}"
+                value="${userData.second_name || ''}"
                 name="second_name"
-                ref="second_name"
+                ref="secondNameInput"
+                onChange=onChange
             }}}
-            {{{ ErrorComponent
-                className="edit_uder_data_error"
-                error=error.surName
-            }}}
+            <div class="error_row">
+              <div></div>
+              {{{ ErrorComponent
+                  className="max_error_length"
+                  error=error.surName
+                  ref="second_name"
+              }}}
+            </div>
             {{{ EditRow
                 title="Имя в чате"
                 type="text"
-                value="${userData?.display_name || ''}"
+                value="${userData.display_name || ''}"
                 name="display_name"
-                ref="display_name"
+                ref="displayNameInput"
+                onChange=onChange
             }}}
-            {{{ ErrorComponent
-                className="edit_uder_data_error"
-                error=error.login
-            }}}
+            <div class="error_row">
+              <div></div>
+              {{{ ErrorComponent
+                  className="max_error_length"
+                  error=error.login
+                  ref="display_name"
+              }}}
+            </div>
             {{{ EditRow
                 title="Телефон"
                 type="text"
-                value="${userData?.phone || ''}"
+                value="${userData.phone || ''}"
                 name="phone"
-                ref="phone"
+                ref="phoneInput"
+                onChange=onChange
             }}}
-            {{{ ErrorComponent
-                className="edit_uder_data_error"
-                error=error.phone
-            }}}
+            <div class="error_row">
+              <div></div>
+              {{{ ErrorComponent
+                  className="max_error_length"
+                  error=error.phone
+                  ref="phone"
+              }}}
+            </div>
           </div>
           <div class="edit_user_footer">
             {{{ Button textBtn="Сохранить" onClick=onDataChange }}}
           </div>
         </div>
       </div>
+    {{/if}}
     </div>
     `;
   }
 }
 
-export default EditUserPage;
+const mapStateToProps = (state: AppState) => ({
+  avatar: state.user.data?.avatar as string,
+  userData: state.user.data as UserInfoResponse,
+  changeDataError: state.user.error,
+  changeDataErrorReason: state.user.errorReason as string,
+  loading: state.user.loading,
+});
+
+const EnhancedEditUserPage = connectStore(mapStateToProps)(EditUserPage);
+
+export default EnhancedEditUserPage;
