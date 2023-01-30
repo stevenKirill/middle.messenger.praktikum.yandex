@@ -74,13 +74,13 @@ class Block<P extends object = {}> {
     if (!isEqual(_oldProps, _newProps)) {
       return true
     }
-    return true;
   }
 
   setProps = (nextProps: P) => {
     if (!nextProps) {
       return;
     }
+
     Object.assign(this.props, nextProps);
   };
 
@@ -90,15 +90,9 @@ class Block<P extends object = {}> {
 
   _render() {
     const fragment = this._compile();
-
-    // console.log(fragment, '=> fragment')
-
     this._removeEvents();
     const newElement = fragment.firstElementChild!;
-    // console.log(this.node, '=> node');
-
     this.node!.replaceWith(newElement);
-
     this.node = newElement as HTMLElement;
     this._addEvents();
   }
@@ -158,8 +152,6 @@ class Block<P extends object = {}> {
   _addEvents() {
     const events: Record<string, () => void> = (this.props as any).events;
 
-    console.log(events, '=> event')
-
     if (!events) {
       return;
     }
@@ -171,14 +163,9 @@ class Block<P extends object = {}> {
 
   _compile(): DocumentFragment {
     const fragment = document.createElement('template');
-
-    /**
-     * Рендерим шаблон
-     */
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template(
-      { ...this.state,
-        ...this.props,
+      { ...this.props,
         children: this.children,
         refs: this.refs
       }

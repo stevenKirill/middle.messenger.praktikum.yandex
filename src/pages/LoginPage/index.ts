@@ -34,7 +34,7 @@ class LoginPage extends Block<LoginPageProps> {
         {{else}}
         {{{ LoginForm }}}
         {{/if}}
-        {{{ Link url="#" text="Нет аккаунта" onClick=onClick }}}
+        {{{ Link text="Нет аккаунта" onClick=onClick }}}
       </main>
       {{#if ${error}}}
       {{{ ErrorComponent

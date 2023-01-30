@@ -1,23 +1,11 @@
 import Block from 'core/block/Block';
-import withRouter from 'utils/HOCS/withRouter';
-import { CoreRouter } from 'core/router/types';
-import './chat.css';
 import { store } from 'core/store';
 import { createSocket, getChatsAction } from 'services/chat';
-import { TGetChatResponse } from 'api/chat/types';
 import { APIError } from 'api/types';
 import chatApi from 'api/chat';
-
-type ChatPageProps = {
-  router: CoreRouter;
-  onProfileGo: (e: Event) => void;
-  onChatCreate: () => void;
-  onChatClick: () => void
-  isShow?: boolean;
-  chats: TGetChatResponse[];
-  currentChat?: string | null;
-  currentChatName: string;
-};
+import appRouter from 'core/router';
+import { ChatPageProps } from './types';
+import './chat.css';
 
 class ChatPage extends Block<ChatPageProps> {
   static componentName: 'ChatPage';
@@ -62,7 +50,7 @@ class ChatPage extends Block<ChatPageProps> {
 
   handleGoToProfilePage(e: Event) {
     e.preventDefault();
-    this.props.router.go('/profile');
+    appRouter.go('/profile');
   }
 
   handleCreateChat() {
@@ -166,5 +154,4 @@ class ChatPage extends Block<ChatPageProps> {
   }
 }
 
-// @ts-ignore FIX
-export default withRouter(ChatPage);
+export default ChatPage;
