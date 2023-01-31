@@ -30,6 +30,7 @@ export type TChats = {
   error: boolean;
   loading: boolean;
   errorReason?: string;
+  currentChat: number | null;
 };
 
 export type TCreateChat = {

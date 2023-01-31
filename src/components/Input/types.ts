@@ -1,4 +1,4 @@
-export interface InputProps {
+export type InputProps = TPropsWithEvents<{
   name: string;
   type: string;
   placeholder: string;
@@ -6,4 +6,4 @@ export interface InputProps {
   onInput?: () => void;
   onFocus?: () => void;
   onBlur?: () => void;
-}
+}>;

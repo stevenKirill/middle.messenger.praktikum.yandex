@@ -1,59 +1,41 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
 import { deleteChatAction, getChatsAction } from 'services/chat';
+import { AppState } from 'core/store/types';
+import connectStore from 'utils/HOCS/connectStore';
+import { findCurrentChat } from 'services/chat/utils';
 import { ChatAreaProps } from './types';
 
-export class ChatArea extends Block<ChatAreaProps> {
+export class ChatAreaClass extends Block<ChatAreaProps> {
   static componentName = 'ChatArea';
 
-  constructor({ currentChatName, currentChatId, messages }: ChatAreaProps) {
-    super({ currentChatName, currentChatId, messages });
-
-    this.setProps({
-      ...this.props,
+  constructor(props: ChatAreaProps) {
+    super({
+      ...props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
-      messages: [],
-    });
-  }
-
-  componentDidMount() {
-    store.on('changed', () => this.onChangeStoreCallback());
-  }
-
-  onChangeStoreCallback() {
-    this.setProps({
-      ...this.props,
-      messages: store.getState().messages,
     });
   }
 
   handleDeleteChat() {
-    store.dispatch(deleteChatAction, {
-      chatId: this.props.currentChatId as string,
-    });
+    // не перерендер после удаления чатов
+    const { currentChatId } = this.props;
+    store.dispatch(deleteChatAction, { chatId: currentChatId });
     store.dispatch(getChatsAction);
   }
 
   handleInvitePerson() {
-    this.setProps({
-      ...this.props,
-      isShow: true,
-    });
+    const { inviteModal } = this.refs;
+    inviteModal.setProps({ isShow: true });
   }
 
   protected render(): string {
-    console.log(this.props.messages, '=> сообщения');
     return `
     <div>
-      {{#if ${this.props.isShow}}}
         {{{ InviteModal
-            isShow=isShow
             currentChatId=currentChatId
+            ref="inviteModal"
         }}}
-      {{else}}
-        <div></div>
-      {{/if}}
       <div class="chat_page_right_chatArea">
         <div class="chat_page_right_chatArea_header">
           <h3>{{ currentChatName }}</h3>
@@ -82,12 +64,19 @@ export class ChatArea extends Block<ChatAreaProps> {
         {{/with}}
         {{/each}}
         </div>
-        {{{
-          ControlledTextArea
-          currentChatId=currentChatId
+        {{{ ControlledTextArea
+            currentChatId=currentChatId
         }}}
       </div>
     </div>
   `;
   }
 }
+
+const mapStateToProps = (state: AppState) => ({
+  messages: state.messages,
+  currentChatName: findCurrentChat(state.chats.data, state.chats.currentChat)?.title,
+  currentChatId: state.chats.currentChat,
+});
+
+export const ChatArea = connectStore(mapStateToProps)(ChatAreaClass);

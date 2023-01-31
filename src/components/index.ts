@@ -9,6 +9,7 @@ export * from './CloseButton';
 export * from './ControlledTextArea';
 export * from './EditRow';
 export * from './EmptyAvatar';
+export * from './EmptyChat';
 export * from './ErrorComponent';
 export * from './FileInput';
 export * from './Input';

@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import { store } from 'core/store';
 import { ControlledTextAreaProps } from './types';
 
 export class ControlledTextArea extends Block {
@@ -13,24 +12,12 @@ export class ControlledTextArea extends Block {
       },
       currentChatId,
     });
+    console.log('render lol');
   }
 
   handleSendMessage(e: Event) {
-    // получить текущий сокет и отправить сообщение
     e.preventDefault();
-    const target = e.target as HTMLElement;
-    if (target.nodeName !== 'BUTTON') {
-      return;
-    }
-    const { textArea } = this.refs;
-    const myTextArea = textArea as HTMLTextAreaElement;
-    const message = myTextArea.value.trim();
-    // @ts-ignore
-    const currentChatSocket: WebSocket = store.getState().sockets[this.props.currentChatId];
-    currentChatSocket.send(JSON.stringify({
-      content: message,
-      type: 'message',
-    }));
+    console.log(e);
   }
 
   protected render(): string {

@@ -1,7 +1,8 @@
+import { TGetChatResponse } from 'api/chat/types';
 import { store } from 'core/store';
 import { AppState, Dispatch } from 'core/store/types';
 
-const initSocketListeners = (socket: WebSocket) => {
+export const initSocketListeners = (socket: WebSocket) => {
   socket.addEventListener('open', () => {
     console.log('Соединение установлено');
   });
@@ -29,8 +30,12 @@ const initSocketListeners = (socket: WebSocket) => {
   });
 
   socket.addEventListener('error', (event) => {
+    // @ts-ignore
     console.log('Ошибка', event.message);
   });
 };
 
-export default initSocketListeners;
+export const findCurrentChat = (
+  chats: TGetChatResponse[],
+  currentId: number | null,
+) => chats.find((chat) => chat.id === currentId);

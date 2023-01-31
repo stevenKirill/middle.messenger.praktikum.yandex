@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
 import EventBus from '../EventBus';
-import { Nullable, Values } from '../types';
+import { Values } from '../types';
 import isEqual from 'utils/mydash/isEqual';
 import cloneDeep from 'utils/mydash/cloneDeep';
 

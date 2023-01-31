@@ -2,7 +2,6 @@ import Block from 'core/block/Block';
 import { validateFactory } from 'utils/validation';
 import { store } from 'core/store';
 import { signUp } from 'services/login';
-import { Nullable } from 'core/types';
 import { RegistrationProps } from './types';
 
 export class RegistrationForm extends Block<RegistrationProps> {
@@ -54,9 +53,7 @@ export class RegistrationForm extends Block<RegistrationProps> {
     const target = e.target as HTMLInputElement;
     const validated = validateFactory(target.name, target.value) as string;
     const current = this.refs[target.name];
-    current.setProps({
-      error: validated,
-    });
+    current.setProps({ error: validated });
   }
 
   protected render(): string {

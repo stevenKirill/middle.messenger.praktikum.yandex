@@ -1,5 +1,6 @@
 export interface CreateChatModalProps {
   isShow: boolean;
-  onPickName?: () => void;
+  onCreate?: () => void;
   onCloseModal?: () => void;
+  error: string;
 }

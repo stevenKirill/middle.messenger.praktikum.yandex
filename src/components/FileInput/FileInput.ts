@@ -8,8 +8,13 @@ export class FileInput extends Block<FileInputProps> {
   static componentName = 'FileInput';
 
   constructor({ source, onOpen, onInput }: FileInputProps) {
-    // @ts-ignore
-    super({ events: { click: onOpen, input: onInput }, source });
+    super({
+      events: {
+        click: onOpen,
+        input: onInput,
+      },
+      source,
+    });
   }
 
   getAvatar() {

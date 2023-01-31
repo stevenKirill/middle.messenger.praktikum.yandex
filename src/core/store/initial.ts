@@ -16,6 +16,7 @@ const initialState: AppState = {
     error: false,
     loading: false,
     errorReason: '',
+    currentChat: null,
   },
   createChat: {
     error: false,

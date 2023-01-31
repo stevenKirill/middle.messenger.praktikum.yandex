@@ -10,14 +10,22 @@ export class Modal extends Block<CreateChatModalProps> {
   constructor(props: CreateChatModalProps) {
     super({
       ...props,
-      onPickName: () => this.handlePickChatName(),
+      onCreate: () => this.handleCreateChat(),
       onCloseModal: () => this.handleCloseModal(),
       isShow: false,
+      error: '',
     });
   }
 
-  handlePickChatName() {
-    console.log('handlePickChatName');
+  handleCreateChat() {
+    const { chatName, error } = this.refs;
+    const input = chatName.node?.querySelector('input')!;
+    if (input.value === '') {
+      error.setProps({ error: 'Имя не может быть пустым' });
+      return;
+    }
+    store.dispatch(createChatAction, { title: input.value });
+    store.dispatch(getChatsAction);
   }
 
   handleCloseModal() {
@@ -42,11 +50,15 @@ export class Modal extends Block<CreateChatModalProps> {
         {{{ Input
             type="text"
             placeholder="Чат"
-            ref="chat_name"
+            ref="chatName"
+        }}}
+        {{{ ErrorComponent
+            error=error
+            ref="error"
         }}}
         </div>
         <div class="modal_container_footer">
-          {{{ Button textBtn="Ок" onClick=onPickName }}}
+          {{{ Button textBtn="Ок" onClick=onCreate }}}
         </div>
       </div>
       </div>

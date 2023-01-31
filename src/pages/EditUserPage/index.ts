@@ -2,7 +2,6 @@ import Block from 'core/block/Block';
 import { store } from 'core/store';
 import { validateFactory } from 'utils/validation';
 import { UserInfoResponse } from 'api/login/types';
-import { Nullable } from 'core/types';
 import { changeUserAvatarAction, changeUserDataAction } from 'services/user';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';

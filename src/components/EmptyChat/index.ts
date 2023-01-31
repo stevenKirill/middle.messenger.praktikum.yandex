@@ -1,1 +1,1 @@
-import * from './EmptyChat';
+export * from './EmptyChat';

@@ -5,6 +5,6 @@ export type ChatPageProps = {
   onChatCreate: () => void;
   onChatClick: () => void
   chats: TGetChatResponse[];
-  currentChat: string | null;
-  currentChatName: string;
+  renderChats: () => void;
+  currentChat: number | null;
 };

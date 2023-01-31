@@ -6,37 +6,31 @@ import { InviteModalProps } from './types';
 export class InviteModal extends Block<InviteModalProps> {
   static componentName = 'InviteModal';
 
-  constructor({ isShow, error, currentChatId }: InviteModalProps) {
-    super({ isShow, error, currentChatId });
+  constructor(props: InviteModalProps) {
+    super({ ...props });
     this.setProps({
       onSearch: () => this.handleSearch(),
       onCloseModal: () => this.handleCloseModal(),
-      isShow: true,
-      error: false,
-      currentChatId,
+      isShow: false,
+      currentChatId: props.currentChatId,
     });
   }
 
   handleSearch() {
-    const input = this.refs.user_login.querySelector('input') as HTMLInputElement;
-    if (input.value !== '') {
-      store.dispatch(searchUserByLoginAction, {
-        login: input.value,
-        chatId: this.props.currentChatId,
-      });
-    } else {
-      this.setProps({
-        ...this.props,
-        error: true,
-      });
+    const { userLogin, errorRef } = this.refs;
+    const input = userLogin.node!.querySelector('input') as HTMLInputElement;
+    if (input.value === '') {
+      errorRef.setProps({ error: 'Поле не может быть пустым' });
+      return;
     }
+    store.dispatch(searchUserByLoginAction, {
+      login: input.value,
+      chatId: this.props.currentChatId,
+    });
   }
 
   handleCloseModal() {
-    this.setProps({
-      ...this.props,
-      isShow: false,
-    });
+    this.setProps({ ...this.props, isShow: false });
   }
 
   protected render(): string {
@@ -57,20 +51,17 @@ export class InviteModal extends Block<InviteModalProps> {
         {{{ Input
             type="text"
             placeholder="логин"
-            ref="user_login"
+            ref="userLogin"
+        }}}
+        {{{ ErrorComponent
+            className="align_center"
+            error=error
+            ref="errorRef"
         }}}
         </div>
         <div class="modal_container_footer">
           {{{ Button textBtn="Искать" onClick=onSearch }}}
         </div>
-        {{#if ${this.props.error}}}
-        {{{ ErrorComponent
-          className="align_center"
-          error="Логин не может быть пустым"
-        }}}
-        {{else}}
-        <div></div>
-        {{/if}}
       </div>
       </div>
       {{else}}

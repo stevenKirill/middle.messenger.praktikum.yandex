@@ -1,4 +1,4 @@
-export interface ChatItemProps {
+export type ChatItemProps = TPropsWithEvents<{
   id: number;
   title: string;
   last_message: {
@@ -15,5 +15,6 @@ export interface ChatItemProps {
   }
   unread_count: string;
   avatar: string | null;
+  onClick?: () => void;
   activeClassName: string;
-}
+}>;

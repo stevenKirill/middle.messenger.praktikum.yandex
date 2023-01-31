@@ -1,5 +1,5 @@
-export interface FileInputProps {
-  onOpen: () => void;
-  onInput: () => void;
+export type FileInputProps = TPropsWithEvents<{
+  onOpen?: () => void;
+  onInput?: () => void;
   source: string;
-}
+}>;

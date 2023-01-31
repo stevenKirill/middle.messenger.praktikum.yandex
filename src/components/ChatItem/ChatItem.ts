@@ -11,6 +11,7 @@ export class ChatItem extends Block<ChatItemProps> {
     avatar,
     last_message,
     unread_count,
+    onClick,
     activeClassName,
   }: ChatItemProps) {
     super({
@@ -19,6 +20,9 @@ export class ChatItem extends Block<ChatItemProps> {
       last_message,
       unread_count,
       avatar,
+      events: {
+        click: onClick,
+      },
       activeClassName,
     });
   }
@@ -26,7 +30,7 @@ export class ChatItem extends Block<ChatItemProps> {
   protected render(): string {
     return `
       <div
-        class="chat_page_left_chats_item"
+        class="${this.props.activeClassName} chat_page_left_chats_item"
         data-chat-id={{ id }}
       >
         <div class="chat_page_list_item_right">

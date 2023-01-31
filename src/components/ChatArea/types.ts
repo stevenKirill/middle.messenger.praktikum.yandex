@@ -1,8 +1,7 @@
 export interface ChatAreaProps {
-  messages?: [];
+  messages: [];
   currentChatName: string;
-  currentChatId: string;
+  currentChatId: number;
   onDeleteChat?: () => void;
   onInvitePerson?: () => void;
-  isShow?: boolean;
 }

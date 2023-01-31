@@ -3,6 +3,7 @@ import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/cha
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
 import initSocketListeners from './utils';
+import { TSocketData } from './types';
 
 export const getChatsAction = async (
   dispatch: Dispatch<AppState>,
@@ -72,8 +73,7 @@ export const deleteChatAction = async (
     },
   });
   try {
-    const deleteChatResponse = await chatApi.deleteChat(requestData);
-    console.log(deleteChatResponse, '=> чат был удален');
+    await chatApi.deleteChat(requestData);
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -84,11 +84,6 @@ export const deleteChatAction = async (
       },
     });
   }
-};
-
-type TSocketData = {
-  chatId: string;
-  token: string;
 };
 
 export const createSocket = async (
@@ -110,4 +105,14 @@ export const createSocket = async (
   } catch (error) {
     console.error(error);
   }
+};
+
+export const selectChat = (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  chatId: number,
+) => {
+  dispatch({
+    chats: { ...state.chats, currentChat: chatId },
+  });
 };

@@ -1,37 +1,14 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { createSocket, getChatsAction } from 'services/chat';
+import { createSocket, getChatsAction, selectChat } from 'services/chat';
 import { APIError } from 'api/types';
 import chatApi from 'api/chat';
 import appRouter from 'core/router';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
+import { selectChats, selectCurrentChat } from 'services/chat/selectors';
 import { ChatPageProps } from './types';
 import './chat.css';
-
-// users: () => {
-//   const { chats } = chatsModel.selectChats();
-//   const { chatId } = router.getParams();
-
-//   return (
-//     chats &&
-//     chats.map((chat) => {
-//       return {
-//         avatar: new Avatar({ className: "avatar_sm", img: getFile(chat.avatar) }),
-//         name: chat.title,
-//         message: chat.lastMessage && chat.lastMessage.content,
-//         date: chat.lastMessage && formattedDate(new Date(chat.lastMessage.time)),
-//         counter: chat.unreadCount,
-//         className: () => (Number(chat.id) === Number(chatId) ? "active" : ""),
-//         onClick: () => {
-//           if (Number(chat.id) !== Number(chatId)) {
-//             store.dispatch(chatsServices.selectChat, chat.id);
-//           }
-//         },
-//       };
-//     })
-//   );
-// },
 
 class ChatPage extends Block<ChatPageProps> {
   static componentName: 'ChatPage';
@@ -41,25 +18,29 @@ class ChatPage extends Block<ChatPageProps> {
       ...props,
       onProfileGo: (e: Event) => this.handleGoToProfilePage(e),
       onChatCreate: () => this.handleCreateChat(),
-      currentChat: '',
-      currentChatName: '',
+      renderChats: () => {
+        const chats = selectChats();
+        const currentChat = selectCurrentChat();
+        return (
+          chats
+          && chats.map((chat) => ({
+            id: chat.id,
+            title: chat.title,
+            avatar: chat.avatar,
+            last_message: chat.last_message,
+            unread_count: chat.unread_count,
+            activeClassName: () => (currentChat === chat.id ? 'active_chat' : ''),
+            onClick: () => {
+              store.dispatch(selectChat, chat.id);
+            },
+          }))
+        );
+      },
     });
   }
 
   componentDidMount(): void {
     store.dispatch(getChatsAction);
-    this.initChatItemListener();
-  }
-
-  initChatItemListener() {
-    const chatItems = document.querySelector('.chat_page_left_chats');
-    console.log(chatItems);
-    chatItems?.addEventListener('click', this.handleChatClick.bind(this));
-  }
-
-  removeChatItemListener() {
-    const chatItems = document.querySelector('.chat_page_left_chats');
-    chatItems?.removeEventListener('click', this.handleChatClick.bind(this));
   }
 
   handleGoToProfilePage(e: Event) {
@@ -91,12 +72,8 @@ class ChatPage extends Block<ChatPageProps> {
     });
   }
 
-  handleChatClick(e: Event) {
-    console.log('e');
-  }
-
   protected render(): string {
-    const { currentChat, currentChatName } = this.props;
+    const { currentChat } = this.props;
     return `
     <div>
     <h2 class="chat_main_title">Чаты</h2>
@@ -118,27 +95,24 @@ class ChatPage extends Block<ChatPageProps> {
           </div>
           {{{ SearchInput }}}
           <div class="chat_page_left_chats">
-          {{#each chats }}
-          {{#with this}}
+          {{#if renderChats }}
+          {{#each renderChats }}
             {{{ ChatItem
-                id=id
-                title=title
-                avatar=avatar
-                last_message=last_message
-                unread_count=unread_count
-                currentChatName="${currentChatName}"
-                activeClassName="${currentChat}"
+                id=this.id
+                title=this.title
+                avatar=this.avatar
+                last_message=this.last_message
+                unread_count=tis.unread_count
+                onClick=onClick
+                activeClassName=this.activeClassName
             }}}
-          {{/with}}
           {{/each}}
+          {{/if}}
           </div>
         </section>
         <section class="chat_page_right">
-        {{#if ${Boolean(currentChat)} }}
-          {{{ ChatArea
-              currentChatName="${currentChatName}"
-              currentChatId="${currentChat}"
-          }}}
+        {{#if currentChat }}
+          {{{ ChatArea currentChatId="${currentChat}" }}}
           {{else}}
           {{{ EmptyChat }}}
           {{/if}}
@@ -154,6 +128,7 @@ const mapStateToProps = (state: AppState) => ({
   loading: state.chats.loading,
   error: state.chats.error,
   errorReason: state.chats.errorReason,
+  currentChat: state.chats.currentChat,
 });
 
 const EnhancedChatPage = connectStore(mapStateToProps)(ChatPage);

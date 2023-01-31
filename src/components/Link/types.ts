@@ -1,6 +1,6 @@
-export interface LinkProps {
+export type LinkProps = TPropsWithEvents<{
   text: string;
   url: string;
   className: string;
-  onClick: () => void;
-}
+  onClick?: () => void;
+}>;

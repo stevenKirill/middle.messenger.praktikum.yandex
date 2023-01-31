@@ -1,3 +1,3 @@
-export interface ControlledTextAreaProps {
+export type ControlledTextAreaProps = TPropsWithEvents<{
   currentChatId: string;
-}
+}>;
