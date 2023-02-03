@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './error.css';
 
 class NotFoundPage extends Block {
   static componentName: 'NotFoundPage';

@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './editRow.css';
 
 export class EditRow extends Block {
   static componentName = 'EditRow';

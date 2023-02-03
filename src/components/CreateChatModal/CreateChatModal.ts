@@ -1,11 +1,10 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { createChatAction, getChatsAction } from 'services/chat';
+import { createChatAction } from 'services/chat';
 import { CreateChatModalProps } from './types';
-import './modal.css';
 
-export class Modal extends Block<CreateChatModalProps> {
-  static componentName = 'Modal';
+export class CreateChatModal extends Block<CreateChatModalProps> {
+  static componentName = 'CreateChatModal';
 
   constructor(props: CreateChatModalProps) {
     super({
@@ -25,7 +24,7 @@ export class Modal extends Block<CreateChatModalProps> {
       return;
     }
     store.dispatch(createChatAction, { title: input.value });
-    store.dispatch(getChatsAction);
+    this.handleCloseModal();
   }
 
   handleCloseModal() {

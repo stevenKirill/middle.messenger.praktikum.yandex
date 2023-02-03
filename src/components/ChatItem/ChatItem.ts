@@ -1,6 +1,5 @@
 import Block from 'core/block/Block';
 import { ChatItemProps } from './types';
-import './chatItem.css';
 
 export class ChatItem extends Block<ChatItemProps> {
   static componentName = 'ChatItem';
@@ -30,7 +29,7 @@ export class ChatItem extends Block<ChatItemProps> {
   protected render(): string {
     return `
       <div
-        class="${this.props.activeClassName} chat_page_left_chats_item"
+        class="{{#if activeClassName}}{{activeClassName}}{{/if}} chat_page_left_chats_item"
         data-chat-id={{ id }}
       >
         <div class="chat_page_list_item_right">

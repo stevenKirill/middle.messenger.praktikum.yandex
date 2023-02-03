@@ -2,7 +2,6 @@ import { Block } from 'core';
 import { appHTTP } from 'utils/http';
 import logo from '../../assets/tg.png';
 import { FileInputProps } from './types';
-import './input.css';
 
 export class FileInput extends Block<FileInputProps> {
   static componentName = 'FileInput';

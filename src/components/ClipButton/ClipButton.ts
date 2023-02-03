@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './clipButton.css';
 
 interface ClipButtonProps {
   onClick: () => void;

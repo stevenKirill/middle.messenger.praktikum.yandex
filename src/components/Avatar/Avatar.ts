@@ -1,7 +1,6 @@
 import Block from 'core/block/Block';
 import { appHTTP } from 'utils/http';
 import { AvatarProps } from './types';
-import './avatar.css';
 
 export class Avatar extends Block<AvatarProps> {
   static componentName = 'Avatar';

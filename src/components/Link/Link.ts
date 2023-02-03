@@ -1,6 +1,5 @@
 import Block from 'core/block/Block';
 import { LinkProps } from './types';
-import './link.css';
 
 export class Link extends Block<LinkProps> {
   static componentName = 'Link';

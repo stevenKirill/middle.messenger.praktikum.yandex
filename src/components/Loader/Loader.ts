@@ -1,5 +1,4 @@
 import { Block } from 'core';
-import './loader.css';
 
 export class Loader extends Block {
   static componentName = 'Loader';

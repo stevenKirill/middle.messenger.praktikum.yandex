@@ -12,7 +12,6 @@ export class ControlledTextArea extends Block {
       },
       currentChatId,
     });
-    console.log('render lol');
   }
 
   handleSendMessage(e: Event) {

@@ -1,42 +1,42 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { createSocket, getChatsAction, selectChat } from 'services/chat';
-import { APIError } from 'api/types';
-import chatApi from 'api/chat';
+import { getChatsAction, selectChat } from 'services/chat';
 import appRouter from 'core/router';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import { selectChats, selectCurrentChat } from 'services/chat/selectors';
 import { ChatPageProps } from './types';
-import './chat.css';
 
 class ChatPage extends Block<ChatPageProps> {
   static componentName: 'ChatPage';
 
   constructor(props: ChatPageProps) {
-    super({
-      ...props,
-      onProfileGo: (e: Event) => this.handleGoToProfilePage(e),
-      onChatCreate: () => this.handleCreateChat(),
-      renderChats: () => {
-        const chats = selectChats();
-        const currentChat = selectCurrentChat();
-        return (
-          chats
-          && chats.map((chat) => ({
-            id: chat.id,
-            title: chat.title,
-            avatar: chat.avatar,
-            last_message: chat.last_message,
-            unread_count: chat.unread_count,
-            activeClassName: () => (currentChat === chat.id ? 'active_chat' : ''),
-            onClick: () => {
-              store.dispatch(selectChat, chat.id);
-            },
-          }))
-        );
+    super(props);
+    this.setProps(
+      {
+        ...props,
+        onProfileGo: (e: Event) => this.handleGoToProfilePage(e),
+        onChatCreate: () => this.handleCreateChat(),
+        renderChats: () => {
+          const chats = selectChats();
+          const currentChat = selectCurrentChat();
+          return (
+            chats
+            && chats.map((chat) => ({
+              id: chat.id,
+              title: chat.title,
+              avatar: chat.avatar,
+              last_message: chat.last_message,
+              unread_count: chat.unread_count,
+              activeClassName: () => (currentChat === chat.id ? 'active_chat' : ''),
+              onClick: () => {
+                store.dispatch(selectChat, chat.id);
+              },
+            }))
+          );
+        },
       },
-    });
+    );
   }
 
   componentDidMount(): void {
@@ -53,31 +53,12 @@ class ChatPage extends Block<ChatPageProps> {
     createChatRef.setProps({ isShow: true });
   }
 
-  async startChatAction(chatId: string) {
-    try {
-      const startChatResponse = await chatApi.startChat(chatId);
-      store.dispatch(createSocket, {
-        token: startChatResponse.token,
-        chatId,
-      });
-    } catch (error) {
-      const errorResponse = error as APIError;
-      console.error(errorResponse);
-    }
-  }
-
-  removeAllConnections() {
-    Object.values(store.getState().sockets).forEach((socket: WebSocket) => {
-      socket.close();
-    });
-  }
-
   protected render(): string {
     const { currentChat } = this.props;
     return `
     <div>
     <h2 class="chat_main_title">Чаты</h2>
-      {{{ Modal
+      {{{ CreateChatModal
           isShow=isShow
           ref="createChatRef"
       }}}
@@ -111,10 +92,10 @@ class ChatPage extends Block<ChatPageProps> {
           </div>
         </section>
         <section class="chat_page_right">
-        {{#if currentChat }}
-          {{{ ChatArea currentChatId="${currentChat}" }}}
+          {{#if currentChat }}
+            {{{ ChatArea currentChatId="${currentChat}" }}}
           {{else}}
-          {{{ EmptyChat }}}
+            {{{ EmptyChat }}}
           {{/if}}
         </section>
       </main>

@@ -1,6 +1,6 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { deleteChatAction, getChatsAction } from 'services/chat';
+import { deleteChatAction } from 'services/chat';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import { findCurrentChat } from 'services/chat/utils';
@@ -18,10 +18,8 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   }
 
   handleDeleteChat() {
-    // не перерендер после удаления чатов
     const { currentChatId } = this.props;
     store.dispatch(deleteChatAction, { chatId: currentChatId });
-    store.dispatch(getChatsAction);
   }
 
   handleInvitePerson() {

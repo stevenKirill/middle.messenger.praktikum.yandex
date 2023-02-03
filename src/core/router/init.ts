@@ -40,8 +40,6 @@ export function initRouter(router: typeof Router, store: Store<AppState>) {
 
     if (prevState.app.screen !== nextState.app.screen) {
       const Page = getScreenComponent(nextState.app.screen);
-      console.log(Page)
-      console.log(new Page({}).getContent(), '=> page')
       renderDOM(new Page({}));
       document.title = `App / ${Page.componentName}`;
     }

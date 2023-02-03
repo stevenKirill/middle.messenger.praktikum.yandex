@@ -44,7 +44,3 @@ export type TInviteUserRequest = {
   users: number[];
   chatId: number;
 };
-
-export type TStartChatsResponse = {
-  token: string;
-};

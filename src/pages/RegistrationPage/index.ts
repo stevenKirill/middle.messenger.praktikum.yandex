@@ -3,7 +3,6 @@ import appRouter from 'core/router';
 import connectStore from 'utils/HOCS/connectStore';
 import { AppState } from 'core/store/types';
 import { RegistrationPageProps } from './type';
-import './registration.css';
 
 class RegistrationPage extends Block<RegistrationPageProps> {
   static componentName: 'RegistrationPage';

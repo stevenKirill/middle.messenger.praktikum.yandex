@@ -5,7 +5,6 @@ import { logOutAction } from 'services/login';
 import connectStore from 'utils/HOCS/connectStore';
 import { AppState } from 'core/store/types';
 import { UserPageProps } from './types';
-import './user.css';
 
 class UserPage extends Block<UserPageProps> {
   static componentName: 'UserPage';

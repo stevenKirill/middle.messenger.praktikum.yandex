@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './textArea.css';
 
 export interface TextAreaProps {
   name: string;

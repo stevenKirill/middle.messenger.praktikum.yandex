@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './error.css';
 import { ErrorComponentProps } from './types';
 
 export class ErrorComponent extends Block {

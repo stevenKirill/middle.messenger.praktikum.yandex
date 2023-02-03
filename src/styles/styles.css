@@ -5,8 +5,9 @@
 @import "../components/EmptyAvatar/avatar.css";
 @import "../components/Row/row.css";
 @import "../components/EditRow/editRow.css";
-@import "../components/Modal/modal.css";
+@import "../components/CreateChatModal/modal.css";
 @import "../components/FileInput/input.css";
+@import "../components/TextArea/textArea.css";
 @import "../pages/LoginPage/login.css";
 @import "../pages/RegistrationPage/registration.css";
 @import "../pages/UserPage/user.css";

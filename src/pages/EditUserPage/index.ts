@@ -6,7 +6,6 @@ import { changeUserAvatarAction, changeUserDataAction } from 'services/user';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import { EditUserPageProps } from './types';
-import './editUser.css';
 
 class EditUserPage extends Block<EditUserPageProps> {
   static componentName: 'EditUserPage';

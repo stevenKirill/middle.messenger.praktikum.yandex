@@ -9,10 +9,7 @@ function connectStore(mapStateToProps: TExtractStateFuns) {
   return <P>(Component: BlockConstructable<P>) => class extends Component {
     constructor(props: P) {
       const state = mapStateToProps(store.getState());
-      super({
-        ...props,
-        ...state,
-      });
+      super({ ...props, ...state });
       store.on('changed', (prevState, nextState) => {
         const prevStateObj = mapStateToProps(prevState);
         const nextStateObj = mapStateToProps(nextState);

@@ -2,6 +2,7 @@ import chatApi from 'api/chat';
 import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/chat/types';
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
+import { store } from 'core/store';
 import initSocketListeners from './utils';
 import { TSocketData } from './types';
 
@@ -22,6 +23,7 @@ export const getChatsAction = async (
       chats: {
         ...state.chats,
         data: chatsResponse,
+        currentChat: null,
       },
     });
   } catch (error) {
@@ -49,6 +51,7 @@ export const createChatAction = async (
   });
   try {
     await chatApi.create(requestData);
+    store.dispatch(getChatsAction);
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -74,6 +77,7 @@ export const deleteChatAction = async (
   });
   try {
     await chatApi.deleteChat(requestData);
+    store.dispatch(getChatsAction);
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -116,3 +120,23 @@ export const selectChat = (
     chats: { ...state.chats, currentChat: chatId },
   });
 };
+
+
+// async startChatAction(chatId: string) {
+//   try {
+//     const startChatResponse = await chatApi.startChat(chatId);
+//     store.dispatch(createSocket, {
+//       token: startChatResponse.token,
+//       chatId,
+//     });
+//   } catch (error) {
+//     const errorResponse = error as APIError;
+//     console.error(errorResponse);
+//   }
+// }
+
+// removeAllConnections() {
+//   Object.values(store.getState().sockets).forEach((socket: WebSocket) => {
+//     socket.close();
+//   });
+// }

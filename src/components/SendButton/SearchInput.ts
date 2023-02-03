@@ -1,6 +1,5 @@
 import Block from 'core/block/Block';
 import { SendButtonProps } from './types';
-import './sendButton.css';
 
 export class SendButton extends Block {
   static componentName = 'SendButton';

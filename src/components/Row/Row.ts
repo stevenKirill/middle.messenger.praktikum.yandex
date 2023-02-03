@@ -1,6 +1,5 @@
 import Block from 'core/block/Block';
 import { RowProps } from './types';
-import './row.css';
 
 export class Row extends Block {
   static componentName = 'Row';

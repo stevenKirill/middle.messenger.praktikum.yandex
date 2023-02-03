@@ -112,3 +112,7 @@
   margin: 0;
   text-align: center;
 }
+
+.active_chat {
+  background-color: gainsboro;
+}

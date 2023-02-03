@@ -1,5 +1,4 @@
 import Block from 'core/block/Block';
-import './button.css';
 import { ButtonProps } from './types';
 
 export class Button extends Block {
