@@ -31,6 +31,7 @@ export default class WSTransport extends EventBus {
     this.subscribe(this.socket);
     this.setPing();
     return new Promise((resolve) => {
+      // TODO сделать так чтобы сообщения загружались сразу после открытия сокета
       setTimeout(() => {
         this.emit(WSTransport.EVENTS.CONNECTED);
       }, 1000);
@@ -66,6 +67,7 @@ export default class WSTransport extends EventBus {
 
     socket.addEventListener(WSTransport.EVENTS.MESSAGE, (event) => {
       const parsedData = JSON.parse(event.data);
+      console.log(parsedData, '=> parsedData');
       if (parsedData.type === 'pong') {
         return;
       }

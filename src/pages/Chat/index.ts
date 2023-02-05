@@ -5,6 +5,7 @@ import appRouter from 'core/router';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import { selectChats, selectCurrentChat } from 'services/chat/selectors';
+import closeAllSockets from 'services/chat/closeAll';
 import { ChatPageProps } from './types';
 
 class ChatPage extends Block<ChatPageProps> {
@@ -29,6 +30,8 @@ class ChatPage extends Block<ChatPageProps> {
               unread_count: chat.unread_count,
               activeClassName: () => (currentChat === chat.id ? 'active_chat' : ''),
               onClick: () => {
+                store.dispatch({ messages: [] });
+                closeAllSockets();
                 store.dispatch(selectChat, chat.id);
               },
             }))

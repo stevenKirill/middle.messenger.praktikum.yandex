@@ -29,7 +29,6 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   }
 
   protected render(): string {
-    console.log(this.props.messages);
     return `
     <div>
       {{{ InviteModal

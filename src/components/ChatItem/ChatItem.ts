@@ -26,6 +26,29 @@ export class ChatItem extends Block<ChatItemProps> {
     });
   }
 
+  getDate() {
+    const date = this.props?.last_message?.time;
+    if (date) {
+      const d = new Date(date);
+      let resMinutes = '';
+      let resHours = '';
+      const minutes = String(d.getMinutes());
+      const hours = String(d.getHours());
+      if (Number(minutes) < 10) {
+        resMinutes = `0${minutes}`;
+      } else {
+        resMinutes = minutes;
+      }
+      if (Number(hours) < 10) {
+        resHours = `0${hours}`;
+      } else {
+        resHours = hours;
+      }
+      return `${resHours}:${resMinutes}`;
+    }
+    return '';
+  }
+
   protected render(): string {
     return `
       <div
@@ -39,9 +62,12 @@ export class ChatItem extends Block<ChatItemProps> {
             {{{ EmptyAvatar width="50" height="50" }}}
           {{/if}}
           <span>{{ title }}<span>
+          <div class="chat_page_list_item_left">
+            ${this.props?.last_message?.content || ''}
+          </div>
         </div>
         <div class="chat_page_list_item_left">
-           {{ unread_count }}
+          ${this.getDate()}
         </div>
       </div>
     `;
