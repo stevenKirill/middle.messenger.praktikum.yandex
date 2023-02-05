@@ -4,22 +4,17 @@ import { deleteChatAction } from 'services/chat';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import findCurrentChat from 'services/chat/find';
-import { selectMessages } from 'services/chat/selectors';
 import { ChatAreaProps } from './types';
 
 export class ChatAreaClass extends Block<ChatAreaProps> {
   static componentName = 'ChatArea';
 
   constructor(props: ChatAreaProps) {
-    super({
-      ...props,
+    super(props);
+    this.setProps({
+      ...this.props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
-      renderMessages: () => {
-        const messages = selectMessages();
-        console.log(messages, '=> messages');
-        return messages;
-      },
     });
   }
 
@@ -34,6 +29,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   }
 
   protected render(): string {
+    console.log(this.props.messages);
     return `
     <div>
       {{{ InviteModal
@@ -56,8 +52,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
           </div>
         </div>
         <div class="chat_page_right_chatArea_messages">
-        {{#if renderChats }}
-        {{#each renderChats }}
+        {{#each messages }}
         {{{ ChatMessage
             content=this.content
             type=this.type
@@ -66,7 +61,6 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
             time=this.time
         }}}
         {{/each}}
-        {{/if}}
         </div>
         {{{ ControlledTextArea currentChatId=currentChatId }}}
       </div>

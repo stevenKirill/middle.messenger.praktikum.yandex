@@ -2,11 +2,12 @@ import chatApi from 'api/chat';
 import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/chat/types';
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
-import { store } from 'core/store';
 import socketApi from 'api/socket';
 import { TStartChatsResponse } from 'api/socket/types';
-import { TChatIdData, TSendMessagePayload } from './types';
-import sockets from './constants';
+import { TChatIdData, TLoadMessagePayload, TSendMessagePayload } from './types';
+import WSTransport from './socket';
+
+export const sockets: Record<string, WSTransport> = {};
 
 export const getChatsAction = async (
   dispatch: Dispatch<AppState>,
@@ -43,7 +44,7 @@ export const createChatAction = async (
   dispatch({ createChat: { ...state.createChat, loading: true } });
   try {
     await chatApi.create(requestData);
-    store.dispatch(getChatsAction);
+    dispatch(getChatsAction);
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -64,7 +65,7 @@ export const deleteChatAction = async (
   dispatch({ deleteChat: { ...state.createChat, loading: true } });
   try {
     await chatApi.deleteChat(requestData);
-    store.dispatch(getChatsAction);
+    dispatch(getChatsAction);
   } catch (error) {
     const errorResponse = error as APIError;
     dispatch({
@@ -77,8 +78,21 @@ export const deleteChatAction = async (
   }
 };
 
-export const createSocket = async (
+export const loadMessage = (
   _dispatch: Dispatch<AppState>,
+  _state: AppState,
+  { chatId, offset = 0 }: TLoadMessagePayload,
+) => {
+  const currentSocket = sockets[chatId];
+  console.log(currentSocket);
+  if (!currentSocket) {
+    return;
+  }
+  currentSocket.send({ type: 'get old', content: `${offset}` });
+};
+
+export const createSocket = async (
+  dispatch: Dispatch<AppState>,
   state: AppState,
   data: TChatIdData,
 ) => {
@@ -98,6 +112,9 @@ export const createSocket = async (
       },
     );
     wsInstance.connect();
+    wsInstance.on('connected', () => {
+      dispatch(loadMessage, { chatId });
+    });
     sockets[chatId] = wsInstance;
   } catch (error) {
     const errorChatToken = error as APIError;
@@ -120,11 +137,8 @@ export const sendMessage = (
   { chatId, messageText }: TSendMessagePayload,
 ) => {
   const currentSocket = sockets[chatId];
-  console.log(currentSocket, '=> currentSocket in sendMessage');
-
   if (!currentSocket) {
     return;
   }
-
   currentSocket.send({ type: 'message', content: messageText });
 };

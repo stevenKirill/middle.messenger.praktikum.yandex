@@ -44,8 +44,34 @@ const initialState: AppState = {
     loading: false,
     errorReason: '',
   },
-  sockets: {},
   messages: [],
 };
 
 export default initialState;
+// content=this.content
+// type=this.type
+// id=this.id
+// user_id=this.ser_id
+// time=this.time
+
+// {
+//   content: 'hello',
+//   type: 'type',
+//   id: 123,
+//   user: 'user',
+//   time: '12.02.2021',
+// },
+// {
+//   content: 'hello',
+//   type: 'type',
+//   id: 123,
+//   user: 'user',
+//   time: '12.02.2021',
+// },
+// {
+//   content: 'hello',
+//   type: 'type',
+//   id: 123,
+//   user: 'user',
+//   time: '12.02.2021',
+// }

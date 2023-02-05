@@ -8,7 +8,7 @@ export default class WSTransport extends EventBus {
     CLOSE: 'close',
     CONNECTED: 'connected',
     MESSAGE: 'message',
-    ERROR: 'erroe',
+    ERROR: 'error',
   } as const;
 
   private socket: WebSocket | null = null;
@@ -30,6 +30,12 @@ export default class WSTransport extends EventBus {
     this.socket = new WebSocket(this.url);
     this.subscribe(this.socket);
     this.setPing();
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.emit(WSTransport.EVENTS.CONNECTED);
+      }, 1000);
+      resolve(this);
+    });
   }
 
   public close() {
@@ -55,24 +61,24 @@ export default class WSTransport extends EventBus {
       } else {
         console.log('Обрыв соединения');
       }
-      console.log('обрыв');
       console.log(`Код: ${event.code} | Причина: ${event.reason}`);
     });
 
     socket.addEventListener(WSTransport.EVENTS.MESSAGE, (event) => {
-      console.log('Получены данные', event.data);
       const parsedData = JSON.parse(event.data);
       if (parsedData.type === 'pong') {
         return;
       }
       const prevMessages = selectMessages();
-      store.dispatch({
-        messages: [...prevMessages, parsedData],
-      });
+      if (Array.isArray(parsedData)) {
+        store.dispatch({ messages: [...prevMessages, ...parsedData] });
+      } else {
+        store.dispatch({ messages: [...prevMessages, parsedData] });
+      }
     });
 
     socket.addEventListener(WSTransport.EVENTS.ERROR, (event) => {
-      console.log('Ошибка', event.message);
+      console.log('Ошибка', event);
     });
   }
 }

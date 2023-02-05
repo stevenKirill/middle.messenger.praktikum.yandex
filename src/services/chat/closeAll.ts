@@ -1,5 +1,9 @@
-import sockets from './constants';
+import { sockets } from '.';
 
-Object.values(sockets).forEach((socket) => {
-  socket.close();
-});
+const closeAllSockets = () => {
+  Object.values(sockets).forEach((socket) => {
+    socket.close();
+  });
+};
+
+export default closeAllSockets;

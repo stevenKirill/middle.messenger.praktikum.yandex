@@ -15,7 +15,7 @@ export class ChatMessage extends Block {
   protected render(): string {
     return `
     <div class="chat_message_wrapper">
-      <div class="chat_message_user">{{ user_id }}</div>
+      <div class="chat_message_user">Пользователь: {{ user_id }}</div>
       <div class="chat_message_message">{{ time }}</div>
       <div class="chat_message_message">{{ content }}</div>
     </div>

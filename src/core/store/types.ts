@@ -1,6 +1,7 @@
 import { TGetChatResponse } from "api/chat/types";
 import { UserInfoResponse } from "api/login/types";
 import { Screens } from "core/router/constants";
+import { TChatMessageItem } from "services/chat/types";
 
 export type Dispatch<State> = (
   nextStateOrAction: Partial<State> | Action<State>,
@@ -74,6 +75,5 @@ export type AppState = {
   createChat: TCreateChat;
   deleteChat: TDeleteChat;
   searchUser: TSearchUserState;
-  sockets: object;
-  messages: [];
+  messages: TChatMessageItem[];
 };

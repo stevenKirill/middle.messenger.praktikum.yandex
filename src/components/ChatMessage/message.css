@@ -1,0 +1,9 @@
+.chat_message_wrapper {
+  background-color: var(--main-blue);
+  width: 200px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+}

@@ -20,6 +20,7 @@
 @import "../components/ChatItem/chatItem.css";
 @import "../components/ClipButton/clipButton.css";
 @import "../components/SendButton/sendButton.css";
+@import "../components/ChatMessage/message.css";
 
 :root {
   --main-blue: #3369f3;
