@@ -4,6 +4,8 @@ import EnhancedUserPage from 'pages/UserPage';
 import EnhancedEditUserPage from 'pages/EditUserPage';
 import EnhancedEditPasswordPage from 'pages/EditPassword';
 import EnhancedChatPage from 'pages/Chat';
+import ErrorPage from 'pages/ErrorPage';
+import NotFoundPage from 'pages/NotFoundPage';
 import { BlockClass } from '../types';
 
 export enum Screens  {
@@ -13,6 +15,8 @@ export enum Screens  {
   EditInfo = 'edit-info',
   EditPassword = 'edit-password',
   Chats = 'chats',
+  Error = 'error',
+  NotFound = 'not-found',
 };
 
 export const APP_ROUTES = [
@@ -51,6 +55,16 @@ export const APP_ROUTES = [
     block: Screens.Login,
     shouldAuthorized: false,
   },
+  {
+    path: '/error',
+    block: Screens.Error,
+    shouldAuthorized: false,
+  },
+  {
+    path: '/not-found',
+    block: Screens.NotFound,
+    shouldAuthorized: false,
+  },
 ];
 
 export const routesMap: Record<Screens, BlockClass<any>> = {
@@ -60,6 +74,8 @@ export const routesMap: Record<Screens, BlockClass<any>> = {
   [Screens.EditInfo]: EnhancedEditUserPage,
   [Screens.EditPassword]: EnhancedEditPasswordPage,
   [Screens.Chats]: EnhancedChatPage,
+  [Screens.Error]: ErrorPage,
+  [Screens.NotFound]: NotFoundPage,
 };
 
 export const getScreenComponent = (screen: Screens): BlockClass<any> => {

@@ -1,3 +1,4 @@
 export type ControlledTextAreaProps = TPropsWithEvents<{
-  currentChatId: string;
+  currentChatId: number;
+  onClick?: () => void;
 }>;

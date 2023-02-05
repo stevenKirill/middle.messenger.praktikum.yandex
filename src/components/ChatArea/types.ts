@@ -4,4 +4,5 @@ export interface ChatAreaProps {
   currentChatId: number;
   onDeleteChat?: () => void;
   onInvitePerson?: () => void;
+  renderMessages: () => void;
 }

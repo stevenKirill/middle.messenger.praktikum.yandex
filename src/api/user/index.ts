@@ -17,18 +17,14 @@ const userApi = {
     '/user/profile',
     {
       data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   ),
   changePassword: (data: TChangePasswordRequest): Promise<APIError> => appHTTP.put(
     'user/password',
     {
       data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   ),
   getUser: (id: number): Promise<TUserByIdResponse | APIError> => appHTTP.get(`/user/${id}`),
@@ -36,18 +32,14 @@ const userApi = {
     '/user/search',
     {
       data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   ),
   changeAvatar: (
     data: TChangeAvatarRequest,
   ): Promise<TChangeProfileResponse | APIError> => appHTTP.put(
     '/user/profile/avatar',
-    {
-      data,
-    },
+    { data },
   ),
 };
 

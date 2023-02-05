@@ -21,8 +21,7 @@ class ChatPage extends Block<ChatPageProps> {
           const chats = selectChats();
           const currentChat = selectCurrentChat();
           return (
-            chats
-            && chats.map((chat) => ({
+            chats && chats.map((chat) => ({
               id: chat.id,
               title: chat.title,
               avatar: chat.avatar,

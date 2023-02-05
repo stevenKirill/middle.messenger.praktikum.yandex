@@ -1,10 +1,12 @@
 import { APIError } from 'api/types';
 import { appHTTP } from 'utils/http';
-import { TStartChatsResponse } from './types';
+import WSTransport from 'services/chat/socket';
+import { BASE_URL_WS } from 'utils/http/constants';
+import { TSocketRequest, TStartChatsResponse } from './types';
 
 const socketApi = {
-  getToken: (id: number): Promise<TStartChatsResponse | APIError> => appHTTP.post(`chats/token/${id}`),
-
-  // getWS: ({ userId, chatId, token }: TWSRequest) =>
-  //   new WSTransport(`${process.env.WSS_ENDPOINT}/chats/${userId}/${chatId}/${token}`),
+  getToken: (id: number): Promise<TStartChatsResponse | APIError> => appHTTP.post(`/chats/token/${id}`),
+  getSocket: ({ userId, chatId, token }: TSocketRequest) => new WSTransport(`${BASE_URL_WS}/${userId}/${chatId}/${token}`),
 };
+
+export default socketApi;

@@ -3,20 +3,17 @@ import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/cha
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
 import { store } from 'core/store';
-import initSocketListeners from './utils';
-import { TSocketData } from './types';
+import socketApi from 'api/socket';
+import { TStartChatsResponse } from 'api/socket/types';
+import { TChatIdData, TSendMessagePayload } from './types';
+import sockets from './constants';
 
 export const getChatsAction = async (
   dispatch: Dispatch<AppState>,
   state: AppState,
   requestData?: TGetChatRequest,
 ) => {
-  dispatch({
-    chats: {
-      ...state.chats,
-      loading: true,
-    },
-  });
+  dispatch({ chats: { ...state.chats, loading: true } });
   try {
     const chatsResponse = await chatApi.getChats(requestData);
     dispatch({
@@ -43,12 +40,7 @@ export const createChatAction = async (
   state: AppState,
   requestData: TCreateChatRequest,
 ) => {
-  dispatch({
-    createChat: {
-      ...state.createChat,
-      loading: true,
-    },
-  });
+  dispatch({ createChat: { ...state.createChat, loading: true } });
   try {
     await chatApi.create(requestData);
     store.dispatch(getChatsAction);
@@ -69,12 +61,7 @@ export const deleteChatAction = async (
   state: AppState,
   requestData: TDeleteChatRequest,
 ) => {
-  dispatch({
-    deleteChat: {
-      ...state.createChat,
-      loading: true,
-    },
-  });
+  dispatch({ deleteChat: { ...state.createChat, loading: true } });
   try {
     await chatApi.deleteChat(requestData);
     store.dispatch(getChatsAction);
@@ -91,23 +78,30 @@ export const deleteChatAction = async (
 };
 
 export const createSocket = async (
-  dispatch: Dispatch<AppState>,
+  _dispatch: Dispatch<AppState>,
   state: AppState,
-  data: TSocketData,
+  data: TChatIdData,
 ) => {
   try {
-    const { chatId, token } = data;
-    const userId = state.user.data?.id;
-    const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
-    initSocketListeners(socket);
-    dispatch({
-      sockets: {
-        ...state.sockets,
-        [chatId]: socket,
+    const { chatId } = data;
+    const chatTokenResponse = await socketApi.getToken(chatId);
+    if (!chatTokenResponse) {
+      return;
+    }
+    const successResponse = chatTokenResponse as TStartChatsResponse;
+    const userId = state.user.data?.id as number;
+    const wsInstance = await socketApi.getSocket(
+      {
+        chatId,
+        userId,
+        token: successResponse.token,
       },
-    });
+    );
+    wsInstance.connect();
+    sockets[chatId] = wsInstance;
   } catch (error) {
-    console.error(error);
+    const errorChatToken = error as APIError;
+    console.error(errorChatToken);
   }
 };
 
@@ -116,27 +110,21 @@ export const selectChat = (
   state: AppState,
   chatId: number,
 ) => {
-  dispatch({
-    chats: { ...state.chats, currentChat: chatId },
-  });
+  dispatch({ chats: { ...state.chats, currentChat: chatId } });
+  dispatch(createSocket, { chatId });
 };
 
+export const sendMessage = (
+  _dispatch: Dispatch<AppState>,
+  _state: AppState,
+  { chatId, messageText }: TSendMessagePayload,
+) => {
+  const currentSocket = sockets[chatId];
+  console.log(currentSocket, '=> currentSocket in sendMessage');
 
-// async startChatAction(chatId: string) {
-//   try {
-//     const startChatResponse = await chatApi.startChat(chatId);
-//     store.dispatch(createSocket, {
-//       token: startChatResponse.token,
-//       chatId,
-//     });
-//   } catch (error) {
-//     const errorResponse = error as APIError;
-//     console.error(errorResponse);
-//   }
-// }
+  if (!currentSocket) {
+    return;
+  }
 
-// removeAllConnections() {
-//   Object.values(store.getState().sockets).forEach((socket: WebSocket) => {
-//     socket.close();
-//   });
-// }
+  currentSocket.send({ type: 'message', content: messageText });
+};

@@ -7,7 +7,7 @@
 @import "../components/EditRow/editRow.css";
 @import "../components/CreateChatModal/modal.css";
 @import "../components/FileInput/input.css";
-@import "../components/TextArea/textArea.css";
+@import "../components/ControlledTextArea/textArea.css";
 @import "../pages/LoginPage/login.css";
 @import "../pages/RegistrationPage/registration.css";
 @import "../pages/UserPage/user.css";
@@ -18,6 +18,8 @@
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
 @import "../components/ChatItem/chatItem.css";
+@import "../components/ClipButton/clipButton.css";
+@import "../components/SendButton/sendButton.css";
 
 :root {
   --main-blue: #3369f3;

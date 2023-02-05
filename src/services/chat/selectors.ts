@@ -8,3 +8,7 @@ export const selectChats = <T = TGetChatResponse[]>() => <T>useSelector(
 export const selectCurrentChat = <T = number | null>() => <T>useSelector(
   (state) => state.chats.currentChat,
 );
+
+export const selectMessages = <T = []>() => <T>useSelector(
+  (state) => state.messages,
+);

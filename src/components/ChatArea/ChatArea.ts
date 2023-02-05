@@ -3,7 +3,8 @@ import { store } from 'core/store';
 import { deleteChatAction } from 'services/chat';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
-import { findCurrentChat } from 'services/chat/utils';
+import findCurrentChat from 'services/chat/find';
+import { selectMessages } from 'services/chat/selectors';
 import { ChatAreaProps } from './types';
 
 export class ChatAreaClass extends Block<ChatAreaProps> {
@@ -14,6 +15,11 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
       ...props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
+      renderMessages: () => {
+        const messages = selectMessages();
+        console.log(messages, '=> messages');
+        return messages;
+      },
     });
   }
 
@@ -30,10 +36,10 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   protected render(): string {
     return `
     <div>
-        {{{ InviteModal
-            currentChatId=currentChatId
-            ref="inviteModal"
-        }}}
+      {{{ InviteModal
+          currentChatId=currentChatId
+          ref="inviteModal"
+      }}}
       <div class="chat_page_right_chatArea">
         <div class="chat_page_right_chatArea_header">
           <h3>{{ currentChatName }}</h3>
@@ -50,21 +56,19 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
           </div>
         </div>
         <div class="chat_page_right_chatArea_messages">
-        {{#each messages}}
-        {{#with this}}
-          {{{ ChatMessage
-              content=content
-              type=type
-              id=id
-              user_id=user_id
-              time=time
-          }}}
-        {{/with}}
-        {{/each}}
-        </div>
-        {{{ ControlledTextArea
-            currentChatId=currentChatId
+        {{#if renderChats }}
+        {{#each renderChats }}
+        {{{ ChatMessage
+            content=this.content
+            type=this.type
+            id=this.id
+            user_id=this.ser_id
+            time=this.time
         }}}
+        {{/each}}
+        {{/if}}
+        </div>
+        {{{ ControlledTextArea currentChatId=currentChatId }}}
       </div>
     </div>
   `;

@@ -1,32 +1,36 @@
 import Block from 'core/block/Block';
+import { store } from 'core/store';
+import { sendMessage } from 'services/chat';
 import { ControlledTextAreaProps } from './types';
 
-export class ControlledTextArea extends Block {
+export class ControlledTextArea extends Block<ControlledTextAreaProps> {
   static componentName = 'ControlledTextArea';
 
   constructor({ currentChatId }: ControlledTextAreaProps) {
     super({ currentChatId });
     this.setProps({
-      events: {
-        click: (e: Event) => this.handleSendMessage(e),
-      },
+      onClick: () => this.handleSendMessage(),
       currentChatId,
     });
   }
 
-  handleSendMessage(e: Event) {
-    e.preventDefault();
-    console.log(e);
+  handleSendMessage() {
+    const textArea = document.querySelector('.chat_text_area') as HTMLTextAreaElement;
+    const messageText = textArea.value;
+    const chatId = this.props.currentChatId;
+    store.dispatch(sendMessage, { chatId, messageText });
   }
 
   protected render(): string {
     return `
-    <div class="chat_page_right_chatArea_send">
-      {{{ ClipButton }}}
-      {{{ TextArea ref="textArea" }}}
-      {{{ SendButton onClick=handleSendMessage }}}
+    <div>
+      <div class="chat_page_right_chatArea_send">
+        {{{ ClipButton }}}
+        <textarea class="chat_text_area"></textarea>
+        {{{ SendButton onClick=onClick }}}
+      </div>
+      {{{ ErrorComponent error=text }}}
     </div>
-    {{{ ErrorComponent error=text }}}
     `;
   }
 }

@@ -12,9 +12,7 @@ const loginApi = {
     '/auth/signin',
     {
       data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   ),
   signUp: (
@@ -23,18 +21,14 @@ const loginApi = {
     '/auth/signup',
     {
       data: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   ),
   logout: () => appHTTP.post('/auth/logout'),
   user: (): Promise<UserInfoResponse | APIError> => appHTTP.get(
     '/auth/user',
     {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     },
   ),
 };
