@@ -6,4 +6,12 @@
   padding: 10px;
   border-radius: 20px;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.chat_message_time {
+  font-size: 12px;
+  color: floralwhite;
 }

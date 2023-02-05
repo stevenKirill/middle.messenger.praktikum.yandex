@@ -84,7 +84,6 @@ export const loadMessage = (
   { chatId, offset = 0 }: TLoadMessagePayload,
 ) => {
   const currentSocket = sockets[chatId];
-  console.log(currentSocket);
   if (!currentSocket) {
     return;
   }

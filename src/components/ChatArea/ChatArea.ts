@@ -70,7 +70,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
 
 const mapStateToProps = (state: AppState) => ({
   messages: state.messages,
-  currentChatName: findCurrentChat(state.chats.data, state.chats.currentChat)?.title,
+  currentChatName: findCurrentChat(state.chats.data, state.chats.currentChat as number),
   currentChatId: state.chats.currentChat,
 });
 

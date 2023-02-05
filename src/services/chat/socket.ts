@@ -1,6 +1,7 @@
 import EventBus from 'core/EventBus';
 import { store } from 'core/store';
 import { selectMessages } from './selectors';
+import { normalizeMessages } from './normalizeMessages';
 
 export default class WSTransport extends EventBus {
   static EVENTS = {
@@ -73,7 +74,8 @@ export default class WSTransport extends EventBus {
       }
       const prevMessages = selectMessages();
       if (Array.isArray(parsedData)) {
-        store.dispatch({ messages: [...prevMessages, ...parsedData] });
+        const newMessages = normalizeMessages(parsedData);
+        store.dispatch({ messages: [...prevMessages, ...newMessages] });
       } else {
         store.dispatch({ messages: [...prevMessages, parsedData] });
       }
