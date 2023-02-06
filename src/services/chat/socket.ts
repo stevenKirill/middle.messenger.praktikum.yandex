@@ -58,8 +58,8 @@ export default class WSTransport extends EventBus {
       console.log('Соединение установлено');
     });
     socket.addEventListener(WSTransport.EVENTS.CLOSE, (event) => {
-      if (event.wasClean) {
-        console.log('Соединение закрыто чисто');
+      if (!event.wasClean) {
+        setTimeout(() => this.connect(), 100);
       } else {
         console.log('Обрыв соединения');
       }
@@ -68,8 +68,9 @@ export default class WSTransport extends EventBus {
 
     socket.addEventListener(WSTransport.EVENTS.MESSAGE, (event) => {
       const parsedData = JSON.parse(event.data);
-      console.log(parsedData, '=> parsedData');
+      // TODO сделать обработку времени сообщения
       if (parsedData.type === 'pong') {
+        console.log(parsedData);
         return;
       }
       const prevMessages = selectMessages();

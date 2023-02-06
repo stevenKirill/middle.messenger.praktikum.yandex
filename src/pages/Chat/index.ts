@@ -1,6 +1,6 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { getChatsAction, selectChat } from 'services/chat';
+import { getChatsAction, selectChat } from 'services/chat/actions';
 import appRouter from 'core/router';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';

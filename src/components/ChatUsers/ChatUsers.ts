@@ -2,7 +2,7 @@ import Block from 'core/block/Block';
 import { store } from 'core/store';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
-import { getChatUsersAction } from 'services/chat';
+import { getChatUsersAction } from 'services/chat/actions';
 import { TChatUsersComponentProps } from './types';
 
 class ChatUsersClass extends Block<TChatUsersComponentProps> {

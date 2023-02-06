@@ -1,6 +1,6 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { deleteChatAction } from 'services/chat';
+import { deleteChatAction } from 'services/chat/actions';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import findCurrentChat from 'services/chat/find';

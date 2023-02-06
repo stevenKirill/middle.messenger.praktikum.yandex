@@ -1,6 +1,6 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { createChatAction } from 'services/chat';
+import { createChatAction } from 'services/chat/actions';
 import { CreateChatModalProps } from './types';
 
 export class CreateChatModal extends Block<CreateChatModalProps> {

@@ -1,6 +1,6 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { sendMessage } from 'services/chat';
+import { sendMessage } from 'services/chat/actions';
 import { ControlledTextAreaProps } from './types';
 
 export class ControlledTextArea extends Block<ControlledTextAreaProps> {

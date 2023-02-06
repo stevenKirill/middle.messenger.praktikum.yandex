@@ -79,7 +79,7 @@ export const deleteChatAction = async (
   }
 };
 
-export const loadMessage = (
+export const loadMessages = (
   _dispatch: Dispatch<AppState>,
   _state: AppState,
   { chatId, offset = 0 }: TLoadMessagePayload,
@@ -113,7 +113,7 @@ export const createSocket = async (
     );
     wsInstance.connect();
     wsInstance.on('connected', () => {
-      dispatch(loadMessage, { chatId });
+      dispatch(loadMessages, { chatId });
     });
     sockets[chatId] = wsInstance;
   } catch (error) {
@@ -156,7 +156,6 @@ export const getChatUsersAction = async (
   });
   try {
     const chatUsersResponse = await chatApi.getChatUsers(String(chatId));
-    console.log(chatUsersResponse, '=> chatUsersResponse');
     dispatch({
       chatUsers: {
         ...state.chatUsers,
