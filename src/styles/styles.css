@@ -8,6 +8,7 @@
 @import "../components/CreateChatModal/modal.css";
 @import "../components/FileInput/input.css";
 @import "../components/ControlledTextArea/textArea.css";
+@import "../components/Link/link.css";
 @import "../pages/LoginPage/login.css";
 @import "../pages/RegistrationPage/registration.css";
 @import "../pages/UserPage/user.css";
