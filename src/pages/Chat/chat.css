@@ -117,3 +117,8 @@
 .active_chat {
   background-color: gainsboro;
 }
+
+.chat_page_flex {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}

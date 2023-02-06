@@ -45,6 +45,11 @@ const initialState: AppState = {
     errorReason: '',
   },
   messages: [],
+  chatUsers: {
+    loading: false,
+    data: [],
+    error: false,
+  }
 };
 
 export default initialState;

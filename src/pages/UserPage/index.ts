@@ -50,7 +50,7 @@ class UserPage extends Block<UserPageProps> {
         <div class="user_right_data">
           <div class="user_right_data_head">
             {{#if ${Boolean(avatar)}}}
-              {{{ Avatar source="${avatar}" }}}
+              {{{ Avatar source="${avatar}" width="150" height="150" }}}
             {{else}}
               {{{ EmptyAvatar width="150" height="150" }}}
             {{/if}}

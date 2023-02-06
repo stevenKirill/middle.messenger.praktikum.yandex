@@ -22,3 +22,4 @@ export * from './RegistrationForm';
 export * from './Row';
 export * from './SearchInput';
 export * from './SendButton';
+export * from './ChatUsers';

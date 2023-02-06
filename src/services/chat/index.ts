@@ -4,6 +4,7 @@ import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
 import socketApi from 'api/socket';
 import { TStartChatsResponse } from 'api/socket/types';
+import { TUserByIdResponse } from 'api/user/types';
 import { TChatIdData, TLoadMessagePayload, TSendMessagePayload } from './types';
 import WSTransport from './socket';
 
@@ -140,4 +141,36 @@ export const sendMessage = (
     return;
   }
   currentSocket.send({ type: 'message', content: messageText });
+};
+
+export const getChatUsersAction = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  { chatId }: { chatId: number },
+) => {
+  dispatch({
+    chatUsers: {
+      ...state.chatUsers,
+      loading: true,
+    },
+  });
+  try {
+    const chatUsersResponse = await chatApi.getChatUsers(String(chatId));
+    console.log(chatUsersResponse, '=> chatUsersResponse');
+    dispatch({
+      chatUsers: {
+        ...state.chatUsers,
+        data: chatUsersResponse as TUserByIdResponse[],
+        loading: false,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      chatUsers: {
+        ...state.chatUsers,
+        loading: false,
+        error: true,
+      },
+    });
+  }
 };

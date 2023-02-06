@@ -57,7 +57,7 @@ export class ChatItem extends Block<ChatItemProps> {
       >
         <div class="chat_page_list_item_right">
           {{#if ${Boolean(this.props.avatar)}}}
-            {{{ Avatar source="${this.props.avatar}" }}}
+            {{{ Avatar source="${this.props.avatar}" width="50" height="50" }}}
           {{else}}
             {{{ EmptyAvatar width="50" height="50" }}}
           {{/if}}

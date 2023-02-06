@@ -1,5 +1,6 @@
 import { APIError } from 'api/types';
 import { appHTTP } from 'utils/http';
+import { TUserByIdResponse } from 'api/user/types';
 import {
   TCreateChatRequest,
   TDeleteChatRequest,
@@ -33,6 +34,9 @@ const chatApi = {
   },
   changeChatAvatar(data: FormData): Promise<TGetChatResponse | APIError> {
     return appHTTP.put('/chats/avatar', { data });
+  },
+  getChatUsers(id: string): Promise<TUserByIdResponse[] | APIError> {
+    return appHTTP.get(`/chats/${id}/users`);
   },
 };
 

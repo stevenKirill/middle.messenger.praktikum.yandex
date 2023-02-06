@@ -1,5 +1,6 @@
 import { TGetChatResponse } from "api/chat/types";
 import { UserInfoResponse } from "api/login/types";
+import { TUserByIdResponse } from "api/user/types";
 import { Screens } from "core/router/constants";
 import { TChatMessageItem } from "services/chat/types";
 
@@ -76,4 +77,12 @@ export type AppState = {
   deleteChat: TDeleteChat;
   searchUser: TSearchUserState;
   messages: TChatMessageItem[];
+  chatUsers: TChatUsers;
 };
+
+
+export type TChatUsers = {
+  loading: boolean;
+  data: TUserByIdResponse[],
+  error: boolean;
+}
