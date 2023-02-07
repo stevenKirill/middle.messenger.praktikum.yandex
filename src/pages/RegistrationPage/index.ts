@@ -24,16 +24,16 @@ class RegistrationPage extends Block<RegistrationPageProps> {
     return `
     <div class="root">
       {{#if ${error}}}
-      {{{ ErrorComponent
-          error="${errorReason}"
-          ref="incorrectEmail"
-      }}}
+        {{{ ErrorComponent
+            error="${errorReason}"
+            ref="incorrectEmail"
+        }}}
       {{else}}
-      <div></div>
+        <div></div>
       {{/if}}
       <div>
       {{#if ${loading}}}
-        <div>loadind</div>
+        {{{ Loader }}}
       {{else}}
       <main class="registration">
         <h1 class="registration_header">Регистрация</h1>

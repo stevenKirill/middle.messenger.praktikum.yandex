@@ -27,6 +27,7 @@ export class InviteModal extends Block<InviteModalProps> {
       login: input.value,
       chatId: this.props.currentChatId,
     });
+    this.handleCloseModal();
   }
 
   handleCloseModal() {

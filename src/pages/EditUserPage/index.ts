@@ -231,6 +231,7 @@ const mapStateToProps = (state: AppState) => ({
   loading: state.user.loading,
 });
 
+// @ts-ignore
 const EnhancedEditUserPage = connectStore(mapStateToProps)(EditUserPage);
 
 export default EnhancedEditUserPage;

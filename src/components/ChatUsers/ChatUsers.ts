@@ -4,6 +4,7 @@ import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
 import { getChatUsersAction } from 'services/chat/actions';
 import { TChatUsersComponentProps } from './types';
+import { userRoles } from './consts';
 
 class ChatUsersClass extends Block<TChatUsersComponentProps> {
   static componentName = 'ChatUsers';
@@ -11,6 +12,10 @@ class ChatUsersClass extends Block<TChatUsersComponentProps> {
   componentDidMount(): void {
     const { chatId } = this.props;
     store.dispatch(getChatUsersAction, { chatId });
+  }
+
+  getRole(role: string) {
+    return userRoles[role];
   }
 
   protected render(): string {
@@ -36,10 +41,11 @@ class ChatUsersClass extends Block<TChatUsersComponentProps> {
               {{{ EmptyAvatar width="50" height="50" }}}
             {{/if}}
             <div class="chat_user_name">
-            {{#if this.display_name }} {{this.display_name}} {{else}} Нет ника {{/if}} ||
+              <div>{{#if this.display_name }} {{this.display_name}} {{else}} Нет ника {{/if}}</div>
+              <div class="chat_user_role">Роль: {{this.role}}</div>
             </div>
-            <div class="chat_user_role">  {{this.role}}</div>
           </div>
+
         {{/with}}
       {{/each}}
     </div>
@@ -53,4 +59,4 @@ const mapStateToProps = (state: AppState) => ({
   chatUsers: state.chatUsers.data,
 });
 
-export const ChatUsers = connectStore(mapStateToProps)(ChatUsersClass);
+export const ChatUsers = connectStore(mapStateToProps)<TChatUsersComponentProps>(ChatUsersClass);
