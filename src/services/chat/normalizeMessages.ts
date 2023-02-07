@@ -1,8 +1,6 @@
 import { TChatMessageItem } from './types';
 
-export const normalizeMessages = (
-  messages: TChatMessageItem[],
-) => messages.sort((a, b) => new Date(a.time) - new Date(b.time)).map((message) => {
+export const normalizer = (message: TChatMessageItem) => {
   const date = new Date(message.time);
   const hours = String(date.getHours());
   const minutes = String(date.getMinutes());
@@ -22,4 +20,10 @@ export const normalizeMessages = (
     ...message,
     time: `${resHours}:${resMinutes}`,
   };
-});
+};
+
+export const normalizeMessages = (
+  messages: TChatMessageItem[],
+) => messages.sort(
+  (a, b) => new Date(a.time) - new Date(b.time)
+).map((message) => normalizer(message));

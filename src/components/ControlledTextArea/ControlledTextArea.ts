@@ -11,6 +11,10 @@ export class ControlledTextArea extends Block<ControlledTextAreaProps> {
     this.setProps({
       onClick: () => this.handleSendMessage(),
       currentChatId,
+      events: {
+        // @ts-ignore
+        keydown: this.handleEnter.bind(this),
+      },
     });
   }
 
@@ -19,6 +23,17 @@ export class ControlledTextArea extends Block<ControlledTextAreaProps> {
     const messageText = textArea.value;
     const chatId = this.props.currentChatId;
     store.dispatch(sendMessage, { chatId, messageText });
+  }
+
+  handleEnter(e: KeyboardEvent) {
+    const target = e.target as HTMLElement;
+    if (target.nodeName === 'TEXTAREA' && e.key === 'Enter') {
+      const exactlyTextArea = e.target as HTMLTextAreaElement;
+      const chatId = this.props.currentChatId;
+      const trimmedMessage = exactlyTextArea.value.trim();
+      store.dispatch(sendMessage, { chatId, messageText: trimmedMessage });
+      exactlyTextArea.focus();
+    }
   }
 
   protected render(): string {

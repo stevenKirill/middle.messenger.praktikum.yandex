@@ -1,7 +1,7 @@
 import EventBus from 'core/EventBus';
 import { store } from 'core/store';
 import { selectMessages } from './selectors';
-import { normalizeMessages } from './normalizeMessages';
+import { normalizeMessages, normalizer } from './normalizeMessages';
 
 export default class WSTransport extends EventBus {
   static EVENTS = {
@@ -33,6 +33,7 @@ export default class WSTransport extends EventBus {
     this.setPing();
     return new Promise((resolve) => {
       // TODO сделать так чтобы сообщения загружались сразу после открытия сокета
+      // без setTimeout
       setTimeout(() => {
         this.emit(WSTransport.EVENTS.CONNECTED);
       }, 1000);
@@ -68,7 +69,6 @@ export default class WSTransport extends EventBus {
 
     socket.addEventListener(WSTransport.EVENTS.MESSAGE, (event) => {
       const parsedData = JSON.parse(event.data);
-      // TODO сделать обработку времени сообщения
       if (parsedData.type === 'pong') {
         console.log(parsedData);
         return;
@@ -78,7 +78,8 @@ export default class WSTransport extends EventBus {
         const newMessages = normalizeMessages(parsedData);
         store.dispatch({ messages: [...prevMessages, ...newMessages] });
       } else {
-        store.dispatch({ messages: [...prevMessages, parsedData] });
+        const newMessage = normalizer(parsedData);
+        store.dispatch({ messages: [...prevMessages, newMessage] });
       }
     });
 
