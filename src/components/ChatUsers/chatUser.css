@@ -1,0 +1,20 @@
+.chat_user {
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+
+  &_name {
+    color: var(--main-blue);
+    margin-left: 10px;
+  }
+
+  &_role {
+    color: #908a8a;
+  }
+
+  &_avatar {
+    margin-left: 3px;
+  }
+}

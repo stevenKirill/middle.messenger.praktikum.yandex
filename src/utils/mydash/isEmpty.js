@@ -19,7 +19,6 @@ function isEmpty(value) {
   if (isPrototype(value)) {
     return !Object.keys(value).length;
   }
-  // eslint-disable-next-line no-restricted-syntax
   for (const key in value) {
     if (hasOwnProperty.call(value, key)) {
       return false;

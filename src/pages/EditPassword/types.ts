@@ -1,5 +1,7 @@
-export type TUserData = {
-  title: string;
-  value: string;
-  type: string;
+export interface EditPasswordPageProps {
+  error?: boolean;
+  errorReason?: string;
+  loading?: boolean;
+  onClick?: () => void;
+  onBlur?: (e: Event) => void;
 }

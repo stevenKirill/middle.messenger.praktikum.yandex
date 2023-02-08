@@ -1,0 +1,22 @@
+.chat_page_left_chats_item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+
+  &:hover {
+    background-color: #e4edfd;
+  }
+}
+
+.chat_is_active {
+  background-color: #e4edfd;
+}
+
+.chat_page_list_item_left {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #908a8a;
+}

@@ -1,15 +1,19 @@
 .chat_page {
   display: grid;
   grid-template-columns: 25% 75%;
-  width: 1000px;
-  margin: 20px auto;
+  width: 100%;
   padding: 5px;
 
   &_left {
     background: var(--dark-white);
     border-radius: 1px solid #eaeaea;
-    height: 500px;
+    max-height: 800px;
     padding: 5px;
+
+    &_create {
+      display: flex;
+      justify-content: center;
+    }
 
     &_profile {
       display: flex;
@@ -42,12 +46,18 @@
 
       &_link {
         margin-top: 15px;
+        font-size: 17px;
         cursor: pointer;
         text-decoration: none;
         margin-right: 10px;
         margin-bottom: 15px;
         color: var(--gray);
       }
+    }
+
+    &_chats {
+      overflow-y: scroll;
+      max-height: 600px;
     }
   }
 
@@ -70,17 +80,26 @@
       &_header {
         padding: 10px;
         min-height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &_buttons {
+          display: flex;
+          flex-direction: row;
+        }
       }
 
       &_messages {
         border-top: 1px solid #eaeaea;
         border-bottom: 1px solid #eaeaea;
-        height: 350px;
+        height: 550px;
         padding: 10px;
+        overflow: scroll;
       }
 
       &_send {
-        margin-top: 10px;
+        margin-top: 20px;
         grid-template-columns: 10% 76% 10%;
         display: grid;
         grid-gap: 2%;
@@ -88,4 +107,18 @@
       }
     }
   }
+}
+
+.chat_main_title {
+  margin: 0;
+  text-align: center;
+}
+
+.active_chat {
+  background-color: gainsboro;
+}
+
+.chat_page_flex {
+  display: grid;
+  grid-template-columns: 70% 30%;
 }

@@ -1,8 +1,4 @@
-import Block from '../../core/Block';
-import './error.css';
-
-export interface ErrorPageProps {
-}
+import Block from 'core/block/Block';
 
 class ErrorPage extends Block {
   static componentName: 'ErrorPage';

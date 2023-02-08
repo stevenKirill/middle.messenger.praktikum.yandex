@@ -1,22 +1,5 @@
 .editable_avatar {
-  width: 150px;
-  height: 150px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #ccc;
-    border-radius: 50%;
-    background-image: none;
-  }
-}
-
-.nonEditable_avatar {
-  width: 150px;
-  height: 150px;
-
-  &:hover {
-    background-color: #ccc;
-    border-radius: 50%;
-    background-image: none;
-  }
+  background-color: #ccc;
+  border-radius: 50%;
+  background-image: none;
 }

@@ -29,7 +29,7 @@ export const validatePassword2 = (text: string, prevPass: string): string => {
     || !/(.*[A-Z].*)/g.test(text)
     || !/(.*\W.*)/g.test(text)
   ) {
-    return 'Пароль должен содержать хотя бы 1 заглавную букву и 1 цифру. От 8 до 40 символов';
+    return 'Пароль должен содержать хотя бы 1 заглавную букву,1 цифру и символ. От 8 до 40 символов';
   }
   if (text !== prevPass) {
     return 'Пароли должны совпадать';

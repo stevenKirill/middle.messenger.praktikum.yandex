@@ -6,12 +6,12 @@
   margin-top: 20px;
 
   &_title {
-    font-size: 13px;
+    font-size: 17px;
     color: var(--black);
   }
 
   &_value {
-    font-size: 13px;
+    font-size: 17px;
     color: var(--black);
   }
 }

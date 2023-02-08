@@ -1,8 +1,4 @@
-import Block from '../../core/Block';
-import './error.css';
-
-export interface NotFoundPageProps {
-}
+import Block from 'core/block/Block';
 
 class NotFoundPage extends Block {
   static componentName: 'NotFoundPage';

@@ -1,4 +1,17 @@
-export type TUserData = {
-  title: string;
-  value: string;
-};
+import { CoreRouter } from 'core/router/types';
+
+export interface UserPageProps {
+  editableAvatar: boolean;
+  router: CoreRouter;
+  onEditDataPage?: (e: Event) => void;
+  onEditPasswordPage?: (e: Event) => void;
+  onChat?: (e: Event) => void;
+  onLogout?: () => void;
+  firstName: string;
+  secondName: string;
+  email: string;
+  login: string;
+  phone: string;
+  displayName: string;
+  avatar: string;
+}

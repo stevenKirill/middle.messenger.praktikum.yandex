@@ -2,9 +2,13 @@
 @import "../components/Button/button.css";
 @import "../components/Input/input.css";
 @import "../components/Avatar/avatar.css";
+@import "../components/EmptyAvatar/avatar.css";
 @import "../components/Row/row.css";
 @import "../components/EditRow/editRow.css";
-@import "../components/AvatarModal/avatarModal.css";
+@import "../components/CreateChatModal/modal.css";
+@import "../components/FileInput/input.css";
+@import "../components/ControlledTextArea/textArea.css";
+@import "../components/Link/link.css";
 @import "../pages/LoginPage/login.css";
 @import "../pages/RegistrationPage/registration.css";
 @import "../pages/UserPage/user.css";
@@ -14,6 +18,12 @@
 @import "../pages/NotFoundPage/error.css";
 @import "../pages/Chat/chat.css";
 @import "../pages/index.css";
+@import "../components/ChatItem/chatItem.css";
+@import "../components/ClipButton/clipButton.css";
+@import "../components/SendButton/sendButton.css";
+@import "../components/ChatMessage/message.css";
+@import "../components/ChatUsers/chatUser.css";
+@import "../components/ErrorComponent/error.css";
 
 :root {
   --main-blue: #3369f3;
@@ -60,4 +70,22 @@ html {
   background: rgba(0, 0, 0, 50%);
   backdrop-filter: blur(2px);
   z-index: 1;
+}
+
+.mr10-right {
+  margin-right: 10px;
+}
+
+.smallBtn {
+  width: 100px;
+  font-size: 13px;
+}
+
+.align_center {
+  text-align: center;
+}
+
+.center_loader {
+  display: flex;
+  justify-content: center;
 }

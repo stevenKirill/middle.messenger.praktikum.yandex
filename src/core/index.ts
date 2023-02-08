@@ -1,3 +1,3 @@
-export { default as Block } from './Block';
-export { default as registerComponent } from './registerComponent';
-export { default as renderDOM } from './renderDOM';
+export { default as Block } from './block/Block';
+export { default as registerComponent } from './block/registerComponent';
+export { default as renderDOM } from './block/renderDOM';

@@ -3,3 +3,16 @@
   justify-content: center;
   margin-top: 16px;
 }
+
+.error_row {
+  grid-template-columns: 50% 50%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  display: grid;
+}
+
+.max_error_length {
+  max-width: 200px;
+}
