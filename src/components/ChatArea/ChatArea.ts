@@ -66,7 +66,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
           {{{ ControlledTextArea currentChatId=currentChatId }}}
         </div>
       </div>
-      {{{ ChatUsers chatId=currentChatId}}}
+      {{{ ChatUsers }}}
     </div>
   `;
   }

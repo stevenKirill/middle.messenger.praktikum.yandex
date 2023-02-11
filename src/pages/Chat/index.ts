@@ -1,6 +1,6 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
-import { getChatsAction, selectChat } from 'services/chat/actions';
+import { getChatUsersAction, getChatsAction, selectChat } from 'services/chat/actions';
 import appRouter from 'core/router';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
@@ -33,6 +33,7 @@ class ChatPage extends Block<ChatPageProps> {
                 store.dispatch({ messages: [] });
                 closeAllSockets();
                 store.dispatch(selectChat, chat.id);
+                store.dispatch(getChatUsersAction, { chatId: chat.id });
               },
             }))
           );
