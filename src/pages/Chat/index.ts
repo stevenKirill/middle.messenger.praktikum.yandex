@@ -30,7 +30,7 @@ class ChatPage extends Block<ChatPageProps> {
               unread_count: chat.unread_count,
               activeClassName: () => (currentChat === chat.id ? 'active_chat' : ''),
               onClick: () => {
-                store.dispatch({ messages: [] });
+                store.dispatch({ messages: {} });
                 closeAllSockets();
                 store.dispatch(selectChat, chat.id);
                 store.dispatch(getChatUsersAction, { chatId: chat.id });

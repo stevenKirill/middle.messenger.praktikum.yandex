@@ -24,6 +24,7 @@
 @import "../components/ChatMessage/message.css";
 @import "../components/ChatUsers/chatUser.css";
 @import "../components/ErrorComponent/error.css";
+@import "../components/GroupedMessages/group.css";
 
 :root {
   --main-blue: #3369f3;

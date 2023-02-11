@@ -76,7 +76,9 @@ export type AppState = {
   createChat: TCreateChat;
   deleteChat: TDeleteChat;
   searchUser: TSearchUserState;
-  messages: TChatMessageItem[];
+  messages: {
+    [key: string]: TChatMessageItem[],
+  };
   chatUsers: TChatUsers;
 };
 

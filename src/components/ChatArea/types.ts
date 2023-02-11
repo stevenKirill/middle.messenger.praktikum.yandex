@@ -1,5 +1,5 @@
 export interface ChatAreaProps {
-  messages?: [];
+  groupedMessages?: [];
   currentChatName?: string;
   currentChatId?: number;
   onDeleteChat?: () => void;

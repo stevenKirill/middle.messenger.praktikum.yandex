@@ -4,4 +4,5 @@ export interface ChatMessageProps {
   id: string;
   user_id: string;
   time: string;
+  formatTime: string;
 }

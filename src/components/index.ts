@@ -23,3 +23,4 @@ export * from './Row';
 export * from './SearchInput';
 export * from './SendButton';
 export * from './ChatUsers';
+export * from './GroupedMessages';

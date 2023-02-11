@@ -53,14 +53,11 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
             </div>
           </div>
           <div class="chat_page_right_chatArea_messages">
-          {{#each messages }}
-          {{{ ChatMessage
-              content=this.content
-              type=this.type
-              id=this.id
-              user_id=this.ser_id
-              time=this.time
-          }}}
+          {{#each groupedMessages }}
+            {{{ GroupedMessages
+                timeTitle=this.[0]
+                messages=this.[1]
+            }}}
           {{/each}}
           </div>
           {{{ ControlledTextArea currentChatId=currentChatId }}}
@@ -72,10 +69,20 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  messages: state.messages,
-  currentChatName: findCurrentChat(state.chats.data, state.chats.currentChat as number),
-  currentChatId: state.chats.currentChat,
-});
+const mapStateToProps = (state: AppState) => {
+  const sortedGroups = Object.entries(state.messages).sort((a, b) => {
+    const firstDate = new Date(a[0]).getTime();
+    const secondDate = new Date(b[0]).getTime();
+    return firstDate - secondDate;
+  });
+  return {
+    groupedMessages: sortedGroups,
+    currentChatName: findCurrentChat(
+      state.chats.data,
+      state.chats.currentChat as number,
+    ),
+    currentChatId: state.chats.currentChat,
+  };
+};
 
 export const ChatArea = connectStore(mapStateToProps)(ChatAreaClass);

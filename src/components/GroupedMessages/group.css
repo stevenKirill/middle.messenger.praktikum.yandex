@@ -1,0 +1,11 @@
+.messages_container {
+
+  &_title {
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: blue;
+    font-weight: bold;
+  }
+}
+
