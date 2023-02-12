@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const alias = require('./alias');
 
 module.exports = {
   mode: 'development',
@@ -9,13 +10,10 @@ module.exports = {
     filename: '[name].js?version=[chunkhash:8]'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.js', '.json'],
+    alias
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css?version=[chunkhash:8]',
-      ignoreOrder: true
-    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: path.resolve(__dirname, './build/index.html'),
