@@ -70,6 +70,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
 
 const mapStateToProps = (state: AppState) => {
   // TODO разобраться почему эта функция не вызывается
+  console.log('вызов mapStateToProps');
   const sortedGroups = Object.entries(state.messages).sort((a, b) => {
     const firstDate = new Date(a[0]).getTime();
     const secondDate = new Date(b[0]).getTime();

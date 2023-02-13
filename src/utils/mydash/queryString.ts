@@ -1,6 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StringIndexed = Record<string, any>;
 
-// авторское решение
 function queryStringify(data: StringIndexed): string | never {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
@@ -13,9 +13,9 @@ function queryStringify(data: StringIndexed): string | never {
 
     if (Array.isArray(value)) {
       const arrayValue = value.reduce<StringIndexed>(
-        (result, arrData, index) => ({
-          ...result,
-          [`${key}[${index}]`]: arrData,
+        (res, arrData, idx) => ({
+          ...res,
+          [`${key}[${idx}]`]: arrData,
         }),
         {},
       );
@@ -25,8 +25,8 @@ function queryStringify(data: StringIndexed): string | never {
 
     if (typeof value === 'object') {
       const objValue = Object.keys(value || {}).reduce<StringIndexed>(
-        (result, objKey) => ({
-          ...result,
+        (res2, objKey) => ({
+          ...res2,
           [`${key}[${objKey}]`]: value[objKey],
         }),
         {},
