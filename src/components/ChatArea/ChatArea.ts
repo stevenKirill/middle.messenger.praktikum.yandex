@@ -29,6 +29,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   }
 
   protected render(): string {
+    console.log(this.props, '=> propspsp');
     return `
     <div class="chat_page_flex">
       <div>

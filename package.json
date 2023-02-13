@@ -8,14 +8,6 @@
     "lint": "eslint",
     "test": "./node_modules/.bin/mocha"
   },
-  "alias": {
-    "core": "./src/core",
-    "components": "./src/components",
-    "pages": "./src/pages",
-    "utils": "./src/utils",
-    "api": "./src/api",
-    "services": "./src/services"
-  },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "Kirill Pavloskii",
   "license": "ISC",
@@ -36,8 +28,8 @@
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-plugin-import": "2.26.0",
     "html-webpack-plugin": "5.5.0",
-    "postcss": "8.4.21",
-    "postcss-loader": "7.0.2",
+    "mini-css-extract-plugin": "2.7.2",
+    "sass-loader": "13.2.0",
     "stylelint": "14.16.0",
     "stylelint-config-standard": "29.0.0",
     "typescript": "^4.9.4",
@@ -50,6 +42,7 @@
     "express": "4.18.2",
     "handlebars": "4.7.7",
     "nanoid": "^4.0.0",
+    "node-sass": "8.0.0",
     "postcss-css-variables": "0.18.0",
     "postcss-nested": "6.0.0"
   }

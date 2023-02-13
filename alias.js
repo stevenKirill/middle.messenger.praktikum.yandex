@@ -8,4 +8,5 @@ module.exports = {
   utils: resolve('src', 'utils'),
   constants: resolve('src', 'constants'),
   pages: resolve('src', 'pages'),
+  handlebars: 'handlebars/dist/handlebars.min.js',
 };

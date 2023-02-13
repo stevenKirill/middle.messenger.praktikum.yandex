@@ -13,6 +13,7 @@ function connectStore(mapStateToProps: TExtractStateFuns) {
       store.on('changed', (prevState, nextState) => {
         const prevStateObj = mapStateToProps(prevState);
         const nextStateObj = mapStateToProps(nextState);
+        console.log(nextStateObj, '[> nextStateObj');
         if (!isEqual(prevStateObj, nextStateObj)) {
           this.setProps({ ...nextStateObj });
         }
