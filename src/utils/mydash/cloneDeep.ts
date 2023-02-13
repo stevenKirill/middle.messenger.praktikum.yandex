@@ -1,11 +1,3 @@
-// Handle:
-// * null
-// * undefined
-// * boolean
-// * number
-// * string
-// * symbol
-// * function
 function cloneDeep<T extends object = object>(obj: T) {
   return (function cloneDeepInner(
     item: T,
@@ -13,15 +5,9 @@ function cloneDeep<T extends object = object>(obj: T) {
     if (item === null || typeof item !== 'object') {
       return item;
     }
-
-    // Handle:
-    // * Date
     if (item instanceof Date) {
       return new Date(item.valueOf());
     }
-
-    // Handle:
-    // * Array
     if (item instanceof Array) {
       const copy = [];
 
@@ -29,9 +15,6 @@ function cloneDeep<T extends object = object>(obj: T) {
 
       return copy;
     }
-
-    // Handle:
-    // * Set
     if (item instanceof Set) {
       const copy = new Set();
 
@@ -39,9 +22,6 @@ function cloneDeep<T extends object = object>(obj: T) {
 
       return copy;
     }
-
-    // Handle:
-    // * Map
     if (item instanceof Map) {
       const copy = new Map();
 
@@ -49,20 +29,10 @@ function cloneDeep<T extends object = object>(obj: T) {
 
       return copy;
     }
-
-    // Handle:
-    // * Object
     if (item instanceof Object) {
       const copy: object = {};
-
-      // Handle:
-      // * Object.symbol
       Object.getOwnPropertySymbols(item).forEach((s) => (copy[s] = cloneDeepInner(item[s])));
-
-      // Handle:
-      // * Object.name (other)
       Object.keys(item).forEach((k) => (copy[k] = cloneDeepInner(item[k])));
-
       return copy;
     }
 

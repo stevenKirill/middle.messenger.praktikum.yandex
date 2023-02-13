@@ -73,5 +73,3 @@ export class ChatItem extends Block<ChatItemProps> {
     `;
   }
 }
-
-export default ChatItem;

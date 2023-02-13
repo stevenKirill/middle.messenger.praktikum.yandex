@@ -6,7 +6,7 @@ import connectStore from 'utils/HOCS/connectStore';
 import findCurrentChat from 'services/chat/find';
 import { ChatAreaProps } from './types';
 
-export class ChatAreaClass extends Block<ChatAreaProps> {
+class ChatAreaClass extends Block<ChatAreaProps> {
   static componentName = 'ChatArea';
 
   constructor(props: ChatAreaProps) {
@@ -69,8 +69,6 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
 }
 
 const mapStateToProps = (state: AppState) => {
-  // TODO разобраться почему эта функция не вызывается
-  console.log('вызов mapStateToProps');
   const sortedGroups = Object.entries(state.messages).sort((a, b) => {
     const firstDate = new Date(a[0]).getTime();
     const secondDate = new Date(b[0]).getTime();
@@ -86,4 +84,4 @@ const mapStateToProps = (state: AppState) => {
   };
 };
 
-export const ChatArea = connectStore(mapStateToProps)(ChatAreaClass);
+export const ChatArea = connectStore(mapStateToProps)<ChatAreaProps>(ChatAreaClass);
