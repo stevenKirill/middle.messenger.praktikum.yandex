@@ -5,8 +5,12 @@
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
-    "lint": "eslint",
-    "test": "./node_modules/.bin/mocha"
+    "lint": "tsc --noEmit && eslint ./src --max-warnings=0 --no-ignore",
+    "lint:ts": "eslint ./src **/*.ts",
+    "lint:css": "stylelint **/*.scss",
+    "all": "npm run lint && npm run lint:ts && npm run lint:css",
+    "test": "./node_modules/.bin/mocha",
+    "prepare": "husky install"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "author": "Kirill Pavloskii",
@@ -28,6 +32,7 @@
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-plugin-import": "2.26.0",
     "html-webpack-plugin": "5.5.0",
+    "husky": "8.0.3",
     "mini-css-extract-plugin": "2.7.2",
     "sass-loader": "13.2.0",
     "stylelint": "14.16.0",
