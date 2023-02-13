@@ -8,16 +8,14 @@ type TExtractStateFuns = (state: AppState) => { [key: string]: unknown };
 function connectStore(mapStateToProps: TExtractStateFuns) {
   return <P>(Component: BlockConstructable<P>) => class extends Component {
     constructor(props: P) {
-      const state = mapStateToProps(store.getState());
+      const currentStore = store.getState();
+      console.log(mapStateToProps);
+      const state = mapStateToProps(currentStore);
       super({ ...props, ...state });
       store.on('changed', (prevState, nextState) => {
         const prevStateObj = mapStateToProps(prevState);
         const nextStateObj = mapStateToProps(nextState);
-        console.log(Component.componentName);
-        console.log(prevStateObj, '=> prevStateObj');
-        console.log(nextStateObj, '=> nextStateObj');
         if (!isEqual(prevStateObj, nextStateObj)) {
-          console.log('holololo');
           this.setProps({ ...nextStateObj });
         }
       });

@@ -10,9 +10,8 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   static componentName = 'ChatArea';
 
   constructor(props: ChatAreaProps) {
-    super(props);
-    this.setProps({
-      ...this.props,
+    super({
+      ...props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
     });
@@ -53,7 +52,6 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
             </div>
           </div>
           <div class="chat_page_right_chatArea_messages">
-          <div>1</div>
           {{#each messages }}
             {{{ GroupedMessages
                 timeTitle=this.[0]
@@ -71,7 +69,7 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
 }
 
 const mapStateToProps = (state: AppState) => {
-  console.log('mapStateToProps');
+  // TODO разобраться почему эта функция не вызывается
   const sortedGroups = Object.entries(state.messages).sort((a, b) => {
     const firstDate = new Date(a[0]).getTime();
     const secondDate = new Date(b[0]).getTime();

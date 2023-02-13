@@ -33,6 +33,7 @@ export class ControlledTextArea extends Block<ControlledTextAreaProps> {
       const trimmedMessage = exactlyTextArea.value.trim();
       store.dispatch(sendMessage, { chatId, messageText: trimmedMessage });
       exactlyTextArea.focus();
+      exactlyTextArea.value = '';
     }
   }
 
