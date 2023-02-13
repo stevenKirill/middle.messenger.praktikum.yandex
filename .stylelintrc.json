@@ -1,7 +1,8 @@
 {
   "extends": "stylelint-config-standard",
   "rules": {
-    "selector-class-pattern": ""
+    "selector-class-pattern": "",
+    "color-function-notation": ""
   },
   "ignoreFiles": ["./dist/*.css"]
 }

@@ -44,7 +44,7 @@ const initialState: AppState = {
     loading: false,
     errorReason: '',
   },
-  messages: [],
+  messages: {},
   chatUsers: {
     loading: false,
     data: [],

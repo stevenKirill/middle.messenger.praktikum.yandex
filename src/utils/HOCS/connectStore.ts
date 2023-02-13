@@ -1,7 +1,7 @@
 import { BlockConstructable } from 'core/block/Block';
 import { store } from 'core/store';
 import { AppState } from 'core/store/types';
-import isEqual from 'utils/mydash/isEqual';
+import isEqual from 'utils/mydash/isEqualAthor';
 
 type TExtractStateFuns = (state: AppState) => { [key: string]: unknown };
 
@@ -13,8 +13,11 @@ function connectStore(mapStateToProps: TExtractStateFuns) {
       store.on('changed', (prevState, nextState) => {
         const prevStateObj = mapStateToProps(prevState);
         const nextStateObj = mapStateToProps(nextState);
-        console.log(nextStateObj, '[> nextStateObj');
+        console.log(Component.componentName);
+        console.log(prevStateObj, '=> prevStateObj');
+        console.log(nextStateObj, '=> nextStateObj');
         if (!isEqual(prevStateObj, nextStateObj)) {
+          console.log('holololo');
           this.setProps({ ...nextStateObj });
         }
       });

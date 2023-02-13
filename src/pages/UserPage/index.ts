@@ -16,7 +16,7 @@ class UserPage extends Block<UserPageProps> {
       onEditDataPage: (e: Event) => this.handleGoToEditDataPage(e),
       onEditPasswordPage: (e: Event) => this.handleGoToEditPasswordPage(e),
       onChat: (e: Event) => this.handleGoToChat(e),
-      onLogout: () => this.handleLogout(),
+      onLogout: (e: Event) => this.handleLogout(e),
     });
   }
 
@@ -35,7 +35,8 @@ class UserPage extends Block<UserPageProps> {
     appRouter.go('/chats');
   }
 
-  handleLogout() {
+  handleLogout(e: Event) {
+    e.preventDefault();
     store.dispatch(logOutAction);
   }
 

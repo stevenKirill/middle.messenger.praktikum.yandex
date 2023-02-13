@@ -1,4 +1,3 @@
-/* stylelint-disable import-notation */
 @import "../components/Button/button.scss";
 @import "../components/Input/input.scss";
 @import "../components/Avatar/avatar.scss";
@@ -67,6 +66,7 @@ html {
   right: 0;
   width: 100%;
   height: 100%;
+  /* TODO исправить чтобы не менялось при compile */
   /* stylelint-disable-next-line color-function-notation */
   background: rgba(0, 0, 0, 50%);
   backdrop-filter: blur(2px);

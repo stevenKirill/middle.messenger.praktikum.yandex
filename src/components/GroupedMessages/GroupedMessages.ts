@@ -1,10 +1,6 @@
 import { Block } from 'core';
 
-interface GroupedMessagesProps {
-  groupedMessages: [];
-}
-
-export class GroupedMessages extends Block<GroupedMessagesProps> {
+export class GroupedMessages extends Block {
   static componentName = 'GroupedMessages';
 
   protected render(): string {

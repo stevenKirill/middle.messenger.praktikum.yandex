@@ -29,7 +29,6 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
   }
 
   protected render(): string {
-    console.log(this.props, '=> propspsp');
     return `
     <div class="chat_page_flex">
       <div>
@@ -54,7 +53,8 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
             </div>
           </div>
           <div class="chat_page_right_chatArea_messages">
-          {{#each groupedMessages }}
+          <div>1</div>
+          {{#each messages }}
             {{{ GroupedMessages
                 timeTitle=this.[0]
                 messages=this.[1]
@@ -71,13 +71,14 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
 }
 
 const mapStateToProps = (state: AppState) => {
+  console.log('mapStateToProps');
   const sortedGroups = Object.entries(state.messages).sort((a, b) => {
     const firstDate = new Date(a[0]).getTime();
     const secondDate = new Date(b[0]).getTime();
     return firstDate - secondDate;
   });
   return {
-    groupedMessages: sortedGroups,
+    messages: sortedGroups,
     currentChatName: findCurrentChat(
       state.chats.data,
       state.chats.currentChat as number,
