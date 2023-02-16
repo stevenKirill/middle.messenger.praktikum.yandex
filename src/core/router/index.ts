@@ -36,9 +36,7 @@ export class Router implements CoreRouter {
   }
 
   onRouteChange(pathname: string = window.location.pathname) {
-    const found = Object.entries(this.routes).find(([routeHash]) => {
-      return routeHash === pathname;
-    });
+    const found = Object.entries(this.routes).find(([routeHash]) => routeHash === pathname);
 
     if (found) {
       const [,callback] = found;

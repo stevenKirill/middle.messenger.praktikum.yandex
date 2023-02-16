@@ -46,13 +46,10 @@ class ChatUsersClass extends Block<TChatUsersComponentProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => {
-  console.log('вызов mapStateToProps в Chatusers');
-  return {
-    loading: state.chatUsers.loading,
-    error: state.chatUsers.error,
-    chatUsers: state.chatUsers.data,
-  };
-};
+const mapStateToProps = (state: AppState) => ({
+  loading: state.chatUsers.loading,
+  error: state.chatUsers.error,
+  chatUsers: state.chatUsers.data,
+});
 
 export const ChatUsers = connectStore(mapStateToProps)<TChatUsersComponentProps>(ChatUsersClass);

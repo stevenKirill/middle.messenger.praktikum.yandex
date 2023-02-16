@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 function cloneDeep<T extends object = object>(obj: T) {
   return (function cloneDeepInner(
     item: T,
@@ -9,7 +10,7 @@ function cloneDeep<T extends object = object>(obj: T) {
       return new Date(item.valueOf());
     }
     if (item instanceof Array) {
-      const copy = [];
+      const copy: unknown[] = [];
 
       item.forEach((_, i) => (copy[i] = cloneDeepInner(item[i])));
 
@@ -31,7 +32,9 @@ function cloneDeep<T extends object = object>(obj: T) {
     }
     if (item instanceof Object) {
       const copy: object = {};
+      // @ts-ignore
       Object.getOwnPropertySymbols(item).forEach((s) => (copy[s] = cloneDeepInner(item[s])));
+      // @ts-ignore
       Object.keys(item).forEach((k) => (copy[k] = cloneDeepInner(item[k])));
       return copy;
     }

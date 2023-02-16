@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DashboardPlugin = require("webpack-dashboard/plugin");
 const alias = require('./alias');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].js?version=[chunkhash:8]'
+    filename: 'output.[hash].bundle.js'
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -22,6 +23,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       ignoreOrder: true
     }),
+    new DashboardPlugin(),
   ],
   module: {
     rules: [

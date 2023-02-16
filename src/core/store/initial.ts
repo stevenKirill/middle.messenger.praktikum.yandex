@@ -49,7 +49,7 @@ const initialState: AppState = {
     loading: false,
     data: [],
     error: false,
-  }
+  },
 };
 
 export default initialState;

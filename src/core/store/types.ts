@@ -1,8 +1,9 @@
-import { TGetChatResponse } from "api/chat/types";
-import { UserInfoResponse } from "api/login/types";
-import { TUserByIdResponse } from "api/user/types";
-import { Screens } from "core/router/constants";
-import { TChatMessageItem } from "services/chat/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TGetChatResponse } from 'api/chat/types';
+import { UserInfoResponse } from 'api/login/types';
+import { TUserByIdResponse } from 'api/user/types';
+import { Screens } from 'core/router/constants';
+import { TChatMessageItem } from 'services/chat/types';
 
 export type Dispatch<State> = (
   nextStateOrAction: Partial<State> | Action<State>,
@@ -39,27 +40,26 @@ export type TCreateChat = {
   error: boolean;
   loading: boolean;
   errorReason?: string;
-}
+};
 
 export type TDeleteChat = {
   error: boolean;
   loading: boolean;
   errorReason?: string;
-}
+};
 
 export type TSearchUserState = {
   error: boolean;
   loading: boolean;
   errorReason?: string;
   data: UserInfoResponse[] | null;
-}
+};
 
 export type TRegistartionState = {
   loading: boolean;
   error: boolean;
   errorReason?: string;
 };
-
 
 export type TLoginState = {
   loading: boolean;
@@ -82,9 +82,8 @@ export type AppState = {
   chatUsers: TChatUsers;
 };
 
-
 export type TChatUsers = {
   loading: boolean;
   data: TUserByIdResponse[],
   error: boolean;
-}
+};

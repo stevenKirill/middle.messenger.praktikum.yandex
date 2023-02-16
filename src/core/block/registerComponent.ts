@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Handlebars, { HelperOptions } from 'handlebars';
-import { BlockClass } from '../types';
+import { BlockClass } from './Block';
 
 export default function registerComponent<Props extends {}>(Component: BlockClass<Props>) {
   Handlebars.registerHelper(
     Component.componentName,
-    function (this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
+    function func(this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
       if (!data.root.children) {
         data.root.children = {};
       }

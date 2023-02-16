@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import merge, { TObject } from './merge';
 
 function set(
@@ -19,8 +20,3 @@ function set(
 }
 
 export default set;
-
-/**
-  * set({ foo: 5 }, 'bar.baz', 10); // { foo: 5, bar: { baz: 10 } }
-  * set(3, 'foo.bar', 'baz'); // 3
-*/

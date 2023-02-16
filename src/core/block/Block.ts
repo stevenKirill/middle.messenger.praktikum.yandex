@@ -1,9 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-underscore-dangle */
 import { nanoid } from 'nanoid';
 import Handlebars from 'handlebars';
-import EventBus from '../EventBus';
-import { Values } from '../types';
 import isEqual from 'utils/mydash/isEqual';
 import cloneDeep from 'utils/mydash/cloneDeep';
+import EventBus from '../EventBus';
+import { Values } from '../types';
+
+export interface BlockClass<Props = unknown> {
+  new(props: Props): Block;
+  name: string;
+  componentName: string;
+}
 
 type Events = Values<typeof Block.EVENTS>;
 
@@ -21,13 +29,19 @@ class Block<P extends object = {}> {
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
   } as const;
+
   static componentName: string;
 
   public id = nanoid(6);
+
   public node: Nullable<HTMLElement> = null;
+
   public props: P;
+
   public children: { [id: string]: Block } = {};
+
   protected state: object = {};
+
   public refs: TRefs = {};
 
   eventBus: () => EventBus<Events>;
@@ -60,7 +74,9 @@ class Block<P extends object = {}> {
     this.componentDidMount(props);
   }
 
-  componentDidMount(_props: P) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidMount(_props: P) {
+  }
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -72,7 +88,7 @@ class Block<P extends object = {}> {
 
   componentDidUpdate(_oldProps: P, _newProps: P) {
     if (!isEqual(_oldProps, _newProps)) {
-      return true
+      return true;
     }
     return false;
   }
@@ -134,12 +150,12 @@ class Block<P extends object = {}> {
     }) as unknown as P;
   }
 
-   private createDocumentElement(tagName: string) {
+  private createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 
   _removeEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as Record<string, () => void>;
 
     if (!events || !this.node) {
       return;
@@ -151,7 +167,7 @@ class Block<P extends object = {}> {
   }
 
   _addEvents() {
-    const events: Record<string, () => void> = (this.props as any).events;
+    const { events } = this.props as Record<string, () => void>;
 
     if (!events) {
       return;
@@ -166,10 +182,11 @@ class Block<P extends object = {}> {
     const fragment = document.createElement('template');
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template(
-      { ...this.props,
+      {
+        ...this.props,
         children: this.children,
-        refs: this.refs
-      }
+        refs: this.refs,
+      },
     );
 
     /**

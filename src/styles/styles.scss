@@ -1,29 +1,29 @@
-@import "../components/Button/button.scss";
-@import "../components/Input/input.scss";
-@import "../components/Avatar/avatar.scss";
-@import "../components/EmptyAvatar/avatar.scss";
-@import "../components/Row/row.scss";
-@import "../components/EditRow/editRow.scss";
-@import "../components/CreateChatModal/modal.scss";
-@import "../components/FileInput/input.scss";
-@import "../components/ControlledTextArea/textArea.scss";
-@import "../components/Link/link.scss";
-@import "../pages/LoginPage/login.scss";
-@import "../pages/RegistrationPage/registration.scss";
-@import "../pages/UserPage/user.scss";
-@import "../pages/EditUserPage/editUser.scss";
-@import "../pages/EditPassword/editPassword.scss";
-@import "../pages/ErrorPage/error.scss";
-@import "../pages/NotFoundPage/error.scss";
-@import "../pages/Chat/chat.scss";
-@import "../pages/index.scss";
-@import "../components/ChatItem/chatItem.scss";
-@import "../components/ClipButton/clipButton.scss";
-@import "../components/SendButton/sendButton.scss";
-@import "../components/ChatMessage/message.scss";
-@import "../components/ChatUsers/chatUser.scss";
-@import "../components/ErrorComponent/error.scss";
-@import "../components/GroupedMessages/group.scss";
+@import "../components/Button/button";
+@import "../components/Input/input";
+@import "../components/Avatar/avatar";
+@import "../components/EmptyAvatar/avatar";
+@import "../components/Row/row";
+@import "../components/EditRow/editRow";
+@import "../components/CreateChatModal/modal";
+@import "../components/FileInput/input";
+@import "../components/ControlledTextArea/textArea";
+@import "../components/Link/link";
+@import "../pages/LoginPage/login";
+@import "../pages/RegistrationPage/registration";
+@import "../pages/UserPage/user";
+@import "../pages/EditUserPage/editUser";
+@import "../pages/EditPassword/editPassword";
+@import "../pages/ErrorPage/error";
+@import "../pages/NotFoundPage/error";
+@import "../pages/Chat/chat";
+@import "../pages/index";
+@import "../components/ChatItem/chatItem";
+@import "../components/ClipButton/clipButton";
+@import "../components/SendButton/sendButton";
+@import "../components/ChatMessage/message";
+@import "../components/ChatUsers/chatUser";
+@import "../components/ErrorComponent/error";
+@import "../components/GroupedMessages/group";
 
 :root {
   --main-blue: #3369f3;
@@ -66,6 +66,7 @@ html {
   right: 0;
   width: 100%;
   height: 100%;
+
   /* TODO исправить чтобы не менялось при compile */
   /* stylelint-disable-next-line color-function-notation */
   background: rgba(0, 0, 0, 50%);
