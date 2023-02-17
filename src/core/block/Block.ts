@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-underscore-dangle */
-import { nanoid } from 'nanoid';
+import { v4 as uuid } from 'uuid';
 import Handlebars from 'handlebars';
-import isEqual from 'utils/mydash/isEqual';
-import cloneDeep from 'utils/mydash/cloneDeep';
+import isEqual from '../../utils/mydash/isEqual';
+import cloneDeep from '../../utils/mydash/cloneDeep';
 import EventBus from '../EventBus';
 import { Values } from '../types';
 
@@ -32,7 +32,7 @@ class Block<P extends object = {}> {
 
   static componentName: string;
 
-  public id = nanoid(6);
+  public id = uuid();
 
   public node: Nullable<HTMLElement> = null;
 

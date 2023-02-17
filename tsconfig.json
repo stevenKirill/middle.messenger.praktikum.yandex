@@ -15,9 +15,6 @@
     "noUnusedParameters": true,
     "sourceMap": true
   },
-  "exclude": [
-    "src/core"
-  ],
   "include": [
     "./types",
     "./src"
