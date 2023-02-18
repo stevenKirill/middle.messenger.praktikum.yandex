@@ -56,31 +56,30 @@ describe('Roter tests', () => {
     router = new Router();
   });
 
-  it('Call start function', () => {
+  it('Should call start function', () => {
     router.start();
     expect(Router.isStarted).to.equal(true);
   });
 
   context('adding routes', () => {
-    it('Test add route', () => {
+    it('Should have router length 1', () => {
       router.use('test', () => {});
       const keys = Object.keys(router.routes);
       expect(keys).to.have.length(1);
     });
 
-    it('Test router object has length 2', () => {
+    it('Should have router object length 2', () => {
       router.use('test', () => {});
       router.use('main', () => {});
       const keys = Object.keys(router.routes);
       expect(keys).to.have.length(2);
     });
   });
-  // TODO Fix test
-  // it('Test router object has length 2', () => {
-  //   router.use('test', () => {});
+  // TODO fix router test case
+  // it('Test router go', () => {
+  //   console.log(window.location.pathname, 'r');
   //   router.use('main', () => {});
   //   router.go('/main');
-  //   const mainRouteCallback = router.routes.main;
-  //   expect(mainRouteCallback).toHaveBeenCalled()
+  //   expect(window.location.pathname).to.equal('/main');
   // });
 });

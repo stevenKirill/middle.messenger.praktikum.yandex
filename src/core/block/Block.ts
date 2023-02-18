@@ -44,14 +44,13 @@ class Block<P extends object = {}> {
 
   public refs: TRefs = {};
 
-  eventBus: () => EventBus<Events>;
+  public eventBus: EventBus<Events>;
 
-  public constructor(props?: P) {
-    const eventBus = new EventBus<Events>();
+  constructor(props?: P) {
+    this.eventBus = new EventBus<Events>();
     this.props = this._makePropsProxy(props || {} as P);
-    this.eventBus = () => eventBus;
-    this.registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT, this.props);
+    this.registerEvents(this.eventBus);
+    this.eventBus.emit(Block.EVENTS.INIT, this.props);
   }
 
   private registerEvents(eventBus: EventBus<Events>) {
@@ -67,7 +66,7 @@ class Block<P extends object = {}> {
 
   init() {
     this.createResources();
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER, this.props);
+    this.eventBus.emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
   _componentDidMount(props: P) {
@@ -75,8 +74,7 @@ class Block<P extends object = {}> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidMount(_props: P) {
-  }
+  componentDidMount(_props: P) {}
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -123,7 +121,7 @@ class Block<P extends object = {}> {
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
         if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
-          this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+          this.eventBus.emit(Block.EVENTS.FLOW_CDM);
         }
       }, 100);
     }
@@ -141,7 +139,7 @@ class Block<P extends object = {}> {
         const prevProps = cloneDeep(target);
         target[prop] = value;
         const nextProps = cloneDeep(target);
-        this.eventBus().emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
+        this.eventBus.emit(Block.EVENTS.FLOW_CDU, prevProps, nextProps);
         return true;
       },
       deleteProperty() {
@@ -189,13 +187,9 @@ class Block<P extends object = {}> {
       },
     );
 
-    /**
-     * Заменяем заглушки на компоненты
-     */
+    /** Заменяем заглушки на компоненты */
     Object.entries(this.children).forEach(([id, component]) => {
-      /**
-       * Ищем заглушку по id
-       */
+      /** Ищем заглушку по id */
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 
       if (!stub) {
@@ -204,15 +198,11 @@ class Block<P extends object = {}> {
 
       const stubChilds = stub.childNodes.length ? stub.childNodes : [];
 
-      /**
-       * Заменяем заглушку на component._element
-       */
+      /* Заменяем заглушку на component._element */
       const content = component.getContent();
       stub.replaceWith(content);
 
-      /**
-       * Ищем элемент layout-а, куда вставлять детей
-       */
+      /** Ищем элемент layout-а, куда вставлять детей */
       const layoutContent = content.querySelector('[data-layout="1"]');
 
       if (layoutContent && stubChilds.length) {
@@ -220,9 +210,7 @@ class Block<P extends object = {}> {
       }
     });
 
-    /**
-     * Возвращаем фрагмент
-     */
+    /** Возвращаем фрагмент */
     return fragment.content;
   }
 }

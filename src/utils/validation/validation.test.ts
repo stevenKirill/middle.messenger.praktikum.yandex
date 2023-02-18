@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { validateLogin } from './index';
+import { validateLogin, validateEmail } from './index';
 
 describe('validation', () => {
   context('login', () => {
@@ -10,6 +10,18 @@ describe('validation', () => {
 
     it('should be valid', () => {
       const validated = validateLogin('kirill1');
+      expect(validated).to.eqls('');
+    });
+  });
+
+  context('email', () => {
+    it('should return error', () => {
+      const validated = validateEmail('kiri.lo.ru');
+      expect(validated).to.eqls('Не корректный ввод email');
+    });
+
+    it('should be valid', () => {
+      const validated = validateLogin('kirill@russia.ru');
       expect(validated).to.eqls('');
     });
   });

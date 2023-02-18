@@ -1,17 +1,41 @@
 import { expect } from 'chai';
 import Block from './Block';
 
-let block: Block;
+let testComponent: Block;
+const props = {
+  chatNames: ['first', 'second'],
+  name: 'hello',
+  id: 12,
+};
 
-describe('Roter tests', () => {
+describe('Block class tests', () => {
   beforeEach(() => {
-    block = new Block({});
-    block.init();
+    class TestComponent extends Block<{}> {
+      static componentName = 'TestComponent';
+
+      render() {
+        return '<div>Hello world</div>';
+      }
+    }
+    testComponent = new TestComponent(props);
   });
 
-  it('First test case', () => {
-    const props = { title: 'My component' };
-    block.setProps(props);
-    expect(block.props).to.deep.equal(props);
+  it('Should render HTML correctly', () => {
+    expect(testComponent.getContent().outerHTML).to.equal('<div>Hello world</div>');
+  });
+
+  it('Should check initial props are correct', () => {
+    expect(testComponent.props).to.deep.equal(props);
+  });
+
+  it('Should update props', () => {
+    const newProps = {
+      chatNames: ['first', 'second'],
+      name: 'hello',
+      id: 12,
+      userEmail: 'kirill@russia.ru',
+    };
+    testComponent.setProps({ userEmail: 'kirill@russia.ru' });
+    expect(testComponent.props).to.deep.equal(newProps);
   });
 });

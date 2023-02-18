@@ -10,7 +10,7 @@ export function queryStringify(data: { [key: string]: unknown }) {
   return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
 }
 
-class HTTPTransport {
+export class HTTPTransport {
   baseUrl: string = '';
 
   constructor(baseUrl: string) {
