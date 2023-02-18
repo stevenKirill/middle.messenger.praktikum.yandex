@@ -2,10 +2,15 @@
 import Handlebars, { HelperOptions } from 'handlebars';
 import { BlockClass } from './Block';
 
-export default function registerComponent<Props extends {}>(Component: BlockClass<Props>) {
+export default function registerComponent<Props extends {}>(
+  Component: BlockClass<Props>,
+) {
   Handlebars.registerHelper(
     Component.componentName,
-    function func(this: Props, { hash: { ref, ...hash }, data, fn }: HelperOptions) {
+    function func(
+      this: Props,
+      { hash: { ref, ...hash }, data, fn }: HelperOptions,
+    ) {
       if (!data.root.children) {
         data.root.children = {};
       }

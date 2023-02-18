@@ -17,6 +17,8 @@ type Events = Values<typeof Block.EVENTS>;
 
 type TRefs = { [key: string]: Block };
 
+type TProxyObject = Record<string, unknown>;
+
 export type BlockConstructable<Props = any> = {
   componentName: string;
   new (props: Props): Block;
@@ -40,15 +42,13 @@ class Block<P extends object = {}> {
 
   public children: { [id: string]: Block } = {};
 
-  protected state: object = {};
-
   public refs: TRefs = {};
 
   public eventBus: EventBus<Events>;
 
   constructor(props?: P) {
     this.eventBus = new EventBus<Events>();
-    this.props = this._makePropsProxy(props || {} as P);
+    this.props = this._makePropsProxy<P>(props || {} as P);
     this.registerEvents(this.eventBus);
     this.eventBus.emit(Block.EVENTS.INIT, this.props);
   }
@@ -60,12 +60,12 @@ class Block<P extends object = {}> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private createResources() {
+  private createNode() {
     this.node = this.createDocumentElement('div');
   }
 
   init() {
-    this.createResources();
+    this.createNode();
     this.eventBus.emit(Block.EVENTS.FLOW_RENDER, this.props);
   }
 
@@ -84,8 +84,8 @@ class Block<P extends object = {}> {
     this._render();
   }
 
-  componentDidUpdate(_oldProps: P, _newProps: P) {
-    if (!isEqual(_oldProps, _newProps)) {
+  componentDidUpdate(oldProps: P, newProps: P) {
+    if (!isEqual(oldProps, newProps)) {
       return true;
     }
     return false;
@@ -95,7 +95,6 @@ class Block<P extends object = {}> {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
   };
 
@@ -106,10 +105,12 @@ class Block<P extends object = {}> {
   _render() {
     const fragment = this._compile();
     this._removeEvents();
-    const newElement = fragment.firstElementChild!;
-    this.node!.replaceWith(newElement);
-    this.node = newElement as HTMLElement;
-    this._addEvents();
+    const newElement = fragment.firstElementChild;
+    if (newElement) {
+      this.node!.replaceWith(newElement);
+      this.node = newElement as HTMLElement;
+      this._addEvents();
+    }
   }
 
   protected render(): string {
@@ -129,13 +130,13 @@ class Block<P extends object = {}> {
     return this.element!;
   }
 
-  _makePropsProxy(props: any): any {
-    return new Proxy(props as unknown as object, {
-      get: (target: Record<string, unknown>, prop: string) => {
+  _makePropsProxy<T>(props: T) {
+    return new Proxy(props as object, {
+      get: (target: TProxyObject, prop: string) => {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set: (target: Record<string, unknown>, prop: string, value: unknown) => {
+      set: (target: TProxyObject, prop: string, value: unknown) => {
         const prevProps = cloneDeep(target);
         target[prop] = value;
         const nextProps = cloneDeep(target);
@@ -145,7 +146,7 @@ class Block<P extends object = {}> {
       deleteProperty() {
         throw new Error('Нет доступа');
       },
-    }) as unknown as P;
+    }) as P;
   }
 
   private createDocumentElement(tagName: string) {
@@ -186,23 +187,16 @@ class Block<P extends object = {}> {
         refs: this.refs,
       },
     );
-
-    /** Заменяем заглушки на компоненты */
     Object.entries(this.children).forEach(([id, component]) => {
-      /** Ищем заглушку по id */
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 
       if (!stub) {
         return;
       }
-
       const stubChilds = stub.childNodes.length ? stub.childNodes : [];
-
-      /* Заменяем заглушку на component._element */
       const content = component.getContent();
       stub.replaceWith(content);
 
-      /** Ищем элемент layout-а, куда вставлять детей */
       const layoutContent = content.querySelector('[data-layout="1"]');
 
       if (layoutContent && stubChilds.length) {
@@ -210,7 +204,6 @@ class Block<P extends object = {}> {
       }
     });
 
-    /** Возвращаем фрагмент */
     return fragment.content;
   }
 }
