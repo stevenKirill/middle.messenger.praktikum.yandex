@@ -4,7 +4,7 @@
   "description": "yandex practicum web messenger",
   "scripts": {
     "start": "webpack-dashboard -- webpack serve --mode development",
-    "build": "webpack-dashboard -- webpack --mode production",
+    "build": "webpack --progress --mode production",
     "lint": "tsc --noEmit && eslint ./src --max-warnings=0",
     "lint:ts": "eslint ./src **/*.ts",
     "lint:css": "stylelint **/*.scss",

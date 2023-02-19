@@ -196,7 +196,6 @@ export const filterChats = async (
   state: AppState,
   payload: string,
 ) => {
-  console.log(state.chats.dataCopy);
   if (payload === '') {
     dispatch({
       chats: {
