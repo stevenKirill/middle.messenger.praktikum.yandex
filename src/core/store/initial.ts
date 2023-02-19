@@ -13,6 +13,7 @@ const initialState: AppState = {
   },
   chats: {
     data: [],
+    dataCopy: [],
     error: false,
     loading: false,
     errorReason: '',

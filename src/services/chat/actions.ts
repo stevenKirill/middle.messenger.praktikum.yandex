@@ -1,14 +1,18 @@
 import chatApi from 'api/chat';
-import { TCreateChatRequest, TDeleteChatRequest, TGetChatRequest } from 'api/chat/types';
+import {
+  TCreateChatRequest,
+  TDeleteChatRequest,
+  TGetChatRequest,
+} from 'api/chat/types';
 import { APIError } from 'api/types';
 import { AppState, Dispatch } from 'core/store/types';
 import socketApi from 'api/socket';
 import { TStartChatsResponse } from 'api/socket/types';
 import { TUserByIdResponse } from 'api/user/types';
 import { TChatIdData, TLoadMessagePayload, TSendMessagePayload } from './types';
-import WSTransport from './socket';
-
-export const sockets: Record<string, WSTransport> = {};
+import { sockets } from './constants';
+import closeAllSockets from './closeAll';
+import { filterChatsHelper } from './filterChat';
 
 export const getChatsAction = async (
   dispatch: Dispatch<AppState>,
@@ -22,7 +26,9 @@ export const getChatsAction = async (
       chats: {
         ...state.chats,
         data: chatsResponse,
+        dataCopy: chatsResponse,
         currentChat: null,
+        loading: false,
       },
     });
   } catch (error) {
@@ -32,6 +38,7 @@ export const getChatsAction = async (
         ...state.chats,
         error: true,
         errorReason: errorResponse.reason,
+        loading: false,
       },
     });
   }
@@ -53,6 +60,7 @@ export const createChatAction = async (
         ...state.createChat,
         error: true,
         errorReason: errorResponse.reason,
+        loading: false,
       },
     });
   }
@@ -74,6 +82,7 @@ export const deleteChatAction = async (
         ...state.createChat,
         error: true,
         errorReason: errorResponse.reason,
+        loading: false,
       },
     });
   }
@@ -131,6 +140,14 @@ export const selectChat = (
   dispatch(createSocket, { chatId });
 };
 
+export const resetCurrentChat = (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+) => {
+  dispatch({ chats: { ...state.chats, currentChat: null } });
+  closeAllSockets();
+};
+
 export const sendMessage = (
   _dispatch: Dispatch<AppState>,
   _state: AppState,
@@ -169,6 +186,29 @@ export const getChatUsersAction = async (
         ...state.chatUsers,
         loading: false,
         error: true,
+      },
+    });
+  }
+};
+
+export const filterChats = async (
+  dispatch: Dispatch<AppState>,
+  state: AppState,
+  payload: string,
+) => {
+  console.log(state.chats.dataCopy);
+  if (payload === '') {
+    dispatch({
+      chats: {
+        ...state.chats,
+        data: [...state.chats.dataCopy],
+      },
+    });
+  } else {
+    dispatch({
+      chats: {
+        ...state.chats,
+        data: filterChatsHelper(payload, state.chats.data),
       },
     });
   }

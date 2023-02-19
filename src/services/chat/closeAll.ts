@@ -1,4 +1,4 @@
-import { sockets } from './actions';
+import { sockets } from './constants';
 
 const closeAllSockets = () => {
   Object.values(sockets).forEach((socket) => {

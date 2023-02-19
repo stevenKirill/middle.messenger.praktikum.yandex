@@ -30,6 +30,7 @@ export type TUser = {
 
 export type TChats = {
   data: TGetChatResponse[];
+  dataCopy: TGetChatResponse[];
   error: boolean;
   loading: boolean;
   errorReason?: string;
