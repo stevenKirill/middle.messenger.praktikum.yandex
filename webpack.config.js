@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const DashboardPlugin = require("webpack-dashboard/plugin");
 const alias = require('./alias');
 
 module.exports = {
@@ -23,7 +22,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       ignoreOrder: true
     }),
-    new DashboardPlugin(),
   ],
   module: {
     rules: [
