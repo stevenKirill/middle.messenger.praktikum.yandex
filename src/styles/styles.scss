@@ -1,0 +1,94 @@
+@import "../components/Button/button";
+@import "../components/Input/input";
+@import "../components/Avatar/avatar";
+@import "../components/EmptyAvatar/avatar";
+@import "../components/Row/row";
+@import "../components/EditRow/editRow";
+@import "../components/CreateChatModal/modal";
+@import "../components/FileInput/input";
+@import "../components/ControlledTextArea/textArea";
+@import "../components/Link/link";
+@import "../components/Loader/loader";
+@import "../pages/LoginPage/login";
+@import "../pages/RegistrationPage/registration";
+@import "../pages/UserPage/user";
+@import "../pages/EditUserPage/editUser";
+@import "../pages/EditPassword/editPassword";
+@import "../pages/ErrorPage/error";
+@import "../pages/NotFoundPage/error";
+@import "../pages/Chat/chat";
+@import "../pages/index";
+@import "../components/ChatItem/chatItem";
+@import "../components/ClipButton/clipButton";
+@import "../components/SendButton/sendButton";
+@import "../components/ChatMessage/message";
+@import "../components/ChatUsers/chatUser";
+@import "../components/ErrorComponent/error";
+@import "../components/GroupedMessages/group";
+
+:root {
+  --main-blue: #3369f3;
+  --white: #efefef;
+  --gray: #999;
+  --dark-white: #fbfbfb;
+  --black: #1e1e1e;
+  --main-white: #fff;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Inter, sans-serif;
+}
+
+.root {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.color_red {
+  color: #ff00;
+}
+
+.color_blue {
+  color: var(--main-blue);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+
+  /* TODO исправить чтобы не менялось при compile */
+  /* stylelint-disable-next-line color-function-notation */
+  background: rgba(0, 0, 0, 50%);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+.mr10-right {
+  margin-right: 10px;
+}
+
+.smallBtn {
+  width: 100px;
+  font-size: 13px;
+}
+
+.align_center {
+  text-align: center;
+}
+
+.center_loader {
+  display: flex;
+  justify-content: center;
+}

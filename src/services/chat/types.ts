@@ -23,4 +23,6 @@ export type TChatMessageItem = {
   id: string;
   user_id: string;
   time: string;
-};
+} & { formatTime: string };
+
+export type ObjectWithMessages = Record<string, TChatMessageItem[]>;

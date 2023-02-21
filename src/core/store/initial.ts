@@ -13,6 +13,7 @@ const initialState: AppState = {
   },
   chats: {
     data: [],
+    dataCopy: [],
     error: false,
     loading: false,
     errorReason: '',
@@ -44,12 +45,12 @@ const initialState: AppState = {
     loading: false,
     errorReason: '',
   },
-  messages: [],
+  messages: {},
   chatUsers: {
     loading: false,
     data: [],
     error: false,
-  }
+  },
 };
 
 export default initialState;

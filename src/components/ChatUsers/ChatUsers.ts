@@ -1,18 +1,11 @@
 import Block from 'core/block/Block';
-import { store } from 'core/store';
 import { AppState } from 'core/store/types';
 import connectStore from 'utils/HOCS/connectStore';
-import { getChatUsersAction } from 'services/chat/actions';
 import { TChatUsersComponentProps } from './types';
 import { userRoles } from './consts';
 
 class ChatUsersClass extends Block<TChatUsersComponentProps> {
   static componentName = 'ChatUsers';
-
-  componentDidMount(): void {
-    const { chatId } = this.props;
-    store.dispatch(getChatUsersAction, { chatId });
-  }
 
   getRole(role: string) {
     return userRoles[role];

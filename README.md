@@ -1,6 +1,9 @@
 ## Ссылка на проект
 https://deploy--benevolent-sopapillas-295d7b.netlify.app/
 
+## Ссылка на проект render.com
+https://web-messenger-test.onrender.com
+
 ## Ссылка на макет проекта в фигма
 [Figma](https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1&t=HU7I6CJo1TLKngbz-0)
 

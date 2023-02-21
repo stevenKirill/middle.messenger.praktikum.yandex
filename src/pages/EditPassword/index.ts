@@ -94,7 +94,7 @@ class EditPasswordPage extends Block<EditPasswordPageProps> {
                 onBlur=onBlur
             }}}
             {{{ EditRow
-                title="Новый пароль еще раз"
+                title="Новый еще раз"
                 type="password"
                 ref="newPassword2"
                 name="newPassword2"

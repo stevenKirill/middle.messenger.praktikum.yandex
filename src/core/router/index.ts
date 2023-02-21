@@ -1,13 +1,13 @@
 import { CoreRouter } from './types';
 
 export class Router implements CoreRouter {
-  private routes: Record<string, Function> = {};
+  routes: Record<string, Function> = {};
 
-  private isStarted = false;
+  static isStarted = false;
 
   start() {
-    if (!this.isStarted) {
-      this.isStarted = true;
+    if (!Router.isStarted) {
+      Router.isStarted = true;
 
       window.onpopstate = () => {
         this.onRouteChange.call(this);
@@ -36,9 +36,7 @@ export class Router implements CoreRouter {
   }
 
   onRouteChange(pathname: string = window.location.pathname) {
-    const found = Object.entries(this.routes).find(([routeHash]) => {
-      return routeHash === pathname;
-    });
+    const found = Object.entries(this.routes).find(([routeHash]) => routeHash === pathname);
 
     if (found) {
       const [,callback] = found;

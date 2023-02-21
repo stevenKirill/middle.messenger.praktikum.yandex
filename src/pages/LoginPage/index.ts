@@ -15,6 +15,7 @@ class LoginPage extends Block<LoginPageProps> {
   }
 
   handleGoToRegistration(e: Event) {
+    console.log('login');
     e.preventDefault();
     appRouter.go('/registration');
   }

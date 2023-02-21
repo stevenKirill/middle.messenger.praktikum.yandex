@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-syntax */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PlainObject<T = any> = {
   [k in string]: T;
 };

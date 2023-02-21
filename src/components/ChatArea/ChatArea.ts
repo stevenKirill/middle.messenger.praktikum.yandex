@@ -6,13 +6,12 @@ import connectStore from 'utils/HOCS/connectStore';
 import findCurrentChat from 'services/chat/find';
 import { ChatAreaProps } from './types';
 
-export class ChatAreaClass extends Block<ChatAreaProps> {
+class ChatAreaClass extends Block<ChatAreaProps> {
   static componentName = 'ChatArea';
 
   constructor(props: ChatAreaProps) {
-    super(props);
-    this.setProps({
-      ...this.props,
+    super({
+      ...props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
     });
@@ -54,28 +53,35 @@ export class ChatAreaClass extends Block<ChatAreaProps> {
           </div>
           <div class="chat_page_right_chatArea_messages">
           {{#each messages }}
-          {{{ ChatMessage
-              content=this.content
-              type=this.type
-              id=this.id
-              user_id=this.ser_id
-              time=this.time
-          }}}
+            {{{ GroupedMessages
+                timeTitle=this.[0]
+                messages=this.[1]
+            }}}
           {{/each}}
           </div>
           {{{ ControlledTextArea currentChatId=currentChatId }}}
         </div>
       </div>
-      {{{ ChatUsers chatId=currentChatId}}}
+      {{{ ChatUsers }}}
     </div>
   `;
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  messages: state.messages,
-  currentChatName: findCurrentChat(state.chats.data, state.chats.currentChat as number),
-  currentChatId: state.chats.currentChat,
-});
+const mapStateToProps = (state: AppState) => {
+  const sortedGroups = Object.entries(state.messages).sort((a, b) => {
+    const firstDate = new Date(a[0]).getTime();
+    const secondDate = new Date(b[0]).getTime();
+    return firstDate - secondDate;
+  });
+  return {
+    messages: sortedGroups,
+    currentChatName: findCurrentChat(
+      state.chats.data,
+      state.chats.currentChat as number,
+    ),
+    currentChatId: state.chats.currentChat,
+  };
+};
 
-export const ChatArea = connectStore(mapStateToProps)(ChatAreaClass);
+export const ChatArea = connectStore(mapStateToProps)<ChatAreaProps>(ChatAreaClass);

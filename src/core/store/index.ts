@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import initialState from './initial';
 import EventBus from '../EventBus';
 import { Action, AppState } from './types';

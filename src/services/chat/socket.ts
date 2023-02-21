@@ -1,7 +1,11 @@
 import EventBus from 'core/EventBus';
 import { store } from 'core/store';
-import { selectMessages } from './selectors';
-import { normalizeMessages, normalizer } from './normalizeMessages';
+import {
+  convertMessagesToObject,
+  costructDate,
+  transformTime,
+} from './messageUtils';
+import { TChatMessageItem } from './types';
 
 export default class WSTransport extends EventBus {
   static EVENTS = {
@@ -70,16 +74,37 @@ export default class WSTransport extends EventBus {
     socket.addEventListener(WSTransport.EVENTS.MESSAGE, (event) => {
       const parsedData = JSON.parse(event.data);
       if (parsedData.type === 'pong') {
-        console.log(parsedData);
+        console.log(parsedData); // для проверки что пинг идет
         return;
       }
-      const prevMessages = selectMessages();
       if (Array.isArray(parsedData)) {
-        const newMessages = normalizeMessages(parsedData);
-        store.dispatch({ messages: [...prevMessages, ...newMessages] });
+        const oldMessages = convertMessagesToObject(parsedData);
+        store.dispatch({ messages: oldMessages });
       } else {
-        const newMessage = normalizer(parsedData);
-        store.dispatch({ messages: [...prevMessages, newMessage] });
+        const newMessage = parsedData as TChatMessageItem;
+        const date = costructDate(newMessage.time);
+        const prevMessages = store.getState().messages;
+        const group = prevMessages[date];
+        if (group) {
+          store.dispatch({
+            messages: {
+              ...prevMessages,
+              [date]: [
+                ...group,
+                { ...newMessage, formatTime: transformTime(newMessage.time) },
+              ],
+            },
+          });
+        } else {
+          store.dispatch({
+            messages: {
+              ...prevMessages,
+              [date]: [
+                { ...newMessage, formatTime: transformTime(newMessage.time) },
+              ],
+            },
+          });
+        }
       }
     });
 

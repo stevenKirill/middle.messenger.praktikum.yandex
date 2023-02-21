@@ -4,5 +4,4 @@ export type TChatUsersComponentProps = {
   loading?: boolean;
   error?: boolean;
   chatUsers?: TUserByIdResponse[];
-  chatId?: number;
 };

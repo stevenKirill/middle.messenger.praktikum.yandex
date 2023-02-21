@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import EnhancedLoginPage from 'pages/LoginPage';
 import EnhancedRegistartion from 'pages/RegistrationPage';
 import EnhancedUserPage from 'pages/UserPage';
@@ -6,9 +7,9 @@ import EnhancedEditPasswordPage from 'pages/EditPassword';
 import EnhancedChatPage from 'pages/Chat';
 import ErrorPage from 'pages/ErrorPage';
 import NotFoundPage from 'pages/NotFoundPage';
-import { BlockClass } from '../types';
+import { BlockClass } from 'core/block/Block';
 
-export enum Screens  {
+export enum Screens {
   Login = 'login',
   Registartion = 'registration',
   Profile = 'profile',
@@ -17,7 +18,7 @@ export enum Screens  {
   Chats = 'chats',
   Error = 'error',
   NotFound = 'not-found',
-};
+}
 
 export const APP_ROUTES = [
   {
@@ -78,6 +79,4 @@ export const routesMap: Record<Screens, BlockClass<any>> = {
   [Screens.NotFound]: NotFoundPage,
 };
 
-export const getScreenComponent = (screen: Screens): BlockClass<any> => {
-  return routesMap[screen];
-};
+export const getScreenComponent = (screen: Screens): BlockClass<any> => routesMap[screen];

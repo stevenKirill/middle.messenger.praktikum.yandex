@@ -6,7 +6,7 @@ export interface UserPageProps {
   onEditDataPage?: (e: Event) => void;
   onEditPasswordPage?: (e: Event) => void;
   onChat?: (e: Event) => void;
-  onLogout?: () => void;
+  onLogout?: (e: Event) => void;
   firstName: string;
   secondName: string;
   email: string;
