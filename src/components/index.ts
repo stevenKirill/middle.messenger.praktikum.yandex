@@ -25,3 +25,4 @@ export * from './SendButton';
 export * from './ChatUsers';
 export * from './GroupedMessages';
 export * from './ChatBlock';
+export * from './ChangeAvatar';

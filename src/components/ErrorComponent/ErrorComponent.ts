@@ -1,7 +1,7 @@
 import Block from 'core/block/Block';
 import { ErrorComponentProps } from './types';
 
-export class ErrorComponent extends Block {
+export class ErrorComponent extends Block<ErrorComponentProps> {
   static componentName = 'ErrorComponent';
 
   constructor({ error, className = '' }: ErrorComponentProps) {

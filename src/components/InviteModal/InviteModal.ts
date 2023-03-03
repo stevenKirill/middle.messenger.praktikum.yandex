@@ -1,6 +1,7 @@
 import Block from 'core/block/Block';
 import { store } from 'core/store';
 import { searchUserByLoginAction } from 'services/user';
+import { ErrorComponentProps } from 'components/ErrorComponent/types';
 import { InviteModalProps } from './types';
 
 export class InviteModal extends Block<InviteModalProps> {
@@ -13,6 +14,7 @@ export class InviteModal extends Block<InviteModalProps> {
       onCloseModal: () => this.handleCloseModal(),
       isShow: false,
       currentChatId: props.currentChatId,
+      onInput: () => this.handleInput(),
     });
   }
 
@@ -34,11 +36,19 @@ export class InviteModal extends Block<InviteModalProps> {
     this.setProps({ ...this.props, isShow: false });
   }
 
+  handleInput() {
+    const { errorRef } = this.refs;
+    const errorProps = errorRef.props as ErrorComponentProps;
+    if (errorProps.error !== '') {
+      errorRef.setProps({ error: '' });
+    }
+  }
+
   protected render(): string {
     return `
     <div>
     {{#if ${this.props.isShow}}}
-      <div class="overlay">
+      <div class="overlay" style="background-color:rgba(0, 0, 0, 0.5);">
       <div class="modal_container">
         <div class="modal_container_header">
           <h3>Введите логин пользователя</h3>
@@ -53,6 +63,7 @@ export class InviteModal extends Block<InviteModalProps> {
             type="text"
             placeholder="логин"
             ref="userLogin"
+            onInput=onInput
         }}}
         {{{ ErrorComponent
             className="align_center"

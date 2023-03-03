@@ -10,6 +10,8 @@ export class ControlledTextArea extends Block<ControlledTextAreaProps> {
     super({ currentChatId });
     this.setProps({
       onClick: () => this.handleSendMessage(),
+      onOpenFile: (e: Event) => this.handleOpenFile(e),
+      onLoadFile: (e: Event) => this.handleSendFile(e),
       currentChatId,
       events: {
         // @ts-ignore
@@ -37,11 +39,27 @@ export class ControlledTextArea extends Block<ControlledTextAreaProps> {
     }
   }
 
+  handleOpenFile(e: Event) {
+    const target = e.currentTarget as HTMLDivElement;
+    const input = target.querySelector('input') as HTMLInputElement;
+    if (input) {
+      input.click();
+    }
+  }
+
+  handleSendFile(e: Event) {
+    // TODO upload file
+    console.log(e);
+  }
+
   protected render(): string {
     return `
     <div>
       <div class="chat_page_right_chatArea_send">
-        {{{ ClipButton }}}
+        {{{ ClipButton
+            onOpenFile=onOpenFile
+            onLoadFile=onLoadFile
+        }}}
         <textarea class="chat_text_area"></textarea>
         {{{ SendButton onClick=onClick }}}
       </div>

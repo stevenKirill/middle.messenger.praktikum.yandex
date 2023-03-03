@@ -35,7 +35,7 @@ export class CreateChatModal extends Block<CreateChatModalProps> {
     const { isShow } = this.props;
     return `
     {{#if ${isShow}}}
-      <div class="overlay">
+      <div class="overlay" style="background-color:rgba(0, 0, 0, 0.5);">
       <div class="modal_container">
         <div class="modal_container_header">
           <h2>Название чата</h2>

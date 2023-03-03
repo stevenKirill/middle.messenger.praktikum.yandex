@@ -3,12 +3,13 @@
   cursor: pointer;
 }
 
-.clip_icon {
-  background-repeat: no-repeat;
-  background-size: auto;
-  margin-left: 10px;
-  display: block;
+.clip_input_wrapper {
+  cursor: pointer;
   width: 32px;
   height: 32px;
+  margin-left: 20px;
+}
+
+.clip_icon {
   cursor: pointer;
 }

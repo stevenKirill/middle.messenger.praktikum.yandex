@@ -14,6 +14,7 @@ class ChatAreaClass extends Block<ChatAreaProps> {
       ...props,
       onDeleteChat: () => this.handleDeleteChat(),
       onInvitePerson: () => this.handleInvitePerson(),
+      onChangeAvatar: () => this.handleChangeAvatar(),
     });
   }
 
@@ -27,6 +28,11 @@ class ChatAreaClass extends Block<ChatAreaProps> {
     inviteModal.setProps({ isShow: true });
   }
 
+  handleChangeAvatar() {
+    const { changeAvatar } = this.refs;
+    changeAvatar.setProps({ isShowModal: true });
+  }
+
   protected render(): string {
     return `
     <div class="chat_page_flex">
@@ -35,19 +41,28 @@ class ChatAreaClass extends Block<ChatAreaProps> {
             currentChatId=currentChatId
             ref="inviteModal"
         }}}
+        {{{ ChangeAvatar
+            currentChatId=currentChatId
+            ref="changeAvatar"
+        }}}
         <div class="chat_page_right_chatArea">
           <div class="chat_page_right_chatArea_header">
             <h3>{{ currentChatName }}</h3>
             <div class="chat_page_right_chatArea_header_buttons">
               {{{ Button
-                  textBtn="+"
+                  textBtn="Добавить"
                   className="mr10-right smallBtn"
                   onClick=onInvitePerson
               }}}
               {{{ Button
-                  className="smallBtn"
+                  className="mr10-right smallBtn"
                   textBtn="Удалить чат"
                   onClick=onDeleteChat
+              }}}
+              {{{ Button
+                  className="smallBtn"
+                  textBtn="Аватар"
+                  onClick=onChangeAvatar
               }}}
             </div>
           </div>
