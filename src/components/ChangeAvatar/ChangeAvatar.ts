@@ -10,77 +10,116 @@ export class ChangeAvatar extends Block<ChangeAvatarProps> {
       onCloseModal: () => this.handleCloseModal(),
       isShowModal: false,
       currentChatId: props.currentChatId,
-      onInput: (e: Event) => this.handleInput(e),
-      onUpload: () => this.handleUpload(),
+      file: null,
+      fileName: '',
+      onSend: () => this.handleSend(),
     });
   }
 
-  // TODO повесить обработчик
+  createEvents() {
+    const el = document.querySelector('.change_modal_wrapper');
+    const input = document.querySelector('.change_modal_input');
+    if (el) {
+      el.addEventListener('click', this.handleInput.bind(this));
+    }
+    if (input) {
+      input.addEventListener('input', this.handleChooseFile.bind(this));
+    }
+  }
+
   componentDidUpdate(
     prevProps: ChangeAvatarProps,
     nextProps: ChangeAvatarProps,
   ) {
     if (prevProps.isShowModal === false && nextProps.isShowModal === true) {
-      const el = document.querySelector('.modal_container_body');
-      console.log(el);
+      setTimeout(() => {
+        this.createEvents();
+      }, 0);
     }
     return true;
   }
 
+  handleSend() {
+    const { file } = this.props;
+    if (file) {
+      // TODO send file and update chat avatar
+      console.log('file is here');
+    }
+  }
+
   handleCloseModal() {
-    this.setProps({ ...this.props, isShowModal: false });
+    this.setProps({
+      ...this.props,
+      isShowModal: false,
+      file: null,
+      fileName: '',
+    });
   }
 
   handleInput(e: Event) {
-    console.log(e);
+    const target = e.currentTarget as HTMLDivElement;
+    const input = target.querySelector('input') as HTMLInputElement;
+    if (input) {
+      input.click();
+    }
   }
 
-  handleUpload() {
-    console.log('upload');
+  handleChooseFile(e: Event) {
+    const target = e.target as HTMLInputElement;
+    let file = null;
+    let fileName = '';
+    if (target.files) {
+      file = target.files[0];
+      fileName = target.files[0].name;
+    }
+    this.setProps({
+      ...this.props,
+      file,
+      fileName,
+    });
+    this.createEvents();
   }
 
   protected render(): string {
     return `
-    <div class="change_avatar">
-      {{#if ${this.props.isShowModal}}}
-        <div class="overlay" style="background-color:rgba(0, 0, 0, 0.5);">
-          <div class="modal_container">
-            <div class="modal_container_header">
-              <h3>Выберите файл</h3>
-              {{{ CloseButton
-                  className="modal_container_btn_close"
-                  text="x"
-                  onClick=onCloseModal
-              }}}
-            </div>
-            <div class="modal_container_body">
-              <div class="change_modal_wrapper">
-                <input
-                  accept="image/*"
-                  class="change_modal_input"
-                  id="chatFiles"
-                  multiple
-                  type="file"
-                />
-                <label class="change_modal_label" htmlFor="chatFiles">
-                  Выберите файл
-                </label>
+      <div class="change_avatar">
+        {{#if ${this.props.isShowModal}}}
+          <div class="overlay" style="background-color:rgba(0, 0, 0, 0.5);">
+            <div class="modal_container">
+              <div class="modal_container_header">
+                <h3>Выберите файл</h3>
+                {{{ CloseButton
+                    className="modal_container_btn_close"
+                    text="x"
+                    onClick=onCloseModal
+                }}}
               </div>
-              {{{ ErrorComponent
-                  className="align_center"
-                  error=error
-                  ref="errorRef"
-              }}}
-            </div>
-            <div class="modal_container_footer">
-              {{{ Button textBtn="Изменить" onClick=onInput }}}
+              <div class="modal_container_body">
+                <div class="change_modal_wrapper">
+                  <input
+                    accept="image/*"
+                    class="change_modal_input"
+                    id="chatFiles"
+                    multiple
+                    type="file"
+                  />
+                  <label class="change_modal_label" htmlFor="chatFiles">
+                    Выберите файл
+                  </label>
+                </div>
+              </div>
+              {{#if ${this.props.fileName !== ''}}}
+                <div>${this.props.fileName}</div>
+              {{/if}}
+              <div class="modal_container_footer">
+                {{{ Button textBtn="Изменить" onClick=onSend }}}
+              </div>
             </div>
           </div>
-        </div>
-      {{else}}
-        <div></div>
-      {{/if}}
-    </div>
+        {{else}}
+          <div></div>
+        {{/if}}
+      </div>
     `;
   }
 }
