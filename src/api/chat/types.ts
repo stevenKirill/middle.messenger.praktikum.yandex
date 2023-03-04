@@ -44,3 +44,5 @@ export type TInviteUserRequest = {
   users: number[];
   chatId: number;
 };
+
+export type TChageChatAvatarRequest = FormData;

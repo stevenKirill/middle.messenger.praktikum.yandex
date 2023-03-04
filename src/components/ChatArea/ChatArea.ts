@@ -61,7 +61,7 @@ class ChatAreaClass extends Block<ChatAreaProps> {
               }}}
               {{{ Button
                   className="smallBtn"
-                  textBtn="Аватар"
+                  textBtn="Изменить аватар"
                   onClick=onChangeAvatar
               }}}
             </div>

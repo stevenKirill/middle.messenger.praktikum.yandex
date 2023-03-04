@@ -1,4 +1,6 @@
 import Block from 'core/block/Block';
+import { store } from 'core/store';
+import { changeChatAvatarAction } from 'services/chat/actions';
 import { ChangeAvatarProps } from './types';
 
 export class ChangeAvatar extends Block<ChangeAvatarProps> {
@@ -8,11 +10,11 @@ export class ChangeAvatar extends Block<ChangeAvatarProps> {
     super({ ...props });
     this.setProps({
       onCloseModal: () => this.handleCloseModal(),
+      onSend: () => this.handleSend(),
       isShowModal: false,
       currentChatId: props.currentChatId,
       file: null,
       fileName: '',
-      onSend: () => this.handleSend(),
     });
   }
 
@@ -42,8 +44,10 @@ export class ChangeAvatar extends Block<ChangeAvatarProps> {
   handleSend() {
     const { file } = this.props;
     if (file) {
-      // TODO send file and update chat avatar
-      console.log('file is here');
+      const formData = new FormData();
+      formData.append('avatar', this.props.file as Blob);
+      formData.append('chatId', this.props.currentChatId);
+      store.dispatch(changeChatAvatarAction, formData);
     }
   }
 

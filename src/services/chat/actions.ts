@@ -1,5 +1,6 @@
 import chatApi from 'api/chat';
 import {
+  TChageChatAvatarRequest,
   TCreateChatRequest,
   TDeleteChatRequest,
   TGetChatRequest,
@@ -210,5 +211,18 @@ export const filterChats = async (
         data: filterChatsHelper(payload, state.chats.data),
       },
     });
+  }
+};
+
+export const changeChatAvatarAction = async (
+  dispatch: Dispatch<AppState>,
+  _state: AppState,
+  payload: TChageChatAvatarRequest,
+) => {
+  try {
+    await chatApi.changeChatAvatar(payload);
+    dispatch(getChatsAction);
+  } catch (error) {
+    console.error(error);
   }
 };
