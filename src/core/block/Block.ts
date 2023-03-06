@@ -30,6 +30,7 @@ class Block<P extends object = {}> {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
+    FLOW_CWU: 'flow:component-will-unmount',
   } as const;
 
   static componentName: string;
@@ -58,6 +59,7 @@ class Block<P extends object = {}> {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CWU, this.componentWillUnmount.bind(this));
   }
 
   private createNode() {
@@ -91,6 +93,10 @@ class Block<P extends object = {}> {
     return false;
   }
 
+  componentWillUnmount() {
+    // что нужно делать при unmount ?
+  }
+
   setProps = (nextProps: P) => {
     if (!nextProps) {
       return;
@@ -104,12 +110,12 @@ class Block<P extends object = {}> {
 
   _render() {
     const fragment = this._compile();
-    this._removeEvents();
+    this.removeEvents();
     const newElement = fragment.firstElementChild;
     if (newElement) {
       this.node!.replaceWith(newElement);
       this.node = newElement as HTMLElement;
-      this._addEvents();
+      this.addEvents();
     }
   }
 
@@ -153,7 +159,7 @@ class Block<P extends object = {}> {
     return document.createElement(tagName);
   }
 
-  _removeEvents() {
+  private removeEvents() {
     const { events } = this.props as Record<string, () => void>;
 
     if (!events || !this.node) {
@@ -165,7 +171,7 @@ class Block<P extends object = {}> {
     });
   }
 
-  _addEvents() {
+  private addEvents() {
     const { events } = this.props as Record<string, () => void>;
 
     if (!events) {

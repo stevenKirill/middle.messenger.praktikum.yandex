@@ -25,4 +25,5 @@ export * from './SendButton';
 export * from './ChatUsers';
 export * from './GroupedMessages';
 export * from './ChatBlock';
+// eslint-disable-next-line import/export
 export * from './ChangeAvatar';
